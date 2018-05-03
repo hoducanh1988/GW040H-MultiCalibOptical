@@ -1,0 +1,59 @@
+﻿<Application x:Class="MultiCalibOpticalBoB_Ver1.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MultiCalibOpticalBoB_Ver1"
+             StartupUri="MainWindow.xaml">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--Material color-->
+
+                <!--MaterialDesignThemes-->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+
+                <!--Controls resource-->
+                <ResourceDictionary Source="Asset/Resources/customWindow.xaml"/>
+                <ResourceDictionary Source="Asset/Resources/Textbox.xaml"/>
+                <ResourceDictionary Source="Asset/Resources/Button.xaml"/>
+                <ResourceDictionary Source="Asset/Resources/Checkbox.xaml"/>
+                <ResourceDictionary Source="Asset/Resources/ToggleButton.xaml"/>
+
+                <!--Color resources-->
+                <ResourceDictionary>
+                    <SolidColorBrush x:Key="OrangePrimary300" Color="#FFFFB74D"/>
+
+                    <SolidColorBrush x:Key="colorTextContent" Color="#FF636363"/>
+                    <SolidColorBrush x:Key="colorTextTitle" Color="#FFF5F5F5"/>
+                    <SolidColorBrush x:Key="colorTextNG" Color="#FFFF5050"/>
+                    <SolidColorBrush x:Key="colorTextOK" Color="Lime"/>
+                    <SolidColorBrush x:Key="colorTextNone" Color="#7f8482"/>
+                    <SolidColorBrush x:Key="colorContentOK" Color="#FF4CAF50"/>
+                    <SolidColorBrush x:Key="colorTextWait" Color="#FFF9A825"/>
+                    <SolidColorBrush x:Key="colorTextYellow" Color="#d5dd3e"/>
+
+                    <SolidColorBrush x:Key="colorBorder" Color="#FF039BE5"/>
+                    <SolidColorBrush x:Key="colorBackground" Color="#FFEEEEEE"/>
+                    
+                    <SolidColorBrush x:Key="BackgroundReady" Color="Transparent"/>
+                    <SolidColorBrush x:Key="BackgroundWait" Color="#f2eb91"/>
+                    <SolidColorBrush x:Key="BackgroundPass" Color="#acefb7"/>
+                    <SolidColorBrush x:Key="BackgroundFail" Color="#f9b99a"/>
+                    <SolidColorBrush x:Key="BackgroundIgnore" Color="#B6B5BC"/>
+
+                    <SolidColorBrush x:Key="BackgroundWin10_1" Color="#0173B2"/>
+                    <SolidColorBrush x:Key="BackgroundWin10_2" Color="#01132B"/>
+                    <SolidColorBrush x:Key="BackgroundWin10_3" Color="#031766"/>
+                    <SolidColorBrush x:Key="BackgroundWin8_1" Color="#008E8F"/>
+                    <SolidColorBrush x:Key="BackgroundWin8_2" Color="#F7BA11"/>
+                    <SolidColorBrush x:Key="BackgroundWin8_3" Color="#01DAFD"/>
+                    <SolidColorBrush x:Key="BackgroundBlack" Color="#333333"/>
+
+                </ResourceDictionary>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

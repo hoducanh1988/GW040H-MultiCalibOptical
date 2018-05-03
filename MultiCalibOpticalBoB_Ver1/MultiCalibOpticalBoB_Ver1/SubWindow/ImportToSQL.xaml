@@ -1,0 +1,48 @@
+﻿<Window x:Class="MultiCalibOpticalBoB_Ver1.ImportToSQL"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiCalibOpticalBoB_Ver1"
+        mc:Ignorable="d"
+        Title="ImportToSQL" Height="450" Width="850" Style="{StaticResource customWindow}" WindowStartupLocation="CenterScreen">
+
+    <Border CornerRadius="5" Background="{StaticResource colorBackground}" BorderBrush="{StaticResource colorBorder}"  BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Background="Orange" CornerRadius="5,5,0,0">
+                <Grid>
+                    <Label x:Name="lblTitle" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="22" FontWeight="SemiBold" Content=""/>
+                    <Label MouseDown="Label_MouseDown" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" Width="30" FontWeight="Bold" Margin="0,-5,5,0"  Foreground="{StaticResource colorTextTitle}" ToolTipService.ToolTip="Tắt form" Content="X"></Label>
+                </Grid>
+            </Border>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="140"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <Button Click="Button_Click" Background="{StaticResource colorBorder}" FontSize="17" Foreground="White" Content="Start Import"></Button>
+                    <WrapPanel>
+                        <Label FontSize="13" FontWeight="Bold">Status :</Label>
+                        <Label FontSize="13" Content="{Binding Path=STATUS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></Label>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label FontSize="13" FontWeight="Bold">Progress :</Label>
+                        <Label FontSize="13" Content="{Binding Path=PROGRESSSTRING, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></Label>
+                    </WrapPanel>
+                    <ProgressBar Minimum="0" Maximum="{Binding Path=PROGRESSMAX, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Value="{Binding PROGRESSVALUE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.3" Height="20" Margin="5,0,5,0" Foreground="{StaticResource BackgroundPass}"></ProgressBar>
+                    <Label FontSize="13" Content="List all data imported:"></Label>
+                </StackPanel>
+                <Grid Grid.Row="1" Margin="5">
+                    <DataGrid x:Name="datagrid"></DataGrid>
+                </Grid>
+                
+            </Grid>
+        </Grid>
+    </Border>
+    
+</Window>

@@ -1,0 +1,364 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="roundCornerButton" TargetType="Button">
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Width" Value="85"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontFamily" Value="Time New Roman"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border x:Name="border" CornerRadius="5,5,5,5" BorderThickness="0.1" Padding="2" BorderBrush="Black">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#FFECECEB" Offset="0"/>
+                                    <GradientStop Color="#FFD7D7D8" Offset="0.5"/>
+                                    <GradientStop Color="#FFBABCC0" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                   
+                    <!--Điều khiển hiển thị với sự kiện đơn giản-->
+                    <ControlTemplate.Triggers>
+                        <!--Sự kiện: di chuột qua button-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#FFB8D04C"/>
+                        </Trigger>
+                        <!--Sự kiện: click chuột trái vào button-->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" >
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                                        <GradientStop Color="#FF779E04" Offset="0.35"/>
+                                        <GradientStop Color="#FF779E04" Offset="0.95"/>
+                                        <GradientStop Color="#FF779E04" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <!--<Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF41C6FF" />
+                        </Trigger>-->
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    
+    <Style x:Key="leafButton" TargetType="Button">
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontFamily" Value="Time New Roman"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border x:Name="border" CornerRadius="15,0,15,0" BorderThickness="0.1" Padding="2" BorderBrush="Black">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#FFECECEB" Offset="0"/>
+                                    <GradientStop Color="#FFD7D7D8" Offset="0.5"/>
+                                    <GradientStop Color="#FFBABCC0" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+
+                    <!--Điều khiển hiển thị với sự kiện đơn giản-->
+                    <ControlTemplate.Triggers>
+                        <!--Sự kiện: di chuột qua button-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#FFB8D04C"/>
+                        </Trigger>
+                        <!--Sự kiện: click chuột trái vào button-->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" >
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                                        <GradientStop Color="#FF779E04" Offset="0.35"/>
+                                        <GradientStop Color="#FF779E04" Offset="0.95"/>
+                                        <GradientStop Color="#FF779E04" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="ellipseButton" TargetType="Button">
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontFamily" Value="Time New Roman"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Ellipse Stroke="Black" StrokeThickness="0.1" x:Name="ellipse">
+                            <Ellipse.Fill>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#FFECECEB" Offset="0"/>
+                                    <GradientStop Color="#FFD7D7D8" Offset="0.5"/>
+                                    <GradientStop Color="#FFBABCC0" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <!--Điều khiển hiển thị với sự kiện đơn giản-->
+                    <ControlTemplate.Triggers>
+                        <!--Sự kiện: di chuột qua button-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ellipse" Property="Fill" Value="#FFB8D04C"/>
+                        </Trigger>
+                        <!--Sự kiện: click chuột trái vào button-->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ellipse" Property="Fill" >
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                                        <GradientStop Color="#FF779E04" Offset="0.35"/>
+                                        <GradientStop Color="#FF779E04" Offset="0.95"/>
+                                        <GradientStop Color="#FF779E04" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="circleButton" TargetType="Button">
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="Width" Value="60"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontFamily" Value="Time New Roman"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Ellipse Stroke="Black" StrokeThickness="0.1" x:Name="ellipse">
+                            <Ellipse.Fill>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#FFECECEB" Offset="0"/>
+                                    <GradientStop Color="#FFD7D7D8" Offset="0.5"/>
+                                    <GradientStop Color="#FFBABCC0" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <!--Điều khiển hiển thị với sự kiện đơn giản-->
+                    <ControlTemplate.Triggers>
+                        <!--Sự kiện: di chuột qua button-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ellipse" Property="Fill" Value="#FFB8D04C"/>
+                        </Trigger>
+                        <!--Sự kiện: click chuột trái vào button-->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ellipse" Property="Fill" >
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                                        <GradientStop Color="#FF779E04" Offset="0.35"/>
+                                        <GradientStop Color="#FF779E04" Offset="0.95"/>
+                                        <GradientStop Color="#FF779E04" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="arrowButton" TargetType="Button">
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="Width" Value="60"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontFamily" Value="Time New Roman"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Polygon x:Name="polygon" Stretch="Fill" Points="0,0 0,30 0,10 30,10 30,-10 45,10 30,30 30,20 0,20 0,0 30,0 30,10 0,10" >
+                            <Polygon.Fill>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#FFECECEB" Offset="0"/>
+                                    <GradientStop Color="#FFD7D7D8" Offset="0.5"/>
+                                    <GradientStop Color="#FFBABCC0" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Polygon.Fill>
+                        </Polygon>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <!--Điều khiển hiển thị với sự kiện đơn giản-->
+                    <ControlTemplate.Triggers>
+                        <!--Sự kiện: di chuột qua button-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="polygon" Property="Fill" Value="#FFB8D04C"/>
+                        </Trigger>
+                        <!--Sự kiện: click chuột trái vào button-->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="polygon" Property="Fill" >
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                                        <GradientStop Color="#FF779E04" Offset="0.35"/>
+                                        <GradientStop Color="#FF779E04" Offset="0.95"/>
+                                        <GradientStop Color="#FF779E04" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    
+    <Style x:Key="stepButton" TargetType="Button">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontFamily" Value="Time New Roman"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Polygon x:Name="polygon" Stretch="Fill" Points="0,0 70,0 80,20 70,40 0,40 10,20" >
+                            <Polygon.Fill>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#FFECECEB" Offset="0"/>
+                                    <GradientStop Color="#FFD7D7D8" Offset="0.5"/>
+                                    <GradientStop Color="#FFBABCC0" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Polygon.Fill>
+                        </Polygon>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <!--Điều khiển hiển thị với sự kiện đơn giản-->
+                    <ControlTemplate.Triggers>
+                        <!--Sự kiện: di chuột qua button-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="polygon" Property="Fill" Value="#FFB8D04C"/>
+                        </Trigger>
+                        <!--Sự kiện: click chuột trái vào button-->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="polygon" Property="Fill" >
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                                        <GradientStop Color="#FF779E04" Offset="0.35"/>
+                                        <GradientStop Color="#FF779E04" Offset="0.95"/>
+                                        <GradientStop Color="#FF779E04" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="unknowButton" TargetType="Button">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontFamily" Value="Time New Roman"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Path x:Name="polygon" Stroke="Blue" Margin="5">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#FFECECEB" Offset="0"/>
+                                    <GradientStop Color="#FFD7D7D8" Offset="0.5"/>
+                                    <GradientStop Color="#FFBABCC0" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                            <Path.Data>
+                                <CombinedGeometry GeometryCombineMode="Union">
+                                    <CombinedGeometry.Geometry1>
+                                        <RectangleGeometry Rect="0,0 50,50"></RectangleGeometry>
+                                    </CombinedGeometry.Geometry1>
+                                    <CombinedGeometry.Geometry2>
+                                        <EllipseGeometry Center="50,25" RadiusX="25" RadiusY="25"></EllipseGeometry>
+                                    </CombinedGeometry.Geometry2>
+                                </CombinedGeometry>
+                            </Path.Data>
+                        </Path>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <!--Điều khiển hiển thị với sự kiện đơn giản-->
+                    <ControlTemplate.Triggers>
+                        <!--Sự kiện: di chuột qua button-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="polygon" Property="Fill" Value="#FFB8D04C"/>
+                        </Trigger>
+                        <!--Sự kiện: click chuột trái vào button-->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="polygon" Property="Fill" >
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                                        <GradientStop Color="#FF779E04" Offset="0.35"/>
+                                        <GradientStop Color="#FF779E04" Offset="0.95"/>
+                                        <GradientStop Color="#FF779E04" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

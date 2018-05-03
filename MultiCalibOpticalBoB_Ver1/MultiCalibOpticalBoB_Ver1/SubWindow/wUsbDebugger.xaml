@@ -1,0 +1,33 @@
+﻿<Window x:Class="MultiCalibOpticalBoB_Ver1.wUsbDebugger"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiCalibOpticalBoB_Ver1"
+        mc:Ignorable="d"
+        Title="wUsbDebugger" Height="400" Width="700" Style="{StaticResource customWindow}" Topmost="True" WindowStartupLocation="CenterScreen">
+    
+    <Border CornerRadius="5" Background="{StaticResource colorBackground}" BorderBrush="{StaticResource colorBorder}"  BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Background="Orange" CornerRadius="5,5,0,0">
+                <Grid>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="13" FontWeight="SemiBold" Content="HỖ TRỢ CÀI ĐẶT CỔNG COM CHO USB DEBUGGER"/>
+                    <Label MouseDown="Label_MouseDown" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" Width="30" FontWeight="Bold" Margin="0,-5,5,0"  Foreground="{StaticResource colorTextTitle}" ToolTipService.ToolTip="Tắt form" Content="X"></Label>
+                </Grid>
+            </Border>
+            <ScrollViewer Margin="5" Grid.Row="1">
+                <RichTextBox  Background="Transparent" BorderThickness="0" IsReadOnly="True" Block.LineHeight="1" Padding="10">
+                    <FlowDocument PageHeight="180">
+                        <Paragraph>
+                            <Run Foreground="#050928" FontWeight="Normal" Text="{Binding Path=ONTLOG, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</Window>
