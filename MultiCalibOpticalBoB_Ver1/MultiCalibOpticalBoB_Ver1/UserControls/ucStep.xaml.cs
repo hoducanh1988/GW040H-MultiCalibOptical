@@ -243,7 +243,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                                     case "GW020BoB": { ont = new GW020BoB(_comPort); break; }
                                     default: break;
                                 }
-                                if (!ont.Open()) { message += string.Format("Can't open comport {0}", _comPort); ret = false; }
+                                if (!ont.Open(out message)) ret = false;
                                 else ret = ont.Login(out message);
                             }
                             catch (Exception ex) {
@@ -283,7 +283,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                                     case "GW020BoB": { ont = new GW020BoB(_comPort); break; }
                                     default: break;
                                 }
-                                if (!ont.Open()) { message += string.Format("Can't open comport {0}", _comPort); ret = false; }
+                                if (!ont.Open(out message)) ret = false;
                                 else ret = ont.Login(out message);
                                 GlobalData.manualTest.ONTLOG += message + "\n";
 

@@ -39,7 +39,8 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                         GlobalData.initSetting.Save();
                         BaseFunctions.display_Port_Name();
                         MessageBox.Show("Success.", "SAVE SETTING", MessageBoxButton.OK, MessageBoxImage.Information);
-                        BaseFunctions.connect_Instrument();
+                        if (GlobalData.connectionManagement.IQS1700STATUS == false || GlobalData.connectionManagement.IQS9100BSTATUS == false || GlobalData.connectionManagement.DCAX86100DSTATUS == false || GlobalData.connectionManagement.SQLSTATUS == false)
+                            BaseFunctions.connect_Instrument();
                         break;
                     }
                 case "Browser...": {

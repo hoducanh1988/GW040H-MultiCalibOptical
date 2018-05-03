@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,8 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using MultiCalibOpticalBoB_Ver1.Function;
 using MultiCalibOpticalBoB_Ver1.Function.Instrument;
+using MultiCalibOpticalBoB_Ver1.Function.IO;
 using MultiCalibOpticalBoB_Ver1.Function.Ont;
 
 namespace MultiCalibOpticalBoB_Ver1.UserControls {
@@ -23,6 +26,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
     public partial class ucTesting : UserControl {
 
         int Delay_modem = 300;
+        DispatcherTimer timer = null;
 
         public ucTesting() {
             InitializeComponent();
@@ -36,41 +40,97 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
 
             this._loadSetting(); //Load setting
             BaseFunctions.connect_Instrument(); //Connect Instrument
+
+            timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            timer.Tick += ((sender, e) => {
+                if (GlobalData.testingDataDut1.BUTTONENABLE == false) {
+                    this._dut1scrollViewer.ScrollToEnd();
+                }
+                if (GlobalData.testingDataDut2.BUTTONENABLE == false) {
+                    this._dut2scrollViewer.ScrollToEnd();
+                }
+                if (GlobalData.testingDataDut3.BUTTONENABLE == false) {
+                    this._dut3scrollViewer.ScrollToEnd();
+                }
+                if (GlobalData.testingDataDut4.BUTTONENABLE == false) {
+                    this._dut4scrollViewer.ScrollToEnd();
+                }
+            });
+            timer.Start();
         }
 
         #region Sub Function 
         private Object thisLock = new Object();
 
         bool _loadSetting() {
+            if (GlobalData.initSetting.BOSAREPORT.Trim().Length == 0) return false;
+            Thread t = new Thread(new ThreadStart(() => {
+                //Load data from excel to dataGrid
+                DataTable dt = new DataTable();
+                dt = BosaReport.readData();
+
+                //Import data from dataGrid to Sql Server (using Sql Bulk)
+                int counter = 0;
+                GlobalData.listBosaInfo = new List<bosainfo>();
+                for (int i = 0; i < dt.Rows.Count; i++) {
+                    string _bosaSN = "", _Ith = "", _Vbr = "";
+                    _bosaSN = dt.Rows[i].ItemArray[0].ToString().Trim();
+                    if (_bosaSN.Length > 0 && BaseFunctions.bosa_SerialNumber_Is_Correct(_bosaSN) == true) {
+                        _Ith = dt.Rows[i].ItemArray[1].ToString().Trim();
+                        _Vbr = dt.Rows[i].ItemArray[18].ToString().Trim();
+
+                        bosainfo _bs = new bosainfo() { BosaSN = _bosaSN, Ith = _Ith, Vbr = _Vbr };
+                        GlobalData.listBosaInfo.Add(_bs);
+                        counter++;
+                    }
+                }
+            }));
+            t.IsBackground = true;
+            t.Start();
             return true;
         }
 
-        bool _addToListSequenceTestER(string index) {
+        bool _addToListSequenceTestER(testinginfo _testinfo) {
             lock (thisLock) {
-                GlobalData.listSequenceTestER.Add(index);
+                _testinfo.SYSTEMLOG += string.Format("Add index {0} to list sequence test ER...\r\n", _testinfo.ONTINDEX);
+                GlobalData.listSequenceTestER.Add(_testinfo.ONTINDEX);
+                string data = "";
+                foreach(var item in GlobalData.listSequenceTestER) {
+                    data += item + ",";
+                }
+                _testinfo.SYSTEMLOG += string.Format("...{0}\r\n", data);
                 return true;
             }
         }
             
-        bool _waitForTurn(string index) {
+        bool _waitForTurn(testinginfo _testinfo) {
             bool _flag = false;
             int timeout = 300; //timeout =30s
             int count = 0;
+            _testinfo.SYSTEMLOG += "Wait for turning ER...\r\n";
             while (_flag) {
                 string _tmp = "";
                 lock (thisLock) { _tmp = GlobalData.listSequenceTestER[0]; }
-                if (_tmp == index) _flag = true;
+                if (_tmp == _testinfo.ONTINDEX) _flag = true;
                 Thread.Sleep(100);
                 count++;
                 if (count > timeout) break;
             }
+            _testinfo.SYSTEMLOG += string.Format("...Waited time:{0} ms\r\n", count * 100);
             if (count > timeout) return false; //Request time out
             return true;
         }
        
-        bool _removeFromListSequenceTestER(string index) {
+        bool _removeFromListSequenceTestER(testinginfo _testinfo) {
             lock (thisLock) {
-                GlobalData.listSequenceTestER.Remove(index);
+                _testinfo.SYSTEMLOG += string.Format("Remove index {0} from list sequence test ER...\r\n", _testinfo.ONTINDEX);
+                GlobalData.listSequenceTestER.Remove(_testinfo.ONTINDEX);
+                string data = "";
+                foreach (var item in GlobalData.listSequenceTestER) {
+                    data += item + ",";
+                }
+                _testinfo.SYSTEMLOG += string.Format("...{0}\r\n", data);
                 return true;
             }
         }
@@ -111,7 +171,8 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
 
         // CHỜ ONT KHỞI ĐỘNG XONG
         bool _loginToONT(ref GW ont, string serialport, testinginfo _testinfo) {
-            _testinfo.SYSTEMLOG += "Login to ONT...\r\n";
+
+            _testinfo.SYSTEMLOG += string.Format("Verifying type of ONT...\r\n...{0}\r\n", GlobalData.initSetting.ONTTYPE);
             bool _result = false;
             string _message = "";
             switch (GlobalData.initSetting.ONTTYPE) {
@@ -125,22 +186,32 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                     }
                 default: return false;
             }
-            if (!ont.Open()) return false;
+
+            _testinfo.SYSTEMLOG += "Open comport of ONT...\r\n";
+            if (!ont.Open(out _message)) { _testinfo.SYSTEMLOG += string.Format("...{0}\r\n", _message); return false; }
+            _testinfo.SYSTEMLOG += "...PASS\r\n";
+
+            _testinfo.SYSTEMLOG += "Login to ONT...\r\n";
             _result = ont.Login(out _message);
+            _testinfo.SYSTEMLOG += string.Format("...{0}\r\n", _message);
             _testinfo.SYSTEMLOG += _result == true? "PASS\r\n" : "FAIL\r\n";
             return _result;
         }
 
-        string _getMACAddress(GW ont) {
+        string _getMACAddress(GW ont, testinginfo _testinfo) {
             try {
+                _testinfo.SYSTEMLOG += string.Format("Get mac address...\r\n");
                 ont.Write("ifconfig\n");
                 Thread.Sleep(300);
                 string _tmpStr = ont.Read();
                 _tmpStr = _tmpStr.Replace("\r", "").Replace("\n", "").Trim();
                 string[] buffer = _tmpStr.Split(new string[] { "HWaddr" }, StringSplitOptions.None);
                 _tmpStr = buffer[1].Trim();
-                return _tmpStr.Substring(0,17).Replace(":","");
-            } catch {
+                string mac = _tmpStr.Substring(0, 17).Replace(":", "");
+                _testinfo.SYSTEMLOG += string.Format("...PASS. {0}\r\n", mac);
+                return mac;
+            } catch (Exception ex) {
+                _testinfo.SYSTEMLOG += string.Format("...FAIL. {0}\r\n", ex.ToString());
                 return string.Empty;
             }
         }
@@ -524,7 +595,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             if (this._loginToONT(ref ontDevice, _testtemp.COMPORT, _testtemp) == false) return false;
 
             //Get MAC Address
-            _testtemp.MACADDRESS = this._getMACAddress(ontDevice);
+            _testtemp.MACADDRESS = this._getMACAddress(ontDevice, _testtemp);
             if (_testtemp.MACADDRESS == string.Empty) return false;
 
             //Calib Power
@@ -538,18 +609,19 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 et.Start();
 
                 //Đăng kí thứ tự Calib ER
-                if (this._addToListSequenceTestER(_testtemp.ONTINDEX) == false) return false;
+                if (this._addToListSequenceTestER(_testtemp) == false) return false;
                 //Chờ đến lượt timeout 30s
-                if (this._waitForTurn(_testtemp.ONTINDEX) == false) {
-                    this._removeFromListSequenceTestER(_testtemp.ONTINDEX);
+                if (this._waitForTurn(_testtemp) == false) {
+                    this._removeFromListSequenceTestER(_testtemp);
                     return false;
                 }
                 //Switch Port check ER
+                _testtemp.SYSTEMLOG += string.Format("Switching port...{0}\r\n", _testtemp.ONTINDEX);
                 if (GlobalData.switchDevice.switchToPort(int.Parse(_testtemp.ONTINDEX)) == false) return false;
                 //Calib ER
                 if (this._calibER(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) return false;
                 //Xóa thứ tự đăng kí Calib ER (để Thread # có thể sử dụng)
-                this._removeFromListSequenceTestER(_testtemp.ONTINDEX);
+                this._removeFromListSequenceTestER(_testtemp);
 
                 et.Stop();
                 _testtemp.SYSTEMLOG += string.Format("ER time = {0} sec\r\n", et.ElapsedMilliseconds / 1000);
@@ -594,6 +666,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
 
             //***BEGIN -----------------------------------------//
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(() => {
+                
                 //Start count time
                 System.Diagnostics.Stopwatch st = new System.Diagnostics.Stopwatch();
                 st.Start();
@@ -603,18 +676,31 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 BaseFunctions.get_Testing_Info_By_Name(_name, ref testtmp);
                 variables vari = new variables();
 
+                testtmp.SYSTEMLOG += string.Format("Input Bosa Serial...\r\n...{0}\r\n", testtmp.BOSASERIAL);
                 string _BosaSN = testtmp.BOSASERIAL;
                 if (_BosaSN == "--") return;
+
                 //Get Bosa Information from Bosa Serial
                 bosainfo bosaInfo = new bosainfo();
                 //bosaInfo = GlobalData.sqlServer.getDataByBosaSN(_BosaSN);
+                testtmp.SYSTEMLOG += string.Format("Get Bosa information...\r\n");
                 bosaInfo = this._getDataByBosaSN(_BosaSN);
-                if (bosaInfo == null) return;
+                if (bosaInfo == null) {
+                    testtmp.SYSTEMLOG += string.Format("...FAIL. Bosa SN is not existed\r\n");
+                    testtmp.TOTALRESULT = Parameters.testStatus.FAIL.ToString();
+                    goto END;
+                }
+                testtmp.SYSTEMLOG += string.Format("...PASS\r\n");
+
                 //Calib
                 testtmp.TOTALRESULT = Parameters.testStatus.Wait.ToString();
                 testtmp.BUTTONCONTENT = "STOP"; testtmp.BUTTONENABLE = false;
                 testtmp.TOTALRESULT = RunAll(testtmp, bosaInfo, vari) == false ? Parameters.testStatus.FAIL.ToString() : Parameters.testStatus.PASS.ToString();
+
+                END:
+                testtmp.SYSTEMLOG += string.Format("\r\n----------------------------\r\nTotal Judged={0}\r\n", testtmp.TOTALRESULT);
                 testtmp.BUTTONCONTENT = "START"; testtmp.BUTTONENABLE = true;
+               
                 //Stop count time
                 st.Stop();
                 testtmp.SYSTEMLOG += string.Format("Total time = {0} seconds\r\n", st.ElapsedMilliseconds / 1000);

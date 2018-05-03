@@ -23,7 +23,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Protocol {
         /// MỞ KẾT NỐI CỔNG COM PORT / RETRY 3 LẦN
         /// </summary>
         /// <returns></returns>
-        public bool Open() {
+        public bool Open(out string _message) {
+            _message = "";
             int count = 0;
             bool result = false;
             REP:
@@ -38,7 +39,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Protocol {
                 this._serialport.Open();
                 //_serialport.DataReceived += new SerialDataReceivedEventHandler(serial_OnReceiveData);
                 result = _serialport.IsOpen;
-            } catch {
+            } catch (Exception ex) {
+                _message = ex.ToString();
                 result = false;
             }
             if (!result) { if (count < 3) { Thread.Sleep(100); goto REP; } }

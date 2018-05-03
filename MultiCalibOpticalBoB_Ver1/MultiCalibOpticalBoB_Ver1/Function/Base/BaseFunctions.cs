@@ -133,16 +133,16 @@ namespace MultiCalibOpticalBoB_Ver1.Function {
                 //Power Instrument
                 if (!t1.IsAlive) {
                     t1 = new Thread(new ThreadStart(() => {
-                        //if (GlobalData.connectionManagement.IQS1700STATUS == false) {
-                        //    string _message = "";
-                        //    bool ret = false;
-                        //    GlobalData.powerDevice = new Instrument.IQS1700(GlobalData.initSetting.EXFOIP, GlobalData.initSetting.EXFOPORT);
-                        //    ret = GlobalData.powerDevice.Open(out _message);
-                        //    if (ret == true) {
-                        //        GlobalData.powerDevice.Initialize();
-                        //        GlobalData.connectionManagement.IQS1700STATUS = true;
-                        //    }
-                        //}
+                        if (GlobalData.connectionManagement.IQS1700STATUS == false) {
+                            string _message = "";
+                            bool ret = false;
+                            GlobalData.powerDevice = new Instrument.IQS1700(GlobalData.initSetting.EXFOIP, GlobalData.initSetting.EXFOPORT);
+                            ret = GlobalData.powerDevice.Open(out _message);
+                            if (ret == true) {
+                                GlobalData.powerDevice.Initialize();
+                                GlobalData.connectionManagement.IQS1700STATUS = true;
+                            }
+                        }
                     }));
                     t1.Start();
                 }
@@ -150,16 +150,16 @@ namespace MultiCalibOpticalBoB_Ver1.Function {
                 ////Switch Instrument
                 if (!t2.IsAlive) {
                     t2 = new Thread(new ThreadStart(() => {
-                        //if (GlobalData.connectionManagement.IQS9100BSTATUS == false) {
-                        //    string _message = "";
-                        //    bool ret = false;
-                        //    GlobalData.switchDevice = new Instrument.IQS9100B(GlobalData.initSetting.EXFOIP, GlobalData.initSetting.EXFOPORT);
-                        //    ret = GlobalData.switchDevice.Open(out _message);
-                        //    if (ret == true) {
-                        //        GlobalData.switchDevice.Initialize();
-                        //        GlobalData.connectionManagement.IQS9100BSTATUS = true;
-                        //    }
-                        //}
+                        if (GlobalData.connectionManagement.IQS9100BSTATUS == false) {
+                            string _message = "";
+                            bool ret = false;
+                            GlobalData.switchDevice = new Instrument.IQS9100B(GlobalData.initSetting.EXFOIP, GlobalData.initSetting.EXFOPORT);
+                            ret = GlobalData.switchDevice.Open(out _message);
+                            if (ret == true) {
+                                GlobalData.switchDevice.Initialize();
+                                GlobalData.connectionManagement.IQS9100BSTATUS = true;
+                            }
+                        }
                     }));
                     t2.Start();
                 }
@@ -167,16 +167,16 @@ namespace MultiCalibOpticalBoB_Ver1.Function {
                 ////ER Instrument
                 if (!t3.IsAlive) {
                     t3 = new Thread(new ThreadStart(() => {
-                        //if (GlobalData.connectionManagement.DCAX86100DSTATUS == false) {
-                        //    string _message = "";
-                        //    bool ret = false;
-                        //    GlobalData.erDevice = new Instrument.DCAX86100D(GlobalData.initSetting.ERINSTRGPIB);
-                        //    ret = GlobalData.erDevice.Open(out _message);
-                        //    if (ret == true) {
-                        //        GlobalData.erDevice.Initialize();
-                        //        GlobalData.connectionManagement.DCAX86100DSTATUS = true;
-                        //    }
-                        //}
+                        if (GlobalData.connectionManagement.DCAX86100DSTATUS == false) {
+                            string _message = "";
+                            bool ret = false;
+                            GlobalData.erDevice = new Instrument.DCAX86100D(GlobalData.initSetting.ERINSTRGPIB);
+                            ret = GlobalData.erDevice.Open(out _message);
+                            if (ret == true) {
+                                GlobalData.erDevice.Initialize();
+                                GlobalData.connectionManagement.DCAX86100DSTATUS = true;
+                            }
+                        }
                     }));
                     t3.Start();
                 }
