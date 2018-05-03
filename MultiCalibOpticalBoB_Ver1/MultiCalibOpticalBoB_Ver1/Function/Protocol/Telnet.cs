@@ -162,7 +162,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Protocol {
         public string Read()
         {
             if (!IsConnected) return string.Empty;
-            while (!this.clients.GetStream().DataAvailable) ; //Đã có dữ liệu trong bộ đệm nhận
+            while (!this.clients.GetStream().DataAvailable) { Thread.Sleep(100); } //Đã có dữ liệu trong bộ đệm nhận
             NetworkStream stream = this.clients.GetStream();
             StringBuilder sb = new StringBuilder();
             int input = 0;

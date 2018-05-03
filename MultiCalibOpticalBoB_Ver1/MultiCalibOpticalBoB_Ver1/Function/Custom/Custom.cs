@@ -18,6 +18,14 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             }
         }
 
+        double _opacity;
+        public double WINDOWOPACITY {
+            get { return _opacity; }
+            set {
+                _opacity = value;
+                OnPropertyChanged(nameof(WINDOWOPACITY));
+            }
+        }
         bool _iqs1700status;
         public bool IQS1700STATUS {
             get { return _iqs1700status; }
@@ -57,6 +65,15 @@ namespace MultiCalibOpticalBoB_Ver1.Function
                 _sqlstatus = value;
                 OnPropertyChanged(nameof(SQLSTATUS));
             }
+        }
+
+        public connectionstatus() {
+            IQS1700STATUS = false;
+            IQS9100BSTATUS = false;
+            DCAX86100DSTATUS = false;
+            ONTSTATUS = false;
+            SQLSTATUS = false;
+            WINDOWOPACITY = 1;
         }
     }
 
@@ -162,6 +179,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.ERInstrGPIB; }
             set {
                 Properties.Settings.Default.ERInstrGPIB = value;
+                GlobalData.connectionManagement.DCAX86100DSTATUS = false;
                 OnPropertyChanged(nameof(ERINSTRGPIB));
             }
         }
@@ -180,6 +198,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.EXFOIP; }
             set {
                 Properties.Settings.Default.EXFOIP = value;
+                GlobalData.connectionManagement.IQS9100BSTATUS = false;
+                GlobalData.connectionManagement.IQS1700STATUS = false;
                 OnPropertyChanged(nameof(EXFOIP));
             }
         }
@@ -201,6 +221,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.PWInstrPort; }
             set {
                 Properties.Settings.Default.PWInstrPort = value;
+                GlobalData.connectionManagement.IQS1700STATUS = false;
                 OnPropertyChanged(nameof(PWINSTRPORT));
             }
         }
@@ -215,6 +236,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.SWInstrPort; }
             set {
                 Properties.Settings.Default.SWInstrPort = value;
+                GlobalData.connectionManagement.IQS9100BSTATUS = false;
                 OnPropertyChanged(nameof(SWINSTRPORT));
             }
         }
@@ -226,6 +248,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.SqlName; }
             set {
                 Properties.Settings.Default.SqlName = value;
+                GlobalData.connectionManagement.SQLSTATUS = false;
                 OnPropertyChanged(nameof(SQLNAME));
             }
         }
@@ -233,6 +256,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.SqlUser; }
             set {
                 Properties.Settings.Default.SqlUser = value;
+                GlobalData.connectionManagement.SQLSTATUS = false;
                 OnPropertyChanged(nameof(SQLUSER));
             }
         }
@@ -240,6 +264,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.SqlPass; }
             set {
                 Properties.Settings.Default.SqlPass = value;
+                GlobalData.connectionManagement.SQLSTATUS = false;
                 OnPropertyChanged(nameof(SQLPASS));
             }
         }
@@ -525,6 +550,23 @@ namespace MultiCalibOpticalBoB_Ver1.Function
                 OnPropertyChanged(nameof(ONTLOG));
             }
         }
+        string _buttoncontent;
+        public string BUTTONCONTENT {
+            get { return _buttoncontent; }
+            set {
+                _buttoncontent = value;
+                OnPropertyChanged(nameof(BUTTONCONTENT));
+            }
+        }
+        bool _buttonenable;
+        public bool BUTTONENABLE {
+            get { return _buttonenable; }
+            set {
+                _buttonenable = value;
+                OnPropertyChanged(nameof(BUTTONENABLE));
+            }
+        }
+
 
         public testinginfo() {
             Initialization();
@@ -543,6 +585,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             this.SYSTEMLOG = "";
             this.ONTLOG = "";
             this.ERRORCODE = "";
+            this.BUTTONCONTENT = "START";
+            this.BUTTONENABLE = true;
         }
     }
 

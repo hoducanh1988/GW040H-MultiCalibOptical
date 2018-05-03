@@ -252,7 +252,7 @@
                                 <RichTextBox  Background="Transparent" BorderThickness="0" IsReadOnly="True" Block.LineHeight="1" Padding="10">
                                     <FlowDocument PageHeight="180">
                                         <Paragraph>
-                                            <Run Foreground="#050928" FontWeight="Normal" Text="{Binding ONTSTATUS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                            <Run Foreground="#050928" FontWeight="Normal" Text="{Binding ONTLOG, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                         </Paragraph>
                                     </FlowDocument>
                                 </RichTextBox>

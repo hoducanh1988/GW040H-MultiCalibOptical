@@ -75,7 +75,7 @@
                                     </WrapPanel> 
                                 </StackPanel>
                                 <Grid Grid.Column="1" Margin="10">
-                                    <Image Source="/Asset/Images/BOSA.jpg"/>
+                                    <!--<Image Source="/Asset/Images/BOSA.jpg"/>-->
                                 </Grid>
                             </Grid>
                             
@@ -98,7 +98,7 @@
                                     <TextBox CharacterCasing="Normal" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ONTLOGINPASS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                 </StackPanel>
                                 <Grid Grid.Column="1" Margin="10">
-                                    <Image Source="/Asset/Images/igate.png"/>
+                                    <!--<Image Source="/Asset/Images/igate.png"/>-->
                                 </Grid>
                             </Grid>
                             <!--MINUS-->
@@ -120,7 +120,7 @@
                                     <TextBox IsEnabled="False" FontSize="13" FontWeight="Bold" Text="{Binding Path=ERINSTRPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                 </StackPanel>
                                 <Grid Grid.Column="1" Margin="20">
-                                    <Image Source="/Asset/Images/DCAX86100D.jpg" Margin="30"/>
+                                    <!--<Image Source="/Asset/Images/DCAX86100D.jpg" Margin="30"/>-->
                                 </Grid>
                             </Grid>
                             <!--MINUS-->
@@ -148,7 +148,7 @@
                                     <ComboBox x:Name="cbbSettingSwPort" FontSize="13" FontWeight="Bold" Text="{Binding Path=SWINSTRPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
                                 </StackPanel>
                                 <Grid Grid.Column="1" Margin="20">
-                                    <Image Source="/Asset/Images/IQS610P.jpg" Margin="120"/>
+                                    <!--<Image Source="/Asset/Images/IQS610P.jpg" Margin="120"/>-->
                                 </Grid>
                             </Grid>
                             <!--MINUS-->
@@ -175,7 +175,7 @@
                                     <ComboBox x:Name="cbbSettingUsb4" FontSize="13" FontWeight="Bold" Text="{Binding Path=USBDEBUG4, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
                                 </StackPanel>
                                 <Grid Grid.Column="1" Margin="20">
-                                    <Image Source="/Asset/Images/usbDebug.png" Margin="50"/>
+                                    <!--<Image Source="/Asset/Images/usbDebug.png" Margin="50"/>-->
                                 </Grid>
                             </Grid>
                             <!--MINUS-->
@@ -199,7 +199,7 @@
                                     <TextBox IsEnabled="False" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Text="{Binding Path=SQLDB, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                 </StackPanel>
                                 <Grid Grid.Column="1" Margin="20">
-                                    <Image Source="/Asset/Images/SQL.png" Margin="50"/>
+                                    <!--<Image Source="/Asset/Images/SQL.png" Margin="50"/>-->
                                 </Grid>
                             </Grid>
                             <!--END-->

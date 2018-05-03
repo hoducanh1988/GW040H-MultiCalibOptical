@@ -75,10 +75,11 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument
             counter++;
             base.WriteLine(string.Format("CLOSE {0}", this.linsPort));
             Thread.Sleep(100);
+            messsage += base.Read();
             base.WriteLine(string.Format("CONNECT {0}", this.linsPort));
             Thread.Sleep(100);
-            messsage += base.Read();
-            if (messsage == null) {
+            messsage += base.Read().Replace("\r","").Replace("\n","").Trim();
+            if (messsage == "" || messsage == string.Empty || messsage == null) {
                 if (counter <= 3) goto REP;
                 else return false;
             }

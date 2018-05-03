@@ -113,6 +113,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
         bool _loginToONT(ref GW ont, string serialport, testinginfo _testinfo) {
             _testinfo.SYSTEMLOG += "Login to ONT...\r\n";
             bool _result = false;
+            string _message = "";
             switch (GlobalData.initSetting.ONTTYPE) {
                 case "GW040H": {
                         ont = new GW040H(serialport);
@@ -125,7 +126,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 default: return false;
             }
             if (!ont.Open()) return false;
-            _result = ont.Login();
+            _result = ont.Login(out _message);
             _testinfo.SYSTEMLOG += _result == true? "PASS\r\n" : "FAIL\r\n";
             return _result;
         }
@@ -611,7 +612,9 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 if (bosaInfo == null) return;
                 //Calib
                 testtmp.TOTALRESULT = Parameters.testStatus.Wait.ToString();
+                testtmp.BUTTONCONTENT = "STOP"; testtmp.BUTTONENABLE = false;
                 testtmp.TOTALRESULT = RunAll(testtmp, bosaInfo, vari) == false ? Parameters.testStatus.FAIL.ToString() : Parameters.testStatus.PASS.ToString();
+                testtmp.BUTTONCONTENT = "START"; testtmp.BUTTONENABLE = true;
                 //Stop count time
                 st.Stop();
                 testtmp.SYSTEMLOG += string.Format("Total time = {0} seconds\r\n", st.ElapsedMilliseconds / 1000);
@@ -620,5 +623,6 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             t.Start();
             //***END -------------------------------------------//
         }
+
     }
 }

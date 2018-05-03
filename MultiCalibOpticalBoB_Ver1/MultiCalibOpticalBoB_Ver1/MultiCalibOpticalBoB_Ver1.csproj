@@ -88,6 +88,9 @@
     <Compile Include="Function\Ont\GW040H.cs" />
     <Compile Include="Function\Protocol\Serial.cs" />
     <Compile Include="Function\Protocol\Sql.cs" />
+    <Compile Include="SubWindow\ConnectInstrument.xaml.cs">
+      <DependentUpon>ConnectInstrument.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubWindow\ImportToSQL.xaml.cs">
       <DependentUpon>ImportToSQL.xaml</DependentUpon>
     </Compile>
@@ -180,6 +183,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SubWindow\ConnectInstrument.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubWindow\ImportToSQL.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

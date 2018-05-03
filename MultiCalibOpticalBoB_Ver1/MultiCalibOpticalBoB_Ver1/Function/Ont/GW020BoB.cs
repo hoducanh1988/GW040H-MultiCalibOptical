@@ -10,7 +10,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
     {
         public GW020BoB(string _portname) : base(_portname) { }
 
-        public override bool Login() {
+        public override bool Login(out string message) {
+            message = "";
             try {
                 //write some code here.
                 return true;
@@ -18,6 +19,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
             catch {
                 return false;
             }
+        }
+
+        public override bool outTXPower() {
+            throw new NotImplementedException();
         }
     }
 }

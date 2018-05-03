@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -67,10 +67,6 @@ namespace MultiCalibOpticalBoB_Ver1 {
             Label l = sender as Label;
             switch (l.Content.ToString()) {
                 case "X": {
-                        GlobalData.powerDevice.Close();
-                        GlobalData.switchDevice.Close();
-                        GlobalData.erDevice.Close();
-                        GlobalData.sqlServer.Close();
                         this.Close();
                         break;
                     }

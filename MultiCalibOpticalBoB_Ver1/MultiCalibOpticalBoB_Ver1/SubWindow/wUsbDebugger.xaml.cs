@@ -31,7 +31,7 @@ namespace MultiCalibOpticalBoB_Ver1 {
             foreach (var serialName in Parameters.ListUsbComport) {
                 SerialPort serial = new SerialPort();
                 serial.PortName = serialName;
-                serial.BaudRate = 9600;
+                serial.BaudRate = 115200;
                 serial.DataBits = 8;
                 serial.Parity = Parity.None;
                 serial.StopBits = StopBits.One;

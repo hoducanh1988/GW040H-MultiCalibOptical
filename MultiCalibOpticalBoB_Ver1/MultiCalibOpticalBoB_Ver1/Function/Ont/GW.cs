@@ -10,6 +10,9 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
     {
         public GW(string _portname) : base(_portname) { }
 
-        public abstract bool Login();
+        public abstract bool Login(out string message);
+
+        public abstract bool outTXPower();
+
     }
 }

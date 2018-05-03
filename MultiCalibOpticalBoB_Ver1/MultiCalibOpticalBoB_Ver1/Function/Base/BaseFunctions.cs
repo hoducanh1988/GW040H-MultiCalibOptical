@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace MultiCalibOpticalBoB_Ver1.Function
-{
-    public class BaseFunctions
-    {
+namespace MultiCalibOpticalBoB_Ver1.Function {
+    public class BaseFunctions {
+
+        static ConnectInstrument ct = null;
+
         /// <summary>
         /// LIỆT KÊ TÊN TẤT CẢ CÁC CỔNG SERIAL PORT ĐANG KẾT NỐI VÀO MÁY TÍNH
         /// </summary>
@@ -19,14 +20,15 @@ namespace MultiCalibOpticalBoB_Ver1.Function
                 //string[] ports = SerialPort.GetPortNames();
                 List<string> list = new List<string>();
                 list.Add("-");
-                for(int i = 1; i < 100; i++) {
+                for (int i = 1; i < 100; i++) {
                     list.Add(string.Format("COM{0}", i));
                 }
                 //foreach (var item in ports) {
                 //    list.Add(item);
                 //}
                 return list;
-            } catch {
+            }
+            catch {
                 return null;
             }
         }
@@ -44,7 +46,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function
 
                 //Lấy thông tin Bosa từ SQL Server
 
-            } catch {
+            }
+            catch {
                 return false;
             }
         }
@@ -87,7 +90,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function
                         }
                 }
                 //tf.Initialization();
-                 tf.ONTINDEX =  _btnname.Substring(_btnname.Length - 1, 1);
+                tf.ONTINDEX = _btnname.Substring(_btnname.Length - 1, 1);
                 return true;
             }
             catch {
@@ -108,122 +111,100 @@ namespace MultiCalibOpticalBoB_Ver1.Function
                 double lNum = double.Parse(buffer[1].Trim());
                 double number = fNum * Math.Pow(10, lNum);
                 return (double)Math.Round((decimal)number, 2);
-            } catch {
+            }
+            catch {
                 return double.MinValue;
             }
         }
 
 
-        public static bool connect_Instrument() {
-            string message = "";
-            bool result = true;
-            //Power Instrument
-            Thread t1 = new Thread(new ThreadStart(() => {
-                if (GlobalData.powerDevice == null) {
-                    GlobalData.powerDevice = new Instrument.IQS1700(GlobalData.initSetting.EXFOIP, GlobalData.initSetting.EXFOPORT);
-                    GlobalData.connectionManagement.IQS1700STATUS = GlobalData.powerDevice.Open(out message);
-                    if (GlobalData.connectionManagement.IQS1700STATUS == false) result = false;
-                    else GlobalData.powerDevice.Initialize();
+        public static void connect_Instrument() {
+            Thread t = new Thread(new ThreadStart(() => {
+                App.Current.Dispatcher.Invoke(new Action(() => {
+                    ct = new ConnectInstrument();
+                    ct.Show();
+                }));
+
+                Thread t1 = new Thread(new ThreadStart(() => { })); t1.IsBackground = true;
+                Thread t2 = new Thread(new ThreadStart(() => { })); t2.IsBackground = true;
+                Thread t3 = new Thread(new ThreadStart(() => { })); t3.IsBackground = true;
+                Thread t4 = new Thread(new ThreadStart(() => { })); t4.IsBackground = true;
+
+                //Power Instrument
+                if (!t1.IsAlive) {
+                    t1 = new Thread(new ThreadStart(() => {
+                        //if (GlobalData.connectionManagement.IQS1700STATUS == false) {
+                        //    string _message = "";
+                        //    bool ret = false;
+                        //    GlobalData.powerDevice = new Instrument.IQS1700(GlobalData.initSetting.EXFOIP, GlobalData.initSetting.EXFOPORT);
+                        //    ret = GlobalData.powerDevice.Open(out _message);
+                        //    if (ret == true) {
+                        //        GlobalData.powerDevice.Initialize();
+                        //        GlobalData.connectionManagement.IQS1700STATUS = true;
+                        //    }
+                        //}
+                    }));
+                    t1.Start();
                 }
-            }));
-            t1.IsBackground = true;
-            t1.Start();
 
-            //Switch Instrument
-            Thread t2 = new Thread(new ThreadStart(() => {
-                if (GlobalData.switchDevice == null) {
-                    GlobalData.switchDevice = new Instrument.IQS9100B(GlobalData.initSetting.EXFOIP, GlobalData.initSetting.EXFOPORT);
-                    GlobalData.connectionManagement.IQS9100BSTATUS = GlobalData.switchDevice.Open(out message);
-                    if (GlobalData.connectionManagement.IQS9100BSTATUS == false) result = false;
-                    else GlobalData.switchDevice.Initialize();
+                ////Switch Instrument
+                if (!t2.IsAlive) {
+                    t2 = new Thread(new ThreadStart(() => {
+                        //if (GlobalData.connectionManagement.IQS9100BSTATUS == false) {
+                        //    string _message = "";
+                        //    bool ret = false;
+                        //    GlobalData.switchDevice = new Instrument.IQS9100B(GlobalData.initSetting.EXFOIP, GlobalData.initSetting.EXFOPORT);
+                        //    ret = GlobalData.switchDevice.Open(out _message);
+                        //    if (ret == true) {
+                        //        GlobalData.switchDevice.Initialize();
+                        //        GlobalData.connectionManagement.IQS9100BSTATUS = true;
+                        //    }
+                        //}
+                    }));
+                    t2.Start();
                 }
-            }));
-            t2.IsBackground = true;
-            t2.Start();
 
-            //ER Instrument
-            Thread t3 = new Thread(new ThreadStart(() => {
-                if (GlobalData.erDevice == null) {
-                    GlobalData.erDevice = new Instrument.DCAX86100D(GlobalData.initSetting.ERINSTRGPIB);
-                    GlobalData.connectionManagement.DCAX86100DSTATUS = GlobalData.erDevice.Open(out message);
-                    if (GlobalData.connectionManagement.DCAX86100DSTATUS == false) result = false;
-                    else {
-                        GlobalData.erDevice.Initialize();
-                        //GlobalData.erDevice.Calibrate();
-                    }
+                ////ER Instrument
+                if (!t3.IsAlive) {
+                    t3 = new Thread(new ThreadStart(() => {
+                        //if (GlobalData.connectionManagement.DCAX86100DSTATUS == false) {
+                        //    string _message = "";
+                        //    bool ret = false;
+                        //    GlobalData.erDevice = new Instrument.DCAX86100D(GlobalData.initSetting.ERINSTRGPIB);
+                        //    ret = GlobalData.erDevice.Open(out _message);
+                        //    if (ret == true) {
+                        //        GlobalData.erDevice.Initialize();
+                        //        GlobalData.connectionManagement.DCAX86100DSTATUS = true;
+                        //    }
+                        //}
+                    }));
+                    t3.Start();
                 }
-            }));
-            t3.IsBackground = true;
-            t3.Start();
 
-            //SQL Server
-            Thread t4 = new Thread(new ThreadStart(() => {
-                if (GlobalData.sqlServer == null) {
-                    GlobalData.sqlServer = new Protocol.Sql();
-                    GlobalData.connectionManagement.SQLSTATUS = GlobalData.sqlServer.Connection();
-                    if (GlobalData.connectionManagement.SQLSTATUS == false) result = false;
+                //SQL Server
+                if (!t4.IsAlive) {
+                    t4 = new Thread(new ThreadStart(() => {
+                        //if (GlobalData.connectionManagement.SQLSTATUS == false) {
+                        //    bool ret = false;
+                        //    GlobalData.sqlServer = new Protocol.Sql();
+                        //    ret = GlobalData.sqlServer.Connection();
+                        //    GlobalData.connectionManagement.SQLSTATUS = ret;
+                        //}
+                    }));
+                    t4.Start();
                 }
-            }));
-            t4.IsBackground = true;
-            t4.Start();
-           
-            return result;
-        }
 
-        /// <summary>
-        /// KẾT NỐI LẠI THIẾT BỊ SAU KHI THAY ĐỔI CÀI ĐẶT
-        /// </summary>
-        /// <returns></returns>
-        public static bool reconnect_Instrument() {
-            string message = "";
-            bool result = true;
-            //Power Instrument
-            Thread t1 = new Thread(new ThreadStart(() => {
-                GlobalData.powerDevice.Close();
-                GlobalData.powerDevice = new Instrument.IQS1700(GlobalData.initSetting.EXFOIP, GlobalData.initSetting.EXFOPORT);
-                GlobalData.connectionManagement.IQS1700STATUS = GlobalData.powerDevice.Open(out message);
-                if (GlobalData.connectionManagement.IQS1700STATUS == false) result = false;
-                else GlobalData.powerDevice.Initialize();
-            }));
-            t1.IsBackground = true;
-            t1.Start();
-
-            //Switch Instrument
-            Thread t2 = new Thread(new ThreadStart(() => {
-                GlobalData.switchDevice.Close();
-                GlobalData.switchDevice = new Instrument.IQS9100B(GlobalData.initSetting.EXFOIP, GlobalData.initSetting.EXFOPORT);
-                GlobalData.connectionManagement.IQS9100BSTATUS = GlobalData.switchDevice.Open(out message);
-                if (GlobalData.connectionManagement.IQS9100BSTATUS == false) result = false;
-                else GlobalData.switchDevice.Initialize();
-            }));
-            t2.IsBackground = true;
-            t2.Start();
-
-            //ER Instrument
-            Thread t3 = new Thread(new ThreadStart(() => {
-                GlobalData.switchDevice.Close();
-                GlobalData.erDevice = new Instrument.DCAX86100D(GlobalData.initSetting.ERINSTRGPIB);
-                GlobalData.connectionManagement.DCAX86100DSTATUS = GlobalData.erDevice.Open(out message);
-                if (GlobalData.connectionManagement.DCAX86100DSTATUS == false) result = false;
-                else {
-                    GlobalData.erDevice.Initialize();
-                    //GlobalData.erDevice.Calibrate();
+                while(t1.IsAlive==true || t2.IsAlive==true || t3.IsAlive == true || t4.IsAlive == true) {
+                    Thread.Sleep(100);
                 }
-            }));
-            t3.IsBackground = true;
-            t3.Start();
 
-            //SQL Server
-            Thread t4 = new Thread(new ThreadStart(() => {
-                GlobalData.sqlServer.Close();
-                GlobalData.sqlServer = new Protocol.Sql();
-                GlobalData.connectionManagement.SQLSTATUS = GlobalData.sqlServer.Connection();
-                if (GlobalData.connectionManagement.SQLSTATUS == false) result = false;
+                App.Current.Dispatcher.Invoke(new Action(() => {
+                    ct.Close();
+                }));
+                
             }));
-            t4.IsBackground = true;
-            t4.Start();
-            
-            return result;
+            t.IsBackground = true;
+            t.Start();
         }
 
     }

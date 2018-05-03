@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MultiCalibOpticalBoB_Ver1.Function;
 using MultiCalibOpticalBoB_Ver1.Function.Instrument;
+using System.IO.Ports;
+using MultiCalibOpticalBoB_Ver1.Function.Ont;
 
 namespace MultiCalibOpticalBoB_Ver1.UserControls {
     /// <summary>
@@ -35,6 +37,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             Button b = sender as Button;
             GlobalData.manualTest.IQS610PLOG = "";
             GlobalData.manualTest.DCAX86100DLOG = "";
+            GlobalData.manualTest.ONTLOG = "";
 
             switch (b.Name) {
 
@@ -214,41 +217,93 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                         t.Start();
                         break;
                     }
+
                 case "ONTlogin": {
                         SelectPort sp = new SelectPort();
                         sp.ShowDialog();
                         int _port = 1;
                         if (sp.PortSelected.Trim() == "") return;
                         else _port = int.Parse(sp.PortSelected);
+                        string _comPort = "";
+                        switch (_port) {
+                            case 1: { _comPort = GlobalData.initSetting.USBDEBUG1; break; }
+                            case 2: { _comPort = GlobalData.initSetting.USBDEBUG2; break; }
+                            case 3: { _comPort = GlobalData.initSetting.USBDEBUG3; break; }
+                            case 4: { _comPort = GlobalData.initSetting.USBDEBUG4; break; }
+                        }
                         
                         Thread t = new Thread(new ThreadStart(() => {
                             bool ret = false;
                             string message = "";
-                            GlobalData.manualTest.DCAX86100DLOG += string.Format("Getting ER value from DCAX86100D...\n");
-                            message = "";
+                            GlobalData.manualTest.ONTLOG += string.Format("Login to ONT {0}...\n", _comPort);
+                            GW ont = null;
                             try {
-                                message = GlobalData.erDevice.getER(1);
+                                switch (GlobalData.initSetting.ONTTYPE) {
+                                    case "GW040H": { ont = new GW040H(_comPort);break; }
+                                    case "GW020BoB": { ont = new GW020BoB(_comPort); break; }
+                                    default: break;
+                                }
+                                if (!ont.Open()) { message += string.Format("Can't open comport {0}", _comPort); ret = false; }
+                                else ret = ont.Login(out message);
                             }
                             catch (Exception ex) {
                                 message = ex.ToString();
                             }
-                            GlobalData.manualTest.DCAX86100DLOG += message + "\n";
-                            GlobalData.manualTest.DCAX86100DLOG += string.Format("=> Result: {0}\n", ret == true ? "PASS" : "FAIL");
+                            GlobalData.manualTest.ONTLOG += message + "\n";
+                            GlobalData.manualTest.ONTLOG += string.Format("=> Result: {0}\n", ret == true ? "PASS" : "FAIL");
+                            try { ont.Close(); } catch { }
                         }));
                         t.IsBackground = true;
                         t.Start();
                         break;
                     }
+
                 case "ONTtx": {
                         SelectPort sp = new SelectPort();
                         sp.ShowDialog();
                         int _port = 0;
                         if (sp.PortSelected.Trim() == "") return;
                         else _port = int.Parse(sp.PortSelected);
+                        string _comPort = "";
+                        switch (_port) {
+                            case 1: { _comPort = GlobalData.initSetting.USBDEBUG1; break; }
+                            case 2: { _comPort = GlobalData.initSetting.USBDEBUG2; break; }
+                            case 3: { _comPort = GlobalData.initSetting.USBDEBUG3; break; }
+                            case 4: { _comPort = GlobalData.initSetting.USBDEBUG4; break; }
+                        }
 
+                        Thread t = new Thread(new ThreadStart(() => {
+                            bool ret = false;
+                            string message = "";
+                            GW ont = null;
+                            try {
+                                GlobalData.manualTest.ONTLOG += string.Format("Login to ONT {0}...\n", _comPort);
+                                switch (GlobalData.initSetting.ONTTYPE) {
+                                    case "GW040H": { ont = new GW040H(_comPort); break; }
+                                    case "GW020BoB": { ont = new GW020BoB(_comPort); break; }
+                                    default: break;
+                                }
+                                if (!ont.Open()) { message += string.Format("Can't open comport {0}", _comPort); ret = false; }
+                                else ret = ont.Login(out message);
+                                GlobalData.manualTest.ONTLOG += message + "\n";
+
+                                GlobalData.manualTest.ONTLOG += string.Format("Send command to request ONT output optical Power {0}...\n", _comPort);
+                                ont.outTXPower();
+                                Thread.Sleep(1000);
+                                message = ont.Read();
+                                GlobalData.manualTest.ONTLOG += message + "\n";
+                            }
+                            catch (Exception ex) {
+                                message = ex.ToString();
+                                GlobalData.manualTest.ONTLOG += message + "\n";
+                            }
+                            GlobalData.manualTest.ONTLOG += string.Format("=> Result: {0}\n", ret == true ? "PASS" : "FAIL");
+                            try { ont.Close(); } catch { }
+                        }));
+                        t.IsBackground = true;
+                        t.Start();
                         break;
                     }
-
 
                 default: break;
             }

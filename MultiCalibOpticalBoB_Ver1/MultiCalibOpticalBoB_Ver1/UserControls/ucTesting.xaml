@@ -62,7 +62,7 @@
                             <Label Foreground="{StaticResource colorBorder}" Content="---------- Port: " VerticalAlignment="Bottom"></Label>
                             <Label Foreground="{StaticResource colorBorder}" Content="{Binding Path=COMPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Bottom"></Label>
                         </WrapPanel>
-                        <Button x:Name="btnTestingStart1" Click="Button_Click" Margin="0,5,0,0" Height="100" Background="#777777" Foreground="White" FontSize="40">START</Button>
+                        <Button x:Name="btnTestingStart1" Click="Button_Click" Margin="0,5,0,0" Height="100" Background="#777777" Foreground="White" FontSize="40" Content="{Binding Path=BUTTONCONTENT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="{Binding BUTTONENABLE, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></Button>
                         <Label FontSize="13">MAC Address:</Label>
                         <TextBlock FontSize="22" FontWeight="SemiBold" Padding="5,0,0,0" Text="{Binding Path=MACADDRESS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
                         <Label FontSize="13">BOSA Serial Number:</Label>
@@ -281,7 +281,7 @@
                             <Label Foreground="{StaticResource colorBorder}" Content="---------- Port: " VerticalAlignment="Bottom"></Label>
                             <Label Foreground="{StaticResource colorBorder}" Content="{Binding Path=COMPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Bottom"></Label>
                         </WrapPanel>
-                        <Button x:Name="btnTestingStart2" Click="Button_Click" Margin="0,5,0,0" Height="100" Background="#777777" Foreground="White" FontSize="40">START</Button>
+                        <Button x:Name="btnTestingStart2" Click="Button_Click" Margin="0,5,0,0" Height="100" Background="#777777" Foreground="White" FontSize="40" Content="{Binding Path=BUTTONCONTENT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="{Binding BUTTONENABLE, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></Button>
                         <Label FontSize="13">MAC Address:</Label>
                         <TextBlock FontSize="22" FontWeight="SemiBold" Padding="5,0,0,0" Text="{Binding Path=MACADDRESS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
                         <Label FontSize="13">BOSA Serial Number:</Label>
@@ -500,7 +500,7 @@
                             <Label Foreground="{StaticResource colorBorder}" Content="---------- Port: " VerticalAlignment="Bottom"></Label>
                             <Label Foreground="{StaticResource colorBorder}" Content="{Binding Path=COMPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Bottom"></Label>
                         </WrapPanel>
-                        <Button x:Name="btnTestingStart3" Click="Button_Click" Margin="0,5,0,0" Height="100" Background="#777777" Foreground="White" FontSize="40">START</Button>
+                        <Button x:Name="btnTestingStart3" Click="Button_Click" Margin="0,5,0,0" Height="100" Background="#777777" Foreground="White" FontSize="40" Content="{Binding Path=BUTTONCONTENT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="{Binding BUTTONENABLE, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></Button>
                         <Label FontSize="13">MAC Address:</Label>
                         <TextBlock FontSize="22" FontWeight="SemiBold" Padding="5,0,0,0" Text="{Binding Path=MACADDRESS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
                         <Label FontSize="13">BOSA Serial Number:</Label>
@@ -719,7 +719,7 @@
                             <Label Foreground="{StaticResource colorBorder}" Content="---------- Port: " VerticalAlignment="Bottom"></Label>
                             <Label Foreground="{StaticResource colorBorder}" Content="{Binding Path=COMPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Bottom"></Label>
                         </WrapPanel>
-                        <Button x:Name="btnTestingStart4" Click="Button_Click" Margin="0,5,0,0" Height="100" Background="#777777" Foreground="White" FontSize="40">START</Button>
+                        <Button x:Name="btnTestingStart4" Click="Button_Click" Margin="0,5,0,0" Height="100" Background="#777777" Foreground="White" FontSize="40" Content="{Binding Path=BUTTONCONTENT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="{Binding BUTTONENABLE, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></Button>
                         <Label FontSize="13">MAC Address:</Label>
                         <TextBlock FontSize="22" FontWeight="SemiBold" Padding="5,0,0,0" Text="{Binding Path=MACADDRESS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
                         <Label FontSize="13">BOSA Serial Number:</Label>
