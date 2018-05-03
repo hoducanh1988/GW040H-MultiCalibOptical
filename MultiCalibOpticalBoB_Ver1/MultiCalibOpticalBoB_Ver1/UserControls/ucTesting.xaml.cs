@@ -218,7 +218,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             }
         }
 
-        bool _calibER(GW ont, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
+        bool _calibER(GW ont,int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
             try {
                 bool _result = false;
                 _testinfo.TUNINGERRESULT = Parameters.testStatus.Wait.ToString();
@@ -233,7 +233,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                     ont.WriteLine("echo IMOD 0x" + _var.Imod_DAC_Hex + " >/proc/pon_phy/debug");
                     Thread.Sleep(Delay_modem);
 
-                    _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER());
+                    _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER(Port));
                     _testinfo.SYSTEMLOG += string.Format("ER_temp = {0}\r\n", _var.ER_temp);
 
                     if (!_var.ER_temp.ToString().Contains("E+")) {
@@ -492,7 +492,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 Thread.Sleep(Delay_modem);
 
                 _var.Pwr_temp = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
-                _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER());
+                _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER(Port));
                 _testinfo.SYSTEMLOG += "ER_temp = " + _var.ER_temp + "\r\n";
                 _testinfo.SYSTEMLOG += "Power_temp = " + _var.Pwr_temp + "\r\n";
 
@@ -546,7 +546,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 //Switch Port check ER
                 if (GlobalData.switchDevice.switchToPort(int.Parse(_testtemp.ONTINDEX)) == false) return false;
                 //Calib ER
-                if (this._calibER(ontDevice, _bosainfo, _testtemp, _vari) == false) return false;
+                if (this._calibER(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) return false;
                 //Xóa thứ tự đăng kí Calib ER (để Thread # có thể sử dụng)
                 this._removeFromListSequenceTestER(_testtemp.ONTINDEX);
 

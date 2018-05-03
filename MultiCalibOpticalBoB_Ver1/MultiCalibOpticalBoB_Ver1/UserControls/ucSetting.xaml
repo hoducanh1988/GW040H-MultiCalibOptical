@@ -54,27 +54,6 @@
                     </TabItem.Header>
                     <ScrollViewer Margin="5,5,5,5">
                         <StackPanel Margin="0,0,5,0">
-
-                            <!--MINUS-->
-                            <Label FontSize="15" FontWeight="Bold" Content="-"></Label>
-                            <!--ATTENUATION-->
-                            <Grid Height="150">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <StackPanel Grid.Column="0">
-                                    <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT GIÁ TRỊ SUY HAO ĐƯỜNG DÂY:"></Label>
-                                    <Label Content="Suy hao dây đo Power (dBm)" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
-                                    <Label Content="Suy hao dây đo ER (dBm)" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
-                                </StackPanel>
-                                <Grid Grid.Column="1" Margin="10">
-                                    <Image Source="/Asset/Images/LOSS.png"/>
-                                </Grid>
-                            </Grid>
                             <!--MINUS-->
                             <Label FontSize="15" FontWeight="Bold" Content="-"></Label>
                             <!--BOSA-->
@@ -233,11 +212,55 @@
                 <TabItem>
                     <TabItem.Header>
                         <Grid Height="30">
-                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="Cài đặt thông số phán định" FontWeight="SemiBold"/>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="Cài đặt giá trị suy hao" FontWeight="SemiBold"/>
                         </Grid>
                     </TabItem.Header>
                     <ScrollViewer Margin="5,5,5,5">
                         <StackPanel Margin="0,0,5,0">
+                            <!--MINUS-->
+                            <Label FontSize="15" FontWeight="Bold" Content="-"></Label>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <!--JIG 1-->
+                                    <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="JIG SỐ 1:"></Label>
+                                    <Label Content="Suy hao dây đo Power (dBm)" FontSize="13"></Label>
+                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
+                                    <Label Content="Suy hao dây đo ER (dBm)" FontSize="13"></Label>
+                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <!--MINUS-->
+                                    <Label FontSize="15" FontWeight="Bold" Content="-"></Label>
+                                    <!--JIG 2-->
+                                    <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="JIG SỐ 2:"></Label>
+                                    <Label Content="Suy hao dây đo Power (dBm)" FontSize="13"></Label>
+                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
+                                    <Label Content="Suy hao dây đo ER (dBm)" FontSize="13"></Label>
+                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <!--MINUS-->
+                                    <Label FontSize="15" FontWeight="Bold" Content="-"></Label>
+                                    <!--JIG 3-->
+                                    <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="JIG SỐ 3:"></Label>
+                                    <Label Content="Suy hao dây đo Power (dBm)" FontSize="13"></Label>
+                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION3, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
+                                    <Label Content="Suy hao dây đo ER (dBm)" FontSize="13"></Label>
+                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION3, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <!--MINUS-->
+                                    <Label FontSize="15" FontWeight="Bold" Content="-"></Label>
+                                    <!--JIG 4-->
+                                    <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="JIG SỐ 4:"></Label>
+                                    <Label Content="Suy hao dây đo Power (dBm)" FontSize="13"></Label>
+                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION4, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
+                                    <Label Content="Suy hao dây đo ER (dBm)" FontSize="13"></Label>
+                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION4, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                </StackPanel>
+                            </Grid>
+                           
+                           
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>

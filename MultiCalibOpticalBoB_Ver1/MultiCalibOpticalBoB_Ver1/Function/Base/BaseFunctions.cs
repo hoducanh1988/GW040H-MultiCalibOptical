@@ -16,12 +16,15 @@ namespace MultiCalibOpticalBoB_Ver1.Function
         public static List<string> get_Array_Of_SerialPort() {
             try {
                 // Get a list of serial port names.
-                string[] ports = SerialPort.GetPortNames();
+                //string[] ports = SerialPort.GetPortNames();
                 List<string> list = new List<string>();
                 list.Add("-");
-                foreach (var item in ports) {
-                    list.Add(item);
+                for(int i = 1; i < 100; i++) {
+                    list.Add(string.Format("COM{0}", i));
                 }
+                //foreach (var item in ports) {
+                //    list.Add(item);
+                //}
                 return list;
             } catch {
                 return null;

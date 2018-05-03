@@ -165,6 +165,13 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument
         public string getPower_dBm(int channel) {
             lock (thisLock) {
                 if (base.IsConnected == false) return "-1000";
+                string _pwAtt = "";
+                switch (channel) {
+                    case 1: { _pwAtt = GlobalData.initSetting.POWERCABLEATTENUATION1; break; }
+                    case 2: { _pwAtt = GlobalData.initSetting.POWERCABLEATTENUATION2; break; }
+                    case 3: { _pwAtt = GlobalData.initSetting.POWERCABLEATTENUATION3; break; }
+                    case 4: { _pwAtt = GlobalData.initSetting.POWERCABLEATTENUATION4; break; }
+                }
                 try {
                     int count = 0;
                     REP:
@@ -179,7 +186,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument
                     string[] buffer = readStr.Split('\r');
                     readStr = buffer[0];
                     double _value = double.Parse(readStr);
-                    double _result = _value + double.Parse(GlobalData.initSetting.POWERCABLEATTENUATION);
+                    double _result = _value + double.Parse(_pwAtt);
                     if (_result < -30) {
                         if (count <= 3) { Thread.Sleep(100); goto REP; }
                     }

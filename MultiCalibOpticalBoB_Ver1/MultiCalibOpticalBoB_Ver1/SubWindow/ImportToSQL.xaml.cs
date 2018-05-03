@@ -159,7 +159,7 @@ namespace MultiCalibOpticalBoB_Ver1
                     }
                 }
                 importInfo.PROGRESSVALUE = importInfo.PROGRESSMAX;
-                importInfo.STATUS = string.Format("Finished.The Bosa SN already imported {0}/{1}.", counter, dt.Rows.Count);
+                importInfo.STATUS = string.Format("Finished.The Bosa SN already imported {0}/{1}.", counter, dt.Rows.Count - 1);
             }));
             t.IsBackground = true;
             t.Start();

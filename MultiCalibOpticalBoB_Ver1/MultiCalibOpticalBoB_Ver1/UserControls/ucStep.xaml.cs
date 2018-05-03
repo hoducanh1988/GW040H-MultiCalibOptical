@@ -202,7 +202,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                             GlobalData.manualTest.DCAX86100DLOG += string.Format("Getting ER value from DCAX86100D...\n");
                             message = "";
                             try {
-                                message = GlobalData.erDevice.getER();
+                                message = GlobalData.erDevice.getER(1);
                             }
                             catch (Exception ex) {
                                 message = ex.ToString();
@@ -214,6 +214,41 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                         t.Start();
                         break;
                     }
+                case "ONTlogin": {
+                        SelectPort sp = new SelectPort();
+                        sp.ShowDialog();
+                        int _port = 1;
+                        if (sp.PortSelected.Trim() == "") return;
+                        else _port = int.Parse(sp.PortSelected);
+                        
+                        Thread t = new Thread(new ThreadStart(() => {
+                            bool ret = false;
+                            string message = "";
+                            GlobalData.manualTest.DCAX86100DLOG += string.Format("Getting ER value from DCAX86100D...\n");
+                            message = "";
+                            try {
+                                message = GlobalData.erDevice.getER(1);
+                            }
+                            catch (Exception ex) {
+                                message = ex.ToString();
+                            }
+                            GlobalData.manualTest.DCAX86100DLOG += message + "\n";
+                            GlobalData.manualTest.DCAX86100DLOG += string.Format("=> Result: {0}\n", ret == true ? "PASS" : "FAIL");
+                        }));
+                        t.IsBackground = true;
+                        t.Start();
+                        break;
+                    }
+                case "ONTtx": {
+                        SelectPort sp = new SelectPort();
+                        sp.ShowDialog();
+                        int _port = 0;
+                        if (sp.PortSelected.Trim() == "") return;
+                        else _port = int.Parse(sp.PortSelected);
+
+                        break;
+                    }
+
 
                 default: break;
             }

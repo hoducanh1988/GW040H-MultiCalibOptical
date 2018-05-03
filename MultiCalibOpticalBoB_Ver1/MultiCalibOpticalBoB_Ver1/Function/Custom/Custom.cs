@@ -333,18 +333,67 @@ namespace MultiCalibOpticalBoB_Ver1.Function
 
         //Attenuation
         #region Attenuation
-        public string POWERCABLEATTENUATION {
-            get { return Properties.Settings.Default.powerCableAtt; }
+        //JIG 1
+        public string POWERCABLEATTENUATION1 {
+            get { return Properties.Settings.Default.powerCableAtt1; }
             set {
-                Properties.Settings.Default.powerCableAtt = value;
-                OnPropertyChanged(nameof(POWERCABLEATTENUATION));
+                Properties.Settings.Default.powerCableAtt1 = value;
+                OnPropertyChanged(nameof(POWERCABLEATTENUATION1));
             }
         }
-        public string ERCABLEATTENUATION {
-            get { return Properties.Settings.Default.erCableAtt; }
+        public string ERCABLEATTENUATION1 {
+            get { return Properties.Settings.Default.erCableAtt1; }
             set {
-                Properties.Settings.Default.erCableAtt = value;
-                OnPropertyChanged(nameof(ERCABLEATTENUATION));
+                Properties.Settings.Default.erCableAtt1 = value;
+                OnPropertyChanged(nameof(ERCABLEATTENUATION1));
+            }
+        }
+
+        //JIG 2
+        public string POWERCABLEATTENUATION2 {
+            get { return Properties.Settings.Default.powerCableAtt2; }
+            set {
+                Properties.Settings.Default.powerCableAtt2 = value;
+                OnPropertyChanged(nameof(POWERCABLEATTENUATION2));
+            }
+        }
+        public string ERCABLEATTENUATION2 {
+            get { return Properties.Settings.Default.erCableAtt2; }
+            set {
+                Properties.Settings.Default.erCableAtt2 = value;
+                OnPropertyChanged(nameof(ERCABLEATTENUATION2));
+            }
+        }
+
+        //JIG 3
+        public string POWERCABLEATTENUATION3 {
+            get { return Properties.Settings.Default.powerCableAtt3; }
+            set {
+                Properties.Settings.Default.powerCableAtt3 = value;
+                OnPropertyChanged(nameof(POWERCABLEATTENUATION3));
+            }
+        }
+        public string ERCABLEATTENUATION3 {
+            get { return Properties.Settings.Default.erCableAtt3; }
+            set {
+                Properties.Settings.Default.erCableAtt3 = value;
+                OnPropertyChanged(nameof(ERCABLEATTENUATION3));
+            }
+        }
+
+        //JIG 4
+        public string POWERCABLEATTENUATION4 {
+            get { return Properties.Settings.Default.powerCableAtt4; }
+            set {
+                Properties.Settings.Default.powerCableAtt4 = value;
+                OnPropertyChanged(nameof(POWERCABLEATTENUATION4));
+            }
+        }
+        public string ERCABLEATTENUATION4 {
+            get { return Properties.Settings.Default.erCableAtt4; }
+            set {
+                Properties.Settings.Default.erCableAtt4 = value;
+                OnPropertyChanged(nameof(ERCABLEATTENUATION4));
             }
         }
         #endregion

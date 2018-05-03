@@ -15,13 +15,13 @@
       <Value Profile="(Default)">admin</Value>
     </Setting>
     <Setting Name="OntLoginPass" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1234</Value>
+      <Value Profile="(Default)">ttcn@77CN</Value>
     </Setting>
     <Setting Name="ERInstrName" Type="System.String" Scope="User">
       <Value Profile="(Default)">DCAX86100D</Value>
     </Setting>
     <Setting Name="ERInstrGPIB" Type="System.String" Scope="User">
-      <Value Profile="(Default)">GPIB1::6::INSTR</Value>
+      <Value Profile="(Default)">GPIB0::7::INSTR</Value>
     </Setting>
     <Setting Name="ERInstrPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -86,11 +86,29 @@
     <Setting Name="usbDebug4" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="powerCableAtt" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="powerCableAtt1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4.02</Value>
     </Setting>
-    <Setting Name="erCableAtt" Type="System.String" Scope="User">
-      <Value Profile="(Default)">13.2</Value>
+    <Setting Name="erCableAtt1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">18.80</Value>
+    </Setting>
+    <Setting Name="powerCableAtt2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4.01</Value>
+    </Setting>
+    <Setting Name="erCableAtt2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">18.81</Value>
+    </Setting>
+    <Setting Name="powerCableAtt3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4.03</Value>
+    </Setting>
+    <Setting Name="erCableAtt3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">18.82</Value>
+    </Setting>
+    <Setting Name="powerCableAtt4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4.04</Value>
+    </Setting>
+    <Setting Name="erCableAtt4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">18.83</Value>
     </Setting>
   </Settings>
 </SettingsFile>

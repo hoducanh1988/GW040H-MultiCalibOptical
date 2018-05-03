@@ -50,8 +50,6 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument {
                 Thread.Sleep(Delaytime_short);
                 myN1010A.WriteString(":CHAN1A:ATTenuator:STATe 1", true);
                 Thread.Sleep(Delaytime_short);
-                myN1010A.WriteString(":CHAN1A:ATTenuator:DECibels " + GlobalData.initSetting.ERCABLEATTENUATION, true);
-                Thread.Sleep(Delaytime_short);
                 myN1010A.WriteString("*OPC", true);
                 Thread.Sleep(Delaytime_short);
                 myN1010A.WriteString("*STB?", true);
@@ -89,9 +87,18 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument {
             }
         }
 
-        public string getER() {
+        public string getER(int _port) {
             lock (thislock) {
                 try {
+                    string _erAtt = "";
+                    switch (_port) {
+                        case 1: { _erAtt = GlobalData.initSetting.ERCABLEATTENUATION1; break; }
+                        case 2: { _erAtt = GlobalData.initSetting.ERCABLEATTENUATION2; break; }
+                        case 3: { _erAtt = GlobalData.initSetting.ERCABLEATTENUATION3; break; }
+                        case 4: { _erAtt = GlobalData.initSetting.ERCABLEATTENUATION4; break; }
+                    }
+                    myN1010A.WriteString(":CHAN1A:ATTenuator:DECibels " + _erAtt, true);
+                    Thread.Sleep(Delaytime_short);
                     myN1010A.WriteString(":SYSTem:AUToscale", true);
                     Thread.Sleep(Delaytime_long);
                     myN1010A.WriteString("*OPC?", true);

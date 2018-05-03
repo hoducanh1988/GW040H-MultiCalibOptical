@@ -12,7 +12,7 @@ namespace MultiCalibOpticalBoB_Ver1.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.5.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.6.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -73,7 +73,7 @@ namespace MultiCalibOpticalBoB_Ver1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1234")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ttcn@77CN")]
         public string OntLoginPass {
             get {
                 return ((string)(this["OntLoginPass"]));
@@ -97,7 +97,7 @@ namespace MultiCalibOpticalBoB_Ver1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("GPIB1::6::INSTR")]
+        [global::System.Configuration.DefaultSettingValueAttribute("GPIB0::7::INSTR")]
         public string ERInstrGPIB {
             get {
                 return ((string)(this["ERInstrGPIB"]));
@@ -361,25 +361,97 @@ namespace MultiCalibOpticalBoB_Ver1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public string powerCableAtt {
+        [global::System.Configuration.DefaultSettingValueAttribute("4.02")]
+        public string powerCableAtt1 {
             get {
-                return ((string)(this["powerCableAtt"]));
+                return ((string)(this["powerCableAtt1"]));
             }
             set {
-                this["powerCableAtt"] = value;
+                this["powerCableAtt1"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("13.2")]
-        public string erCableAtt {
+        [global::System.Configuration.DefaultSettingValueAttribute("18.80")]
+        public string erCableAtt1 {
             get {
-                return ((string)(this["erCableAtt"]));
+                return ((string)(this["erCableAtt1"]));
             }
             set {
-                this["erCableAtt"] = value;
+                this["erCableAtt1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4.01")]
+        public string powerCableAtt2 {
+            get {
+                return ((string)(this["powerCableAtt2"]));
+            }
+            set {
+                this["powerCableAtt2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("18.81")]
+        public string erCableAtt2 {
+            get {
+                return ((string)(this["erCableAtt2"]));
+            }
+            set {
+                this["erCableAtt2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4.03")]
+        public string powerCableAtt3 {
+            get {
+                return ((string)(this["powerCableAtt3"]));
+            }
+            set {
+                this["powerCableAtt3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("18.82")]
+        public string erCableAtt3 {
+            get {
+                return ((string)(this["erCableAtt3"]));
+            }
+            set {
+                this["erCableAtt3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4.04")]
+        public string powerCableAtt4 {
+            get {
+                return ((string)(this["powerCableAtt4"]));
+            }
+            set {
+                this["powerCableAtt4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("18.83")]
+        public string erCableAtt4 {
+            get {
+                return ((string)(this["erCableAtt4"]));
+            }
+            set {
+                this["erCableAtt4"] = value;
             }
         }
     }
