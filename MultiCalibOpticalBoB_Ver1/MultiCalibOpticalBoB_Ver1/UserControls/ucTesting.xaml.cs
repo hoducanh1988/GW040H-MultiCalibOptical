@@ -298,9 +298,11 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 _testinfo.SYSTEMLOG += "STEP 2: TUNING ER\r\n";
 
                 _var.Imod = ((_var.Pwr_temp + 3) / _var.Slope) + _var.Iav - _var.Ith - 1;
-                bool _flag = false;
 
-                while (!_flag) {
+                int k = 0;
+
+                while (k < 9) {
+                    k++;
                     _var.Imod_DAC = (Math.Round(_var.Imod * 4096 / 90)).ToString();
                     _var.Imod_DAC_Hex = int.Parse(_var.Imod_DAC).ToString("X");
                     ont.WriteLine("echo IMOD 0x" + _var.Imod_DAC_Hex + " >/proc/pon_phy/debug");
@@ -309,26 +311,83 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                     _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER(Port));
                     _testinfo.SYSTEMLOG += string.Format("ER_temp = {0}\r\n", _var.ER_temp);
 
-                    if (_var.ER_temp.ToString().Contains("E+")) { _flag = true; break; }
+                    if (_var.ER_temp.ToString().Contains("E+")) break;
                     if (_var.ER_temp >= 12 && _var.ER_temp <= 13) {
-                        ont.WriteLine("echo set_flash_register 0x00060023 0x64 >/proc/pon_phy/debug"); //Bù ER ? nhi?t d? 45*C
+                        ont.WriteLine("echo set_flash_register 0x00060023 0x64 >/proc/pon_phy/debug"); //Bù ER ? nhiệt độ 45*C
                         Thread.Sleep(Delay_modem);
                         _result = true;
-                        _flag = true;
                         break;
                     }
+
                     double ER_err = _var.ER_temp - 12.5;
-                    if (ER_err < 0) {
+                    if (ER_err < 0) { // Cần tăng Imod
                         _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
                         _testinfo.SYSTEMLOG += "-----------------\r\n";
-                        _var.Imod += 0.9;
+                        if (_var.ER_temp < 4.5)  _var.Imod += 22;
+                        else if (_var.ER_temp >= 4.5 && _var.ER_temp < 5) _var.Imod += 18;
+                        else if (_var.ER_temp >= 5 && _var.ER_temp < 5.5) _var.Imod += 16;
+                        else if (_var.ER_temp >= 5.5 && _var.ER_temp < 6) _var.Imod += 14;
+                        else if (_var.ER_temp >= 6 && _var.ER_temp < 6.5) _var.Imod += 13;
+                        else if (_var.ER_temp >= 6.5 && _var.ER_temp < 7) _var.Imod += 11;
+                        else if (_var.ER_temp >= 7 && _var.ER_temp < 7.5) _var.Imod += 10;
+                        else if (_var.ER_temp >= 7.5 && _var.ER_temp < 8) _var.Imod += 9;
+                        else if (_var.ER_temp >= 8 && _var.ER_temp < 8.5) _var.Imod += 8;
+                        else if (_var.ER_temp >= 8.5 && _var.ER_temp < 9) _var.Imod += 5;
+                        else if (_var.ER_temp >= 9 && _var.ER_temp < 9.5) _var.Imod += 5;
+                        else if (_var.ER_temp >= 9.5 && _var.ER_temp < 10) _var.Imod += 4;
+                        else if (_var.ER_temp >= 10 && _var.ER_temp < 10.5) _var.Imod += 3;
+                        else if (_var.ER_temp >= 10.5 && _var.ER_temp < 11) _var.Imod += 2;
+                        else if (_var.ER_temp >= 11 && _var.ER_temp < 11.5) _var.Imod += 1;
+                        else _var.Imod += 1;
                     }
-                    else {
+                    else { // Cần giảm Imod
                         _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
                         _testinfo.SYSTEMLOG += "-----------------\r\n";
-                        _var.Imod -= 0.9;
+                        if (ER_err >= 5) _var.Imod = _var.Imod - 4.5;
+                        else if (ER_err >= 4 && ER_err < 5) _var.Imod = _var.Imod - 4;
+                        else if (ER_err >= 3 && ER_err < 4) _var.Imod = _var.Imod - 3;
+                        else if (ER_err >= 2.5 && ER_err < 3) _var.Imod = _var.Imod - 2;
+                        else if (ER_err >= 2 && ER_err < 2.5) _var.Imod = _var.Imod - 1.5;
+                        else if (ER_err >= 1.5 && ER_err < 2) _var.Imod = _var.Imod - 1;
+                        else if (ER_err >= 1 && ER_err < 1.5) _var.Imod = _var.Imod - 1;
+                        else if (ER_err >= 0.5 && ER_err < 1) _var.Imod = _var.Imod - 0.5;
                     }
+
                 }
+
+
+
+
+                //bool _flag = false;
+                //while (!_flag) {
+                //    _var.Imod_DAC = (Math.Round(_var.Imod * 4096 / 90)).ToString();
+                //    _var.Imod_DAC_Hex = int.Parse(_var.Imod_DAC).ToString("X");
+                //    ont.WriteLine("echo IMOD 0x" + _var.Imod_DAC_Hex + " >/proc/pon_phy/debug");
+                //    Thread.Sleep(Delay_modem);
+                //    _testinfo.SYSTEMLOG += string.Format("Imod = {0}\r\n", _var.Imod);
+                //    _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER(Port));
+                //    _testinfo.SYSTEMLOG += string.Format("ER_temp = {0}\r\n", _var.ER_temp);
+
+                //    if (_var.ER_temp.ToString().Contains("E+")) { _flag = true; break; }
+                //    if (_var.ER_temp >= 12 && _var.ER_temp <= 13) {
+                //        ont.WriteLine("echo set_flash_register 0x00060023 0x64 >/proc/pon_phy/debug"); //Bù ER ? nhi?t d? 45*C
+                //        Thread.Sleep(Delay_modem);
+                //        _result = true;
+                //        _flag = true;
+                //        break;
+                //    }
+                //    double ER_err = _var.ER_temp - 12.5;
+                //    if (ER_err < 0) {
+                //        _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
+                //        _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //        _var.Imod += 0.9;
+                //    }
+                //    else {
+                //        _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
+                //        _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //        _var.Imod -= 0.9;
+                //    }
+                //}
 
 
                 //for (int k = 0; k < 9; k++) {
@@ -459,6 +518,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 //        break;
                 //    }
                 //}
+
                 _testinfo.SYSTEMLOG += _result == true ? "Tuning ER: PASS\r\n" : "Tuning ER: FAIL.\r\n";
                 _testinfo.TUNINGERRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
                 return _result;
