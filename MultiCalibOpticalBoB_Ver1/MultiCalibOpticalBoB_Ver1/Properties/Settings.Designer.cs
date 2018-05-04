@@ -277,7 +277,7 @@ namespace MultiCalibOpticalBoB_Ver1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool enableverifysignal {
             get {
                 return ((bool)(this["enableverifysignal"]));
@@ -452,6 +452,42 @@ namespace MultiCalibOpticalBoB_Ver1.Properties {
             }
             set {
                 this["erCableAtt4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool enablewritemac {
+            get {
+                return ((bool)(this["enablewritemac"]));
+            }
+            set {
+                this["enablewritemac"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        public int MacLen {
+            get {
+                return ((int)(this["MacLen"]));
+            }
+            set {
+                this["MacLen"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("A4F4C2:A06518")]
+        public string Mac6digits {
+            get {
+                return ((string)(this["Mac6digits"]));
+            }
+            set {
+                this["Mac6digits"] = value;
             }
         }
     }

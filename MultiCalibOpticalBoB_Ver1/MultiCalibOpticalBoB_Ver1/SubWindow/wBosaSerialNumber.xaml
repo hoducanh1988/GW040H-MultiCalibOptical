@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MultiCalibOpticalBoB_Ver1"
         mc:Ignorable="d"
-        Title="wBosaSerialNumber" Height="250" Width="500" Style="{StaticResource customWindow}" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="wBosaSerialNumber" Height="300" Width="500" Style="{StaticResource customWindow}" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
 
     <Border CornerRadius="5" Background="{StaticResource colorBackground}" BorderBrush="{StaticResource colorBorder}"  BorderThickness="1">
         <Grid>
@@ -20,8 +20,14 @@
                 </Grid>
             </Border>
             <StackPanel Grid.Row="1">
-                <Label FontSize="13" Content="Vui lòng nhập thông tin bosa serial number vào text box dưới đây:"/>
+                <Label FontSize="13" Content="Mã serial của linh kiện Bosa:"/>
                 <TextBox x:Name="txtBosaNumber" KeyDown="txtBosaNumber_KeyDown" TextChanged="txtBosaNumber_TextChanged" Margin="5" FontWeight="SemiBold" CharacterCasing="Upper" FontSize="27"/>
+                
+                <StackPanel x:Name="stMacAddress">
+                    <Label FontSize="13" Content="Địa chỉ MAC Address:"/>
+                    <TextBox x:Name="txtMAC" KeyDown="txtMAC_KeyDown" TextChanged="txtMAC_TextChanged" Margin="5" FontWeight="SemiBold" CharacterCasing="Upper" FontSize="27"/>
+                </StackPanel>
+                
                 <Label FontSize="13" Content="Message:"/>
                 <TextBlock x:Name="tbMessage" Padding="5" Foreground="Red" TextWrapping="Wrap" Text=""></TextBlock>
             </StackPanel>

@@ -23,7 +23,8 @@ namespace MultiCalibOpticalBoB_Ver1 {
         public wBosaSerialNumber(string _dutnumber) {
             InitializeComponent();
             this.dutNumber = string.Format("0{0}", _dutnumber);
-            lblTitle.Content = string.Format("NHẬP SỐ BOSA SERIAL CỦA DUT #0{0}", _dutnumber);
+            lblTitle.Content = string.Format("NHẬP THÔNG TIN CỦA DUT #0{0}", _dutnumber);
+            if (!GlobalData.initSetting.ENABLEWRITEMAC) this.stMacAddress.Visibility = Visibility.Collapsed;
         }
 
         private void Label_MouseDown(object sender, MouseButtonEventArgs e) {
@@ -52,14 +53,59 @@ namespace MultiCalibOpticalBoB_Ver1 {
                     case "04": { GlobalData.testingDataDut4.BOSASERIAL = _text; break; }
                     default: break;
                 }
-                
+
                 //close form
-                this.Close();
+                if (!GlobalData.initSetting.ENABLEWRITEMAC) this.Close();
+                else this.txtMAC.Focus();
             }
         }
 
         private void txtBosaNumber_TextChanged(object sender, TextChangedEventArgs e) {
             if (txtBosaNumber.Text.Trim().Length > 0) tbMessage.Text = "";
+        }
+
+        private void txtMAC_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == Key.Enter) {
+                string _text = txtMAC.Text.Trim().Replace(":","");
+                //check thong tin bosa
+                if (!BaseFunctions.mac_Address_Is_Correct(_text)) {
+                    tbMessage.Text = string.Format("Mac Address: \"{0}\" không hợp lệ.\nVui lòng nhập lại.", _text);
+                    txtMAC.Clear();
+                    txtMAC.Focus();
+                    return;
+                }
+                //get thong tin bosa
+                switch (this.dutNumber) {
+                    case "01": {
+                            GlobalData.testingDataDut1.MACADDRESS = _text;
+                            GlobalData.testingDataDut1.GPON = BaseFunctions.GEN_SERIAL_ONT(_text);
+                            break;
+                        }
+                    case "02": {
+                            GlobalData.testingDataDut2.MACADDRESS = _text;
+                            GlobalData.testingDataDut2.GPON = BaseFunctions.GEN_SERIAL_ONT(_text);
+                            break;
+                        }
+                    case "03": {
+                            GlobalData.testingDataDut3.MACADDRESS = _text;
+                            GlobalData.testingDataDut3.GPON = BaseFunctions.GEN_SERIAL_ONT(_text);
+                            break;
+                        }
+                    case "04": {
+                            GlobalData.testingDataDut4.MACADDRESS = _text;
+                            GlobalData.testingDataDut4.GPON = BaseFunctions.GEN_SERIAL_ONT(_text);
+                            break;
+                        }
+                    default: break;
+                }
+
+                //close form
+                this.Close();
+            }
+        }
+
+        private void txtMAC_TextChanged(object sender, TextChangedEventArgs e) {
+            if (txtMAC.Text.Trim().Length > 0) tbMessage.Text = "";
         }
     }
 }

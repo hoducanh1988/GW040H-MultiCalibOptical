@@ -141,6 +141,24 @@ namespace MultiCalibOpticalBoB_Ver1.Function
         }
         #endregion
 
+        //MAC
+        #region MAC
+        public int MACLEN {
+            get { return Properties.Settings.Default.MacLen; }
+            set {
+                Properties.Settings.Default.MacLen = value;
+                OnPropertyChanged(nameof(MACLEN));
+            }
+        }
+        public string MAC6DIGIT {
+            get { return Properties.Settings.Default.Mac6digits; }
+            set {
+                Properties.Settings.Default.Mac6digits = value;
+                OnPropertyChanged(nameof(MAC6DIGIT));
+            }
+        }
+        #endregion
+
         //DUT
         #region DUT
         public string ONTTYPE {
@@ -353,6 +371,13 @@ namespace MultiCalibOpticalBoB_Ver1.Function
                 OnPropertyChanged(nameof(ENABLEVERIFYSIGNAL));
             }
         }
+        public bool ENABLEWRITEMAC {
+            get { return Properties.Settings.Default.enablewritemac; }
+            set {
+                Properties.Settings.Default.enablewritemac = value;
+                OnPropertyChanged(nameof(ENABLEWRITEMAC));
+            }
+        }
 
         #endregion
 
@@ -462,6 +487,22 @@ namespace MultiCalibOpticalBoB_Ver1.Function
                 OnPropertyChanged(nameof(MACADDRESS));
             }
         }
+        string _gpon;
+        public string GPON {
+            get { return _gpon; }
+            set {
+                _gpon = value;
+                OnPropertyChanged(nameof(GPON));
+            }
+        }
+        string _wps;
+        public string WPS {
+            get { return _wps; }
+            set {
+                _wps = value;
+                OnPropertyChanged(nameof(WPS));
+            }
+        }
         string _bosaserial;
         public string BOSASERIAL {
             get { return _bosaserial; }
@@ -518,6 +559,15 @@ namespace MultiCalibOpticalBoB_Ver1.Function
                 OnPropertyChanged(nameof(VERIFYSIGNALRESULT));
             }
         }
+        string _writemac;
+        public string WRITEMACRESULT {
+            get { return _writemac; }
+            set {
+                _writemac = value;
+                OnPropertyChanged(nameof(WRITEMACRESULT));
+            }
+        }
+
         string _totalresult;
         public string TOTALRESULT {
             get { return _totalresult; }

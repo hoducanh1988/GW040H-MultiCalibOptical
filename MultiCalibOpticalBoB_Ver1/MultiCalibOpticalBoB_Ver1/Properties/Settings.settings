@@ -66,7 +66,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="enableverifysignal" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="EXFOIP" Type="System.String" Scope="User">
       <Value Profile="(Default)">192.168.1.18</Value>
@@ -109,6 +109,15 @@
     </Setting>
     <Setting Name="erCableAtt4" Type="System.String" Scope="User">
       <Value Profile="(Default)">18.83</Value>
+    </Setting>
+    <Setting Name="enablewritemac" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MacLen" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">12</Value>
+    </Setting>
+    <Setting Name="Mac6digits" Type="System.String" Scope="User">
+      <Value Profile="(Default)">A4F4C2:A06518</Value>
     </Setting>
   </Settings>
 </SettingsFile>

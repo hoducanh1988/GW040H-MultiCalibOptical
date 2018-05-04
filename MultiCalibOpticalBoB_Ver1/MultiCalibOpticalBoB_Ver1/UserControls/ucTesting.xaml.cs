@@ -677,6 +677,45 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             }
         }
 
+        bool _writeMAC(GW ont, testinginfo _testinfo) {
+            try {
+                //Write GPON
+                ont.Write(string.Format("prolinecmd gponsn set {0}\n", _testinfo.GPON));
+                string st = string.Format("writeflash: total write");
+                string _data = ""; int index = 0;
+
+                while (!_data.Contains(st)) {
+                    Thread.Sleep(500);
+                    if (index >= 6) break;
+                    else index++;
+                    _data += ont.Read();
+                }
+                if (index >= 6) return false;
+                //Write WPS
+
+                //Write MAC
+                _data = ""; index = 0;
+                ont.Write(string.Format("sys mac {0}\n", _testinfo.MACADDRESS));
+                st = string.Format("new mac addr = {0}:{1}:{2}:{3}:{4}:{5}",
+                       _testinfo.MACADDRESS.Substring(0, 2).ToLower(),
+                       _testinfo.MACADDRESS.Substring(2, 2).ToLower(),
+                       _testinfo.MACADDRESS.Substring(4, 2).ToLower(),
+                       _testinfo.MACADDRESS.Substring(6, 2).ToLower(),
+                       _testinfo.MACADDRESS.Substring(8, 2).ToLower(),
+                       _testinfo.MACADDRESS.Substring(10, 2).ToLower()
+                       );
+                while (!_data.Contains(st)) {
+                    Thread.Sleep(500);
+                    if (index >= 6) break;
+                    else index++;
+                    _data += ont.Read();
+                }
+                if (index >= 6) return false;
+                return true;
+            } catch {
+                return false;
+            }
+        }
 
         //****************************************************************************************************
         //****************************************************************************************************
@@ -688,9 +727,11 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             if (this._loginToONT(ref ontDevice, _testtemp.COMPORT, _testtemp) == false) goto END;
 
             //Get MAC Address
-            _testtemp.MACADDRESS = this._getMACAddress(ontDevice, _testtemp);
-            if (_testtemp.MACADDRESS == string.Empty) goto END;
-
+            if (!GlobalData.initSetting.ENABLEWRITEMAC) {
+                _testtemp.MACADDRESS = this._getMACAddress(ontDevice, _testtemp);
+                if (_testtemp.MACADDRESS == string.Empty) goto END;
+            }
+           
             //Calib Power
             if (GlobalData.initSetting.ENABLETUNINGPOWER) {
                 if (this._calibPower(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
@@ -739,6 +780,12 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             if (GlobalData.initSetting.ENABLEVERIFYSIGNAL) {
                 if (this._verifySignal(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
             }
+
+            //Write MAC
+            if (GlobalData.initSetting.ENABLEWRITEMAC) {
+                if (this._writeMAC(ontDevice, _testtemp) == false) goto END;
+            }
+
             _result = true;
 
             END:
@@ -776,6 +823,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 testtmp.SYSTEMLOG += string.Format("Input Bosa Serial...\r\n...{0}\r\n", testtmp.BOSASERIAL);
                 string _BosaSN = testtmp.BOSASERIAL;
                 if (_BosaSN == "--") return;
+                if (GlobalData.initSetting.ENABLEWRITEMAC) { if (testtmp.MACADDRESS == "--") return; }
 
                 //Get Bosa Information from Bosa Serial
                 bosainfo bosaInfo = new bosainfo();

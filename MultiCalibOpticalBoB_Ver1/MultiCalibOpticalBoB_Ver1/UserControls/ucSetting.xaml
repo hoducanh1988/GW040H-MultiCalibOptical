@@ -68,7 +68,7 @@
                                     <Label Content="Tổng số kí tự trên tem BOSA Serial Number" FontSize="13"></Label>
                                     <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=BOSASNLEN, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
                                     <Label Content="File BOSA Report" FontSize="13"></Label>
-                                    <TextBox IsReadOnly="True" FontSize="13" FontWeight="Normal" Padding="5,0,0,0" Text="{Binding Path=BOSAREPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox IsEnabled="False" FontSize="13" FontWeight="Normal" Padding="5,0,0,0" Text="{Binding Path=BOSAREPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <WrapPanel Margin="0,10,0,0">
                                         <Button Click="Button_Click"  Width="140" HorizontalAlignment="Left">Browser...</Button>
                                         <Button Click="Button_Click" Margin="10,0,0,0"  Width="140" HorizontalAlignment="Left">Import to SQL</Button>
@@ -78,7 +78,26 @@
                                     <!--<Image Source="/Asset/Images/BOSA.jpg"/>-->
                                 </Grid>
                             </Grid>
-                            
+                            <!--MINUS-->
+                            <Label FontSize="15" FontWeight="Bold" Content="-"></Label>
+                            <!--MAC-->
+                            <Grid Height="160">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT THÔNG TIN ĐỊA CHỈ MAC:"></Label>
+                                    <Label Content="Tổng số kí tự trên tem Mac Address" FontSize="13"></Label>
+                                    <TextBox IsEnabled="False" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=MACLEN, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
+                                    <Label Content="Định dạng 6 kí tự đầu tiên trên tem Mac Address" FontSize="13"></Label>
+                                    <TextBox FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=MAC6DIGIT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                </StackPanel>
+                                <Grid Grid.Column="1" Margin="10">
+                                    <!--<Image Source="/Asset/Images/BOSA.jpg"/>-->
+                                </Grid>
+                            </Grid>
                             <!--MINUS-->
                             <Label FontSize="15" FontWeight="Bold" Content="-"></Label>
                             <!--DUT-->
@@ -404,7 +423,25 @@
                                         </Style>
                                     </Label.Style>
                                 </Label>
-
+                                <!--Write MAC-->
+                                <Label Grid.Row="6" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Write MAC:</Label>
+                                <ToggleButton Grid.Row="6" Grid.Column="1" x:Name="togwm" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEWRITEMAC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="6" Grid.Column="2" FontSize="25" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=togwm, Path=IsChecked}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=togwm, Path=IsChecked}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
                             </Grid>
                            
                         </StackPanel>
