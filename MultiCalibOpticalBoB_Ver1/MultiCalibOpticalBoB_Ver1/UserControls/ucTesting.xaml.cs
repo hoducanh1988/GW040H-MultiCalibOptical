@@ -298,135 +298,167 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 _testinfo.SYSTEMLOG += "STEP 2: TUNING ER\r\n";
 
                 _var.Imod = ((_var.Pwr_temp + 3) / _var.Slope) + _var.Iav - _var.Ith - 1;
-                
-                for (int k = 0; k < 9; k++) {
+                bool _flag = false;
+
+                while (!_flag) {
                     _var.Imod_DAC = (Math.Round(_var.Imod * 4096 / 90)).ToString();
                     _var.Imod_DAC_Hex = int.Parse(_var.Imod_DAC).ToString("X");
                     ont.WriteLine("echo IMOD 0x" + _var.Imod_DAC_Hex + " >/proc/pon_phy/debug");
                     Thread.Sleep(Delay_modem);
-
+                    _testinfo.SYSTEMLOG += string.Format("Imod = {0}\r\n", _var.Imod);
                     _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER(Port));
                     _testinfo.SYSTEMLOG += string.Format("ER_temp = {0}\r\n", _var.ER_temp);
 
-                    if (!_var.ER_temp.ToString().Contains("E+")) {
-                        if (_var.ER_temp < 12 || _var.ER_temp > 13) {
-                            double ER_err = _var.ER_temp - 12.5;
-                            if (ER_err <= -5) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 5;
-                            }
-                            else if (ER_err > -5 && ER_err <= -4) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 4;
-                            }
-                            else if (ER_err > -4 && ER_err <= -3) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 3;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err > -3 && ER_err <= -2.5) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 2;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err > -2.5 && ER_err <= -2) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 1.5;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err > -2 && ER_err <= -1.5) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 1;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err > -1.5 && ER_err <= -1) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 0.5;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err > -1 && ER_err <= -0.5) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 0.5;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            //else if (ER_err >= 0.5)
-                            //{
-                            //    SetText(Tx_rtbAll, "Cần tăng Imod.");
-                            //    Imod = Imod + 0.5;
-                            //    SetText(Tx_rtbAll, "Imod mới = " + Imod);
-                            //}
-
-                            //------------------------------------------
-                            if (ER_err >= 5) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 4.5;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 4 && ER_err < 5) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 4;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 3 && ER_err < 4) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 3;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 2.5 && ER_err < 3) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 2;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 2 && ER_err < 2.5) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 1.5;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 1.5 && ER_err < 2) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 1;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 1 && ER_err < 1.5) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 1;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 0.5 && ER_err < 1) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 0.5;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                        }
-                        else if (_var.ER_temp >= 12 && _var.ER_temp <= 13) {
-                            ont.WriteLine("echo set_flash_register 0x00060023 0x64 >/proc/pon_phy/debug"); //Bù ER ở nhiệt độ 45*C
-                            Thread.Sleep(Delay_modem);
-                            _result = true;
-                            break;
-                        }
-
-                    }
-                    else if (_var.ER_temp.ToString().Contains("E+")) {
-                        _result = false;
+                    if (_var.ER_temp.ToString().Contains("E+")) { _flag = true; break; }
+                    if (_var.ER_temp >= 12 && _var.ER_temp <= 13) {
+                        ont.WriteLine("echo set_flash_register 0x00060023 0x64 >/proc/pon_phy/debug"); //Bù ER ? nhi?t d? 45*C
+                        Thread.Sleep(Delay_modem);
+                        _result = true;
+                        _flag = true;
                         break;
                     }
+                    double ER_err = _var.ER_temp - 12.5;
+                    if (ER_err < 0) {
+                        _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
+                        _testinfo.SYSTEMLOG += "-----------------\r\n";
+                        _var.Imod += 0.9;
+                    }
+                    else {
+                        _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
+                        _testinfo.SYSTEMLOG += "-----------------\r\n";
+                        _var.Imod -= 0.9;
+                    }
                 }
+
+
+                //for (int k = 0; k < 9; k++) {
+                //    _var.Imod_DAC = (Math.Round(_var.Imod * 4096 / 90)).ToString();
+                //    _var.Imod_DAC_Hex = int.Parse(_var.Imod_DAC).ToString("X");
+                //    ont.WriteLine("echo IMOD 0x" + _var.Imod_DAC_Hex + " >/proc/pon_phy/debug");
+                //    Thread.Sleep(Delay_modem);
+
+                //    _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER(Port));
+                //    _testinfo.SYSTEMLOG += string.Format("ER_temp = {0}\r\n", _var.ER_temp);
+
+                //    if (!_var.ER_temp.ToString().Contains("E+")) {
+                //        if (_var.ER_temp < 12 || _var.ER_temp > 13) {
+                //            double ER_err = _var.ER_temp - 12.5;
+                //            if (ER_err <= -5) {
+                //                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod + 5;
+                //            }
+                //            else if (ER_err > -5 && ER_err <= -4) {
+                //                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod + 4;
+                //            }
+                //            else if (ER_err > -4 && ER_err <= -3) {
+                //                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod + 3;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            else if (ER_err > -3 && ER_err <= -2.5) {
+                //                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod + 2;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            else if (ER_err > -2.5 && ER_err <= -2) {
+                //                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod + 1.5;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            else if (ER_err > -2 && ER_err <= -1.5) {
+                //                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod + 1;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            else if (ER_err > -1.5 && ER_err <= -1) {
+                //                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod + 0.5;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            else if (ER_err > -1 && ER_err <= -0.5) {
+                //                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod + 0.5;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            //else if (ER_err >= 0.5)
+                //            //{
+                //            //    SetText(Tx_rtbAll, "Cần tăng Imod.");
+                //            //    Imod = Imod + 0.5;
+                //            //    SetText(Tx_rtbAll, "Imod mới = " + Imod);
+                //            //}
+
+                //            //------------------------------------------
+                //            if (ER_err >= 5) {
+                //                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod - 4.5;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            else if (ER_err >= 4 && ER_err < 5) {
+                //                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod - 4;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            else if (ER_err >= 3 && ER_err < 4) {
+                //                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod - 3;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            else if (ER_err >= 2.5 && ER_err < 3) {
+                //                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod - 2;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            else if (ER_err >= 2 && ER_err < 2.5) {
+                //                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod - 1.5;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            else if (ER_err >= 1.5 && ER_err < 2) {
+                //                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod - 1;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            else if (ER_err >= 1 && ER_err < 1.5) {
+                //                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod - 1;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //            else if (ER_err >= 0.5 && ER_err < 1) {
+                //                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
+                //                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                //                _var.Imod = _var.Imod - 0.5;
+                //                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                //            }
+                //        }
+                //        else if (_var.ER_temp >= 12 && _var.ER_temp <= 13) {
+                //            ont.WriteLine("echo set_flash_register 0x00060023 0x64 >/proc/pon_phy/debug"); //Bù ER ở nhiệt độ 45*C
+                //            Thread.Sleep(Delay_modem);
+                //            _result = true;
+                //            break;
+                //        }
+
+                //    }
+                //    else if (_var.ER_temp.ToString().Contains("E+")) {
+                //        _result = false;
+                //        break;
+                //    }
+                //}
                 _testinfo.SYSTEMLOG += _result == true ? "Tuning ER: PASS\r\n" : "Tuning ER: FAIL.\r\n";
                 _testinfo.TUNINGERRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
                 return _result;
@@ -591,16 +623,17 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
         //****************************************************************************************************
         bool RunAll(testinginfo _testtemp, bosainfo _bosainfo, variables _vari) {
             //login to ONT
+            bool _result = false;
             GW ontDevice = null;
-            if (this._loginToONT(ref ontDevice, _testtemp.COMPORT, _testtemp) == false) return false;
+            if (this._loginToONT(ref ontDevice, _testtemp.COMPORT, _testtemp) == false) goto END;
 
             //Get MAC Address
             _testtemp.MACADDRESS = this._getMACAddress(ontDevice, _testtemp);
-            if (_testtemp.MACADDRESS == string.Empty) return false;
+            if (_testtemp.MACADDRESS == string.Empty) goto END;
 
             //Calib Power
             if (GlobalData.initSetting.ENABLETUNINGPOWER) {
-                if (this._calibPower(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) return false;
+                if (this._calibPower(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
             }
 
             //Calib ER
@@ -609,17 +642,18 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 et.Start();
 
                 //Đăng kí thứ tự Calib ER
-                if (this._addToListSequenceTestER(_testtemp) == false) return false;
+                if (this._addToListSequenceTestER(_testtemp) == false) goto END;
+
                 //Chờ đến lượt timeout 30s
                 if (this._waitForTurn(_testtemp) == false) {
                     this._removeFromListSequenceTestER(_testtemp);
-                    return false;
+                    goto END;
                 }
                 //Switch Port check ER
                 _testtemp.SYSTEMLOG += string.Format("Switching port...{0}\r\n", _testtemp.ONTINDEX);
-                if (GlobalData.switchDevice.switchToPort(int.Parse(_testtemp.ONTINDEX)) == false) return false;
+                if (GlobalData.switchDevice.switchToPort(int.Parse(_testtemp.ONTINDEX)) == false) goto END;
                 //Calib ER
-                if (this._calibER(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) return false;
+                if (this._calibER(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
                 //Xóa thứ tự đăng kí Calib ER (để Thread # có thể sử dụng)
                 this._removeFromListSequenceTestER(_testtemp);
 
@@ -629,25 +663,28 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
 
             //TX DDMI
             if (GlobalData.initSetting.ENABLETXDDMI) {
-                if (this._txDDMI(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) return false;
+                if (this._txDDMI(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
             }
 
             //Signal Off
             if (GlobalData.initSetting.ENABLESIGNALOFF) {
-                if (this._signalOff(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) return false;
+                if (this._signalOff(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
             }
 
             //Write flash
             if (GlobalData.initSetting.ENABLEWRITEFLASH) {
-                if (this._writeFlash(ontDevice, _bosainfo, _testtemp) == false) return false;
+                if (this._writeFlash(ontDevice, _bosainfo, _testtemp) == false) goto END;
             }
 
             //Verify Signal
             if (GlobalData.initSetting.ENABLEVERIFYSIGNAL) {
-                if (this._verifySignal(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) return false;
+                if (this._verifySignal(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
             }
+            _result = true;
 
-            return true;
+            END:
+            try { ontDevice.Close(); } catch { }
+            return _result;
         }
 
         #endregion
