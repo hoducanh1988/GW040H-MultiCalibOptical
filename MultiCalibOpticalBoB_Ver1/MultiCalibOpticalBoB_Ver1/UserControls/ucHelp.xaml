@@ -8,6 +8,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Border BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" CornerRadius="5" Background="{StaticResource colorBackground}">
-
+        <DocumentViewer Margin="5,0,5,0" x:Name="docViewer"></DocumentViewer>
     </Border>
 </UserControl>

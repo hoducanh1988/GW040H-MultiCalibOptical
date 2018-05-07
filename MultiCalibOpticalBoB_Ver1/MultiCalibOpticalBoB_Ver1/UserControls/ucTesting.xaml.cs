@@ -192,7 +192,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             //Get MAC Address
             if (!GlobalData.initSetting.ENABLEWRITEMAC) {
                 _testtemp.MACADDRESS = ontDevice.getMACAddress(_testtemp);
-                if (_testtemp.MACADDRESS == string.Empty) goto END;
+                if (_testtemp.MACADDRESS == string.Empty) { _testtemp.ERRORCODE = "(Mã Lỗi: COT-GM-0001)";  goto END; }
             }
            
             //Calib Power
@@ -286,6 +286,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 testtmp.SYSTEMLOG += string.Format("Input Bosa Serial...\r\n...{0}\r\n", testtmp.BOSASERIAL);
                 string _BosaSN = testtmp.BOSASERIAL;
                 if (_BosaSN == "--") return;
+
                 if (GlobalData.initSetting.ENABLEWRITEMAC) { if (testtmp.MACADDRESS == "--") return; }
 
                 //Get Bosa Information from Bosa Serial
@@ -294,7 +295,8 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 testtmp.SYSTEMLOG += string.Format("Get Bosa information...\r\n");
                 bosaInfo = this._getDataByBosaSN(_BosaSN);
                 if (bosaInfo == null) {
-                    testtmp.SYSTEMLOG += string.Format("...FAIL. Bosa SN is not existed\r\n");
+                    testtmp.ERRORCODE = "(Mã Lỗi: COT-BS-0001)";
+                    testtmp.SYSTEMLOG += string.Format("...FAIL. {0}. Bosa SN is not existed\r\n", testtmp.ERRORCODE);
                     testtmp.TOTALRESULT = Parameters.testStatus.FAIL.ToString();
                     goto END;
                 }
@@ -304,6 +306,8 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 testtmp.TOTALRESULT = Parameters.testStatus.Wait.ToString();
                 testtmp.BUTTONCONTENT = "STOP"; testtmp.BUTTONENABLE = false;
                 testtmp.TOTALRESULT = RunAll(testtmp, bosaInfo, vari) == false ? Parameters.testStatus.FAIL.ToString() : Parameters.testStatus.PASS.ToString();
+                Function.IO.LogDetail.Save(testtmp);
+                Function.IO.LogTest.Save(testtmp);
 
                 END:
                 testtmp.SYSTEMLOG += string.Format("\r\n----------------------------\r\nTotal Judged={0}\r\n", testtmp.TOTALRESULT);

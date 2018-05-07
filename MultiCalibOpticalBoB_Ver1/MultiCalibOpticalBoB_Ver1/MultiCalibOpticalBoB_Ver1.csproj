@@ -83,6 +83,8 @@
     <Compile Include="Function\Instrument\IQS1700.cs" />
     <Compile Include="Function\Instrument\IQS9100B.cs" />
     <Compile Include="Function\IO\BosaReport.cs" />
+    <Compile Include="Function\IO\LogDetail.cs" />
+    <Compile Include="Function\IO\LogTest.cs" />
     <Compile Include="Function\Ont\GW.cs" />
     <Compile Include="Function\Ont\GW020BoB.cs" />
     <Compile Include="Function\Ont\GW040H.cs" />
@@ -108,6 +110,9 @@
     </Compile>
     <Compile Include="UserControls\ucHelp.xaml.cs">
       <DependentUpon>ucHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucLog.xaml.cs">
+      <DependentUpon>ucLog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ucLogin.xaml.cs">
       <DependentUpon>ucLogin.xaml</DependentUpon>
@@ -208,6 +213,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ucHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucLog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

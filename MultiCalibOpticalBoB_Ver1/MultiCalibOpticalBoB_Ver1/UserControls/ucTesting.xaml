@@ -54,7 +54,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="280"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="130"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Margin="5">
                         <WrapPanel>
@@ -78,6 +78,18 @@
                                 <StackPanel Margin="10,10,0,0">
                                     <!--Tuning Power-->
                                     <WrapPanel>
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGPOWER}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGPOWER}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -102,6 +114,18 @@
                                     </WrapPanel>
                                     <!--Tuning ER-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGER}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGER}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -126,6 +150,18 @@
                                     </WrapPanel>
                                     <!--TX DDMI-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETXDDMI}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETXDDMI}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -150,6 +186,18 @@
                                     </WrapPanel>
                                     <!--Signal Off-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ESIGNALOFF}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ESIGNALOFF}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -174,6 +222,18 @@
                                     </WrapPanel>
                                     <!--Write Flash-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEFLASH}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEFLASH}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -195,10 +255,21 @@
                                             </Border.Style>
                                         </Border>
                                         <Label Margin="10,0,0,0" FontSize="15" FontWeight="Bold">Write to Flash</Label>
-                                        <Label Margin="0,0,0,0" FontSize="13" FontWeight="Bold" Foreground="Red" VerticalAlignment="Center">0xC002</Label>
                                     </WrapPanel>
                                     <!--Verify Signal-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=EVERIFYSIGNAL}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=EVERIFYSIGNAL}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -223,6 +294,18 @@
                                     </WrapPanel>
                                     <!--Write MAC-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEMAC}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEMAC}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -286,6 +369,7 @@
                                     </Style>
                                 </Label.Style>
                             </Label>
+                            <Label Margin="0,-10,0,0" Content="{Binding Path=ERRORCODE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="15" Foreground="Red" FontWeight="SemiBold" HorizontalContentAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -297,7 +381,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="280"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="130"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Margin="5">
                         <WrapPanel>
@@ -321,6 +405,18 @@
                                 <StackPanel Margin="10,10,0,0">
                                     <!--Tuning Power-->
                                     <WrapPanel>
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGPOWER}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGPOWER}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -345,6 +441,18 @@
                                     </WrapPanel>
                                     <!--Tuning ER-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGER}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGER}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -369,6 +477,18 @@
                                     </WrapPanel>
                                     <!--TX DDMI-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETXDDMI}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETXDDMI}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -393,6 +513,18 @@
                                     </WrapPanel>
                                     <!--Signal Off-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ESIGNALOFF}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ESIGNALOFF}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -417,6 +549,18 @@
                                     </WrapPanel>
                                     <!--Write Flash-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEFLASH}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEFLASH}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -438,10 +582,21 @@
                                             </Border.Style>
                                         </Border>
                                         <Label Margin="10,0,0,0" FontSize="15" FontWeight="Bold">Write to Flash</Label>
-                                        <Label Margin="0,0,0,0" FontSize="13" FontWeight="Bold" Foreground="Red" VerticalAlignment="Center">0xC002</Label>
                                     </WrapPanel>
                                     <!--Verify Signal-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=EVERIFYSIGNAL}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=EVERIFYSIGNAL}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -466,6 +621,18 @@
                                     </WrapPanel>
                                     <!--Write MAC-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEMAC}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEMAC}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -529,6 +696,7 @@
                                     </Style>
                                 </Label.Style>
                             </Label>
+                            <Label Margin="0,-10,0,0" Content="{Binding Path=ERRORCODE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="15" Foreground="Red" FontWeight="SemiBold" HorizontalContentAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -540,7 +708,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="280"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="130"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Margin="5">
                         <WrapPanel>
@@ -564,6 +732,18 @@
                                 <StackPanel Margin="10,10,0,0">
                                     <!--Tuning Power-->
                                     <WrapPanel>
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGPOWER}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGPOWER}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -588,6 +768,18 @@
                                     </WrapPanel>
                                     <!--Tuning ER-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGER}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGER}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -612,6 +804,18 @@
                                     </WrapPanel>
                                     <!--TX DDMI-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETXDDMI}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETXDDMI}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -636,6 +840,18 @@
                                     </WrapPanel>
                                     <!--Signal Off-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ESIGNALOFF}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ESIGNALOFF}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -660,6 +876,18 @@
                                     </WrapPanel>
                                     <!--Write Flash-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEFLASH}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEFLASH}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -681,10 +909,21 @@
                                             </Border.Style>
                                         </Border>
                                         <Label Margin="10,0,0,0" FontSize="15" FontWeight="Bold">Write to Flash</Label>
-                                        <Label Margin="0,0,0,0" FontSize="13" FontWeight="Bold" Foreground="Red" VerticalAlignment="Center">0xC002</Label>
                                     </WrapPanel>
                                     <!--Verify Signal-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=EVERIFYSIGNAL}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=EVERIFYSIGNAL}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -709,6 +948,18 @@
                                     </WrapPanel>
                                     <!--Write MAC-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEMAC}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEMAC}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -772,6 +1023,7 @@
                                     </Style>
                                 </Label.Style>
                             </Label>
+                            <Label Margin="0,-10,0,0" Content="{Binding Path=ERRORCODE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="15" Foreground="Red" FontWeight="SemiBold" HorizontalContentAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -783,7 +1035,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="280"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="130"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Margin="5">
                         <WrapPanel>
@@ -807,6 +1059,18 @@
                                 <StackPanel Margin="10,10,0,0">
                                     <!--Tuning Power-->
                                     <WrapPanel>
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGPOWER}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGPOWER}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -831,6 +1095,18 @@
                                     </WrapPanel>
                                     <!--Tuning ER-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGER}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGER}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -855,6 +1131,18 @@
                                     </WrapPanel>
                                     <!--TX DDMI-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETXDDMI}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETXDDMI}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -879,6 +1167,18 @@
                                     </WrapPanel>
                                     <!--Signal Off-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ESIGNALOFF}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ESIGNALOFF}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -903,6 +1203,18 @@
                                     </WrapPanel>
                                     <!--Write Flash-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEFLASH}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEFLASH}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -924,10 +1236,21 @@
                                             </Border.Style>
                                         </Border>
                                         <Label Margin="10,0,0,0" FontSize="15" FontWeight="Bold">Write to Flash</Label>
-                                        <Label Margin="0,0,0,0" FontSize="13" FontWeight="Bold" Foreground="Red" VerticalAlignment="Center">0xC002</Label>
                                     </WrapPanel>
                                     <!--Verify Signal-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=EVERIFYSIGNAL}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=EVERIFYSIGNAL}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -952,6 +1275,18 @@
                                     </WrapPanel>
                                     <!--Write MAC-->
                                     <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEMAC}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=EWRITEMAC}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
                                         <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
                                             <Border.Style>
                                                 <Style TargetType="Border">
@@ -1015,6 +1350,7 @@
                                     </Style>
                                 </Label.Style>
                             </Label>
+                            <Label Margin="0,-10,0,0" Content="{Binding Path=ERRORCODE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="15" Foreground="Red" FontWeight="SemiBold" HorizontalContentAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                 </Grid>

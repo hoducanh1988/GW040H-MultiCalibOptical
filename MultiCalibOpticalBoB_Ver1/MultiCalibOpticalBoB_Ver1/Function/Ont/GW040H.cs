@@ -81,19 +81,27 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
             }
         }
 
+        //Calib Quang------------------------------//
         public override bool loginToONT(testinginfo _testinfo) {
             _testinfo.SYSTEMLOG += string.Format("Verifying type of ONT...\r\n...{0}\r\n", GlobalData.initSetting.ONTTYPE);
             bool _result = false;
             string _message = "";
            
             _testinfo.SYSTEMLOG += "Open comport of ONT...\r\n";
-            if (!base.Open(out _message)) { _testinfo.SYSTEMLOG += string.Format("...{0}\r\n", _message); return false; }
+            if (!base.Open(out _message)) {
+                _testinfo.ERRORCODE = "(Mã Lỗi: COT-LI-0001)";
+                _testinfo.SYSTEMLOG += string.Format("...{0}, {1}\r\n", _testinfo.ERRORCODE, _message);
+                return false;
+            }
             _testinfo.SYSTEMLOG += "...PASS\r\n";
 
             _testinfo.SYSTEMLOG += "Login to ONT...\r\n";
             _result = this.Login(out _message);
-            _testinfo.SYSTEMLOG += string.Format("...{0}\r\n", _message);
+
+            if (_result == false) _testinfo.ERRORCODE = "(Mã Lỗi: COT-LI-0002)";
+            _testinfo.SYSTEMLOG += string.Format("...{0}, {1}\r\n", _testinfo.ERRORCODE, _message);
             _testinfo.SYSTEMLOG += _result == true ? "PASS\r\n" : "FAIL\r\n";
+
             return _result;
         }
 
@@ -234,12 +242,15 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                         break;
                     }
                 }
-
-                _testinfo.SYSTEMLOG += _result == true ? "Tuning ER: PASS\r\n" : "Tuning ER: FAIL.\r\n";
+                
+                if (_result == false) _testinfo.ERRORCODE = "(Mã Lỗi: COT-ER-0001)";
+                _testinfo.SYSTEMLOG += _result == true ? "Tuning ER: PASS\r\n" : string.Format("Tuning ER: FAIL. {0}\r\n", _testinfo.ERRORCODE);
                 _testinfo.TUNINGERRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
                 return _result;
             }
-            catch {
+            catch (Exception ex) {
+                _testinfo.ERRORCODE = "(Mã Lỗi: COT-ER-0002)";
+                _testinfo.SYSTEMLOG += string.Format("{0}, {1}\r\n", _testinfo.ERRORCODE, ex.ToString());
                 _testinfo.TUNINGERRESULT = Parameters.testStatus.FAIL.ToString();
                 return false;
             }
@@ -274,7 +285,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 _testinfo.SYSTEMLOG += string.Format("Pwr_1 = {0}\r\n", _var.Pwr_1);
 
                 if (_var.Pwr_1 <= -8) {
-                    _testinfo.SYSTEMLOG += "Tuning Power: FAIL.\r\n";
+                    _testinfo.ERRORCODE = "(Mã Lỗi: COT-PW-0001)";
+                    _testinfo.SYSTEMLOG += string.Format("Tuning Power: FAIL. {0}\r\n", _testinfo.ERRORCODE);
                     _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.FAIL.ToString();
                     return false;
                 }
@@ -310,11 +322,14 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                     }
                 }
 
-                _testinfo.SYSTEMLOG += _result == true ? "Tuning Power: PASS.\r\n" : "Tuning Power: FAIL.\r\n";
+                if (_result == false) _testinfo.ERRORCODE = "(Mã Lỗi: COT-PW-0001)";
+                _testinfo.SYSTEMLOG += _result == true ? "Tuning Power: PASS.\r\n" : string.Format("Tuning Power: FAIL. {0}\r\n", _testinfo.ERRORCODE);
                 _testinfo.TUNINGPOWERRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
                 return _result;
             }
-            catch {
+            catch (Exception ex) {
+                _testinfo.ERRORCODE = "(Mã Lỗi: COT-PW-0002)";
+                _testinfo.SYSTEMLOG += string.Format("{0}, {1}\r\n", _testinfo.ERRORCODE, ex.ToString());
                 _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.FAIL.ToString();
                 return false;
             }
@@ -334,7 +349,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 return mac;
             }
             catch (Exception ex) {
-                _testinfo.SYSTEMLOG += string.Format("...FAIL. {0}\r\n", ex.ToString());
+                _testinfo.ERRORCODE = "(Mã Lỗi: COT-GM-0001)";
+                _testinfo.SYSTEMLOG += string.Format("...FAIL. {0}. {1}\r\n", _testinfo.ERRORCODE, ex.ToString());
                 return string.Empty;
             }
         }
@@ -357,11 +373,14 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 else {
                     _result = false;
                 }
-                _testinfo.SYSTEMLOG += _result == true ? "TxPower Off: PASS\r\n" : "TxPower Off: FAIL\r\n";
+                if (_result == false) _testinfo.ERRORCODE = "(Mã Lỗi: COT-SO-0001)";
+                _testinfo.SYSTEMLOG += _result == true ? "TxPower Off: PASS\r\n" : string.Format("TxPower Off: FAIL. {0}\r\n", _testinfo.ERRORCODE);
                 _testinfo.SIGNALOFFRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
                 return _result;
             }
-            catch {
+            catch (Exception ex) {
+                _testinfo.ERRORCODE = "(Mã Lỗi: COT-SO-0002)";
+                _testinfo.SYSTEMLOG += string.Format("{0}, {1}\r\n", _testinfo.ERRORCODE, ex.ToString());
                 _testinfo.SIGNALOFFRESULT = Parameters.testStatus.FAIL.ToString();
                 return false;
             }
@@ -406,11 +425,14 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                         }
                     }
                 }
-                _testinfo.SYSTEMLOG += _result == true ? "Check Power DDMI: PASS.\r\n" : "Check Power DDMI: FAIL.\r\n";
+                if (_result == false) _testinfo.ERRORCODE = "(Mã Lỗi: COT-MI-0001)";
+                _testinfo.SYSTEMLOG += _result == true ? "Check Power DDMI: PASS.\r\n" : string.Format("Check Power DDMI: FAIL. {0}\r\n", _testinfo.ERRORCODE);
                 _testinfo.TXDDMIRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
                 return _result;
             }
-            catch {
+            catch (Exception ex) {
+                _testinfo.ERRORCODE = "(Mã Lỗi: COT-MI-0002)";
+                _testinfo.SYSTEMLOG += string.Format("{0}, {1}\r\n", _testinfo.ERRORCODE, ex.ToString());
                 _testinfo.TXDDMIRESULT = Parameters.testStatus.FAIL.ToString();
                 return false;
             }
@@ -437,12 +459,14 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 else {
                     _result = false;
                 }
-
-                _testinfo.SYSTEMLOG += _result == true ? "Verify Signal: PASS.\r\n" : "Verify Signal: FAIL.\r\n";
+                if (_result == false) _testinfo.ERRORCODE = "(Mã Lỗi: COT-VS-0001)";
+                _testinfo.SYSTEMLOG += _result == true ? "Verify Signal: PASS.\r\n" : string.Format("Verify Signal: FAIL. {0}\r\n", _testinfo.ERRORCODE);
                 _testinfo.VERIFYSIGNALRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
                 return _result;
             }
-            catch {
+            catch (Exception ex) {
+                _testinfo.ERRORCODE = "(Mã Lỗi: COT-VS-0002)";
+                _testinfo.SYSTEMLOG += string.Format("{0}, {1}\r\n", _testinfo.ERRORCODE, ex.ToString());
                 _testinfo.VERIFYSIGNALRESULT = Parameters.testStatus.FAIL.ToString();
                 return false;
             }
@@ -478,12 +502,15 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                         break;
                     }
                 }
-                _testinfo.SYSTEMLOG += _result == true ? "Write flash thành công.\r\n" : "Write flash thất bại.\r\n";
+                if (_result == false) _testinfo.ERRORCODE = "(Mã Lỗi: COT-WF-0001)";
+                _testinfo.SYSTEMLOG += _result == true ? "Write flash thành công.\r\n" : string.Format("Write flash thất bại. {0}\r\n", _testinfo.ERRORCODE);
                 _testinfo.SYSTEMLOG += "Hoàn thành quá trình Calibration.\r\n";
                 _testinfo.WRITEFLASHRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
                 return _result;
             }
-            catch {
+            catch (Exception ex) {
+                _testinfo.ERRORCODE = "(Mã Lỗi: COT-WF-0002)";
+                _testinfo.SYSTEMLOG += string.Format("{0}, {1}\r\n", _testinfo.ERRORCODE, ex.ToString());
                 _testinfo.WRITEFLASHRESULT = Parameters.testStatus.FAIL.ToString();
                 return false;
             }
@@ -502,7 +529,11 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                     else index++;
                     _data += base.Read();
                 }
-                if (index >= 6) return false;
+                if (index >= 6) {
+                    _testinfo.ERRORCODE = "(Mã Lỗi: COT-WM-0001)";
+                    _testinfo.SYSTEMLOG += string.Format("{0}\r\n", _testinfo.ERRORCODE);
+                    return false;
+                }
                 //Write WPS
 
                 //Write MAC
@@ -522,12 +553,19 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                     else index++;
                     _data += base.Read();
                 }
-                if (index >= 6) return false;
+                if (index >= 6) {
+                    _testinfo.ERRORCODE = "(Mã Lỗi: COT-WM-0003)";
+                    _testinfo.SYSTEMLOG += string.Format("{0}\r\n", _testinfo.ERRORCODE);
+                    return false;
+                }
                 return true;
             }
-            catch {
+            catch (Exception ex) {
+                _testinfo.ERRORCODE = "(Mã Lỗi: COT-WM-0004)";
+                _testinfo.SYSTEMLOG += string.Format("{0}, {1}\r\n", _testinfo.ERRORCODE, ex.ToString());
                 return false;
             }
         }
+        //Calib Quang------------------------------//
     }
 }

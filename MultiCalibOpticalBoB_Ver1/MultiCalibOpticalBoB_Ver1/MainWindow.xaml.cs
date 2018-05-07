@@ -32,7 +32,7 @@ namespace MultiCalibOpticalBoB_Ver1 {
         }
 
         private void bringUCtoFront(int index) {
-            List<Control> list = new List<Control>() { ucTesting, ucStep, ucSetting, ucHelp, ucAbout };
+            List<Control> list = new List<Control>() { ucTesting, ucStep, ucSetting, ucLog, ucHelp, ucAbout };
             for (int i = 0; i < list.Count; i++) {
                 if (i == index) {
                     list[i].Visibility = Visibility.Visible;
@@ -71,7 +71,7 @@ namespace MultiCalibOpticalBoB_Ver1 {
                         break;
                     }
                 default: {
-                        Dictionary<string, int> dictionary = new Dictionary<string, int>() { { "TEST ALL", 0 }, { "MANUAL", 1 }, { "SETTING", 2 }, { "HELP", 3 }, { "ABOUT", 4 } };
+                        Dictionary<string, int> dictionary = new Dictionary<string, int>() { { "TEST ALL", 0 }, { "MANUAL", 1 }, { "SETTING", 2 }, { "DATALOG", 3 }, { "HELP", 4 }, { "ABOUT", 5 } };
                         int t;
                         bool ret = dictionary.TryGetValue(l.Content.ToString(), out t);
                         this.lblMinus.Margin = new Thickness(t * 100, 0, 0, 0);

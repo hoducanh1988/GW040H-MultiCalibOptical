@@ -16,7 +16,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
 
         public abstract bool outTXPower();
 
-        //Calib ------------------------------//
+        //Calib Quang------------------------------//
         public abstract bool loginToONT(testinginfo _testinfo);
         public abstract string getMACAddress(testinginfo _testinfo);
         public abstract bool calibPower(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var);
@@ -26,5 +26,6 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
         public abstract bool writeFlash(bosainfo _bosainfo, testinginfo _testinfo);
         public abstract bool verifySignal(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var);
         public abstract bool writeMAC(testinginfo _testinfo);
+        //Calib Quang------------------------------//
     }
 }

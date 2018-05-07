@@ -333,6 +333,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.enabletuningpower; }
             set {
                 Properties.Settings.Default.enabletuningpower = value;
+                GlobalData.testingDataDut1.ETUNINGPOWER = value;
+                GlobalData.testingDataDut2.ETUNINGPOWER = value;
+                GlobalData.testingDataDut3.ETUNINGPOWER = value;
+                GlobalData.testingDataDut4.ETUNINGPOWER = value;
                 OnPropertyChanged(nameof(ENABLETUNINGPOWER));
             }
         }
@@ -340,6 +344,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.enabletuninger; }
             set {
                 Properties.Settings.Default.enabletuninger = value;
+                GlobalData.testingDataDut1.ETUNINGER = value;
+                GlobalData.testingDataDut2.ETUNINGER = value;
+                GlobalData.testingDataDut3.ETUNINGER = value;
+                GlobalData.testingDataDut4.ETUNINGER = value;
                 OnPropertyChanged(nameof(ENABLETUNINGER));
             }
         }
@@ -347,6 +355,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.enabletxddmi; }
             set {
                 Properties.Settings.Default.enabletxddmi = value;
+                GlobalData.testingDataDut1.ETXDDMI = value;
+                GlobalData.testingDataDut2.ETXDDMI = value;
+                GlobalData.testingDataDut3.ETXDDMI = value;
+                GlobalData.testingDataDut4.ETXDDMI = value;
                 OnPropertyChanged(nameof(ENABLETXDDMI));
             }
         }
@@ -354,6 +366,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.enablesignaloff; }
             set {
                 Properties.Settings.Default.enablesignaloff = value;
+                GlobalData.testingDataDut1.ESIGNALOFF = value;
+                GlobalData.testingDataDut2.ESIGNALOFF = value;
+                GlobalData.testingDataDut3.ESIGNALOFF = value;
+                GlobalData.testingDataDut4.ESIGNALOFF = value;
                 OnPropertyChanged(nameof(ENABLESIGNALOFF));
             }
         }
@@ -361,6 +377,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.enablewriteflash; }
             set {
                 Properties.Settings.Default.enablewriteflash = value;
+                GlobalData.testingDataDut1.EWRITEFLASH = value;
+                GlobalData.testingDataDut2.EWRITEFLASH = value;
+                GlobalData.testingDataDut3.EWRITEFLASH = value;
+                GlobalData.testingDataDut4.EWRITEFLASH = value;
                 OnPropertyChanged(nameof(ENABLEWRITEFLASH));
             }
         }
@@ -368,6 +388,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.enableverifysignal; }
             set {
                 Properties.Settings.Default.enableverifysignal = value;
+                GlobalData.testingDataDut1.EVERIFYSIGNAL = value;
+                GlobalData.testingDataDut2.EVERIFYSIGNAL = value;
+                GlobalData.testingDataDut3.EVERIFYSIGNAL = value;
+                GlobalData.testingDataDut4.EVERIFYSIGNAL = value;
                 OnPropertyChanged(nameof(ENABLEVERIFYSIGNAL));
             }
         }
@@ -375,6 +399,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             get { return Properties.Settings.Default.enablewritemac; }
             set {
                 Properties.Settings.Default.enablewritemac = value;
+                GlobalData.testingDataDut1.EWRITEMAC = value;
+                GlobalData.testingDataDut2.EWRITEMAC = value;
+                GlobalData.testingDataDut3.EWRITEMAC = value;
+                GlobalData.testingDataDut4.EWRITEMAC = value;
                 OnPropertyChanged(nameof(ENABLEWRITEMAC));
             }
         }
@@ -462,6 +490,67 @@ namespace MultiCalibOpticalBoB_Ver1.Function
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        #region enable tuning
+
+        bool _etuningpower;
+        public bool ETUNINGPOWER {
+            get { return _etuningpower; }
+            set {
+                _etuningpower = value;
+                OnPropertyChanged(nameof(ETUNINGPOWER));
+            }
+        }
+        bool _etuninger;
+        public bool ETUNINGER {
+            get { return _etuninger; }
+            set {
+                _etuninger = value;
+                OnPropertyChanged(nameof(ETUNINGER));
+            }
+        }
+        bool _etxddmi;
+        public bool ETXDDMI {
+            get { return _etxddmi; }
+            set {
+                _etxddmi = value;
+                OnPropertyChanged(nameof(ETXDDMI));
+            }
+        }
+        bool _esignaloff;
+        public bool ESIGNALOFF {
+            get { return _esignaloff; }
+            set {
+                _esignaloff = value;
+                OnPropertyChanged(nameof(ESIGNALOFF));
+            }
+        }
+        bool _ewriteflash;
+        public bool EWRITEFLASH {
+            get { return _ewriteflash; }
+            set {
+                _ewriteflash = value;
+                OnPropertyChanged(nameof(EWRITEFLASH));
+            }
+        }
+        bool _everifysignal;
+        public bool EVERIFYSIGNAL {
+            get { return _everifysignal; }
+            set {
+                _everifysignal = value;
+                OnPropertyChanged(nameof(EVERIFYSIGNAL));
+            }
+        }
+        bool _ewritemac;
+        public bool EWRITEMAC {
+            get { return _ewritemac; }
+            set {
+                _ewritemac = value;
+                OnPropertyChanged(nameof(EWRITEMAC));
+            }
+        }
+        #endregion
+
 
         string _ontindex;
         public string ONTINDEX {
@@ -637,6 +726,14 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             this.ERRORCODE = "";
             this.BUTTONCONTENT = "START";
             this.BUTTONENABLE = true;
+
+            this.ETUNINGPOWER = GlobalData.initSetting.ENABLETUNINGPOWER;
+            this.ETUNINGER = GlobalData.initSetting.ENABLETUNINGER;
+            this.ETXDDMI = GlobalData.initSetting.ENABLETXDDMI;
+            this.ESIGNALOFF = GlobalData.initSetting.ENABLESIGNALOFF;
+            this.EWRITEFLASH = GlobalData.initSetting.ENABLEWRITEFLASH;
+            this.EVERIFYSIGNAL = GlobalData.initSetting.ENABLEVERIFYSIGNAL;
+            this.EWRITEMAC = GlobalData.initSetting.ENABLEWRITEMAC;
         }
     }
 
@@ -694,6 +791,14 @@ namespace MultiCalibOpticalBoB_Ver1.Function
         public string LOS_value = "04";
 
         public string NOT_LOS_value = "7f";
+    }
+
+    public class logfileinfo {
+        public int ID { get; set; }
+        public string FileName { get; set; }
+        public string MemorySize { get; set; }
+        public string DateCreated { get; set; }
+        public string DateModified { get; set; }
     }
 
 }

@@ -8,6 +8,25 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Border BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" CornerRadius="5" Background="{StaticResource colorBackground}">
-
+        <ScrollViewer Margin="5,5,5,5">
+            <StackPanel Margin="0,0,5,0">
+                <Label FontSize="17" FontWeight="SemiBold" Content="Lịch sử sửa đổi"></Label>
+                <DataGrid x:Name="GridAbout" Background="Transparent"
+                          CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False"
+                          CanUserResizeRows="False" CanUserSortColumns="False">
+                </DataGrid>
+                <Label></Label>
+                <Label FontSize="17" FontWeight="SemiBold" Content="Thông tin về phần mềm"></Label>
+                <Label></Label>
+                <Label>Bản quyền năm 2018 của VNPT Technology</Label>
+                <Label>Đã đăng kí bản quyền.</Label>
+                <Label>Phần mềm được phát triển bởi nhóm hỗ trợ sản xuất - TTCN.</Label>
+                <Label></Label>
+                <Label>Cảnh báo: chương trình phần mềm này được bảo vệ bởi luật bản quyền và</Label>
+                <Label>các hiệp ước quốc tế. Sao chép trái phép hoặc phân phối chương trình này trái phép</Label>
+                <Label>, hoặc bất kì phần nào của nó có thể dẫn đến hình phạt dân sự hoặc hình sự nghiêm trọng</Label>
+                <Label>và sẽ bị truy tố đến mức độ đầy đủ nhất của luật pháp.</Label>
+            </StackPanel>
+        </ScrollViewer>
     </Border>
 </UserControl>
