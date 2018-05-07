@@ -8,23 +8,26 @@ using System.Diagnostics;
 
 namespace MultiCalibOpticalBoB_Ver1.Function.IO {
     public class LogDetail {
-
+        private static Object lockthis = new Object();
         private static string _logpath = System.AppDomain.CurrentDomain.BaseDirectory + "LogDetail";
+
         static LogDetail() {
             if (Directory.Exists(_logpath) == false) Directory.CreateDirectory(_logpath);
         }
 
         public static bool Save(testinginfo _testinfo) {
-            try {
-                string _file = DateTime.Now.ToString("yyyyMMdd");
+            lock (lockthis) {
+                try {
+                    string _file = DateTime.Now.ToString("yyyyMMdd");
 
-                StreamWriter st = new StreamWriter(string.Format("{0}\\{1}.txt", _logpath, _file), true);
-                st.WriteLine(_testinfo.SYSTEMLOG);
-                st.Dispose();
-                return true;
-            }
-            catch {
-                return false;
+                    StreamWriter st = new StreamWriter(string.Format("{0}\\{1}.txt", _logpath, _file), true);
+                    st.WriteLine(_testinfo.SYSTEMLOG);
+                    st.Dispose();
+                    return true;
+                }
+                catch {
+                    return false;
+                }
             }
         }
 
@@ -33,6 +36,19 @@ namespace MultiCalibOpticalBoB_Ver1.Function.IO {
                 Process proc = new Process();
                 proc.StartInfo.FileName = string.Format("{0}\\{1}", _logpath, _filename);
                 proc.StartInfo.WorkingDirectory = Path.GetDirectoryName(string.Format("{0}\\{1}", _logpath, _filename));
+                proc.Start();
+                return true;
+            }
+            catch {
+                return false;
+            }
+        }
+
+        public static bool OpenFolder() {
+            try {
+                Process proc = new Process();
+                proc.StartInfo.FileName = string.Format("{0}", _logpath);
+                proc.StartInfo.WorkingDirectory = Path.GetDirectoryName(string.Format("{0}", _logpath));
                 proc.Start();
                 return true;
             }

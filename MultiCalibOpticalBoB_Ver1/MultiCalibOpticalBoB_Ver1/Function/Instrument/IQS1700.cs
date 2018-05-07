@@ -181,16 +181,16 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument
                     Thread.Sleep(100);
                     string readStr = base.Read();
                     if (readStr.Contains("Underrange")) {
-                        if (count <= 3) { Thread.Sleep(100); goto REP; }
+                        if (count <= 10) goto REP;
                         else return "-1000";
                     }
                     string[] buffer = readStr.Split('\r');
                     readStr = buffer[0];
                     double _value = double.Parse(readStr);
-                    double _result = _value + double.Parse(_pwAtt);
-                    if (_result < -30) {
-                        if (count <= 3) { Thread.Sleep(100); goto REP; }
+                    if (_value <=-8) {
+                        if (count <= 10) goto REP;
                     }
+                    double _result = _value + double.Parse(_pwAtt);
                     return _result.ToString();
                 }
                 catch {

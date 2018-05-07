@@ -49,6 +49,10 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                         }
                         break;
                     }
+                case "logtestOpenFolder": {
+                        Function.IO.LogTest.OpenFolder();
+                        break;
+                    }
                 case "logdetailListAll": {
                         int _count;
                         Function.IO.LogDetail.ListAllFile(out _count);
@@ -63,6 +67,10 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                         catch {
                             MessageBox.Show("Vui lòng chọn file cần mở trước.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
+                        break;
+                    }
+                case "logdetailOpenFolder": {
+                        Function.IO.LogDetail.OpenFolder();
                         break;
                     }
                 default: break;

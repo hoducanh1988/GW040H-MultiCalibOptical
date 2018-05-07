@@ -276,6 +276,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function {
                 //Power Instrument
                 if (!t1.IsAlive) {
                     t1 = new Thread(new ThreadStart(() => {
+                        //Power Instrument
                         if (GlobalData.connectionManagement.IQS1700STATUS == false) {
                             string _message = "";
                             bool ret = false;
@@ -286,13 +287,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function {
                                 GlobalData.connectionManagement.IQS1700STATUS = true;
                             }
                         }
-                    }));
-                    t1.Start();
-                }
 
-                ////Switch Instrument
-                if (!t2.IsAlive) {
-                    t2 = new Thread(new ThreadStart(() => {
+                        ////Switch Instrument
                         if (GlobalData.connectionManagement.IQS9100BSTATUS == false) {
                             string _message = "";
                             bool ret = false;
@@ -303,6 +299,14 @@ namespace MultiCalibOpticalBoB_Ver1.Function {
                                 GlobalData.connectionManagement.IQS9100BSTATUS = true;
                             }
                         }
+                    }));
+                    t1.Start();
+                }
+
+                ////Switch Instrument
+                if (!t2.IsAlive) {
+                    t2 = new Thread(new ThreadStart(() => {
+                       
                     }));
                     t2.Start();
                 }

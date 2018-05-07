@@ -93,7 +93,11 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Protocol {
         /// </summary>
         /// <returns></returns>
         public string Read() {
-            return this._serialport.ReadExisting();
+            try {
+                return this._serialport.ReadExisting();
+            } catch {
+                return "";
+            }
         }
 
     }

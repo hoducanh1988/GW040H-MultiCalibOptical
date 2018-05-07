@@ -19,7 +19,7 @@
                     <Label x:Name="lblTitle" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="17" FontWeight="SemiBold" Content="Connecting to instrument" Foreground="White"/>
                 </Grid>
             </Border>
-            <Label x:Name="lblwait" Grid.Row="1" FontSize="50" Content="Please wait"/>
+            <Label x:Name="lblwait" Grid.Row="1" FontSize="50" Content="Please wait...0"/>
         </Grid>
     </Border>
 </Window>

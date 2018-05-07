@@ -9,43 +9,49 @@ using System.Diagnostics;
 namespace MultiCalibOpticalBoB_Ver1.Function.IO {
     public class LogTest {
 
+        private static Object lockthis = new Object();
+
         private static string _logpath = System.AppDomain.CurrentDomain.BaseDirectory + "LogTest";
         static LogTest() {
             if (Directory.Exists(_logpath) == false) Directory.CreateDirectory(_logpath);
         }
 
         public static bool Save(testinginfo _testinfo) {
-            try {
-                string _file = DateTime.Now.ToString("yyyyMMdd");
-                string _title = "DATETIME,MAC-ADDRESS,BOSA-SERIAL,TUNINGPOWER-RESULT,TUNINGER-RESULT,TXDDMI-RESULT,SIGNALOFF-RESULT,WRITEFLASH-RESULT,VERIFYSIGNAL-RESULT,WRITEMAC-RESULT,ERROR-CODE,TOTAL-RESULT";
+            lock (lockthis) {
+                try {
+                    string _file = DateTime.Now.ToString("yyyyMMdd");
+                    string _title = "DATETIME,MAC-ADDRESS,BOSA-SERIAL,TUNINGPOWER-RESULT,TUNINGER-RESULT,TXDDMI-RESULT,SIGNALOFF-RESULT,WRITEFLASH-RESULT,VERIFYSIGNAL-RESULT,WRITEMAC-RESULT,ERROR-CODE,TOTAL-RESULT";
 
-                string _content = "";
-                _content += DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + ",";
-                _content += _testinfo.MACADDRESS + ",";
-                _content += _testinfo.BOSASERIAL + ",";
-                _content += _testinfo.TUNINGPOWERRESULT + ",";
-                _content += _testinfo.TUNINGERRESULT + ",";
-                _content += _testinfo.TXDDMIRESULT + ",";
-                _content += _testinfo.SIGNALOFFRESULT + ",";
-                _content += _testinfo.WRITEFLASHRESULT + ",";
-                _content += _testinfo.WRITEMACRESULT + ",";
-                _content += _testinfo.ERRORCODE + ",";
-                _content += _testinfo.TOTALRESULT;
+                    string _content = "";
+                    _content += DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + ",";
+                    _content += _testinfo.MACADDRESS + ",";
+                    _content += _testinfo.BOSASERIAL + ",";
+                    _content += _testinfo.TUNINGPOWERRESULT + ",";
+                    _content += _testinfo.TUNINGERRESULT + ",";
+                    _content += _testinfo.TXDDMIRESULT + ",";
+                    _content += _testinfo.SIGNALOFFRESULT + ",";
+                    _content += _testinfo.WRITEFLASHRESULT + ",";
+                    _content += _testinfo.VERIFYSIGNALRESULT + ",";
+                    _content += _testinfo.WRITEMACRESULT + ",";
+                    _content += _testinfo.ERRORCODE + ",";
+                    _content += _testinfo.TOTALRESULT;
 
-                if (File.Exists(string.Format("{0}\\{1}.csv", _logpath, _file)) == false) {
-                    StreamWriter st = new StreamWriter(string.Format("{0}\\{1}.csv", _logpath, _file), true);
-                    st.WriteLine(_title);
-                    st.WriteLine(_content);
-                    st.Dispose();
+                    if (File.Exists(string.Format("{0}\\{1}.csv", _logpath, _file)) == false) {
+                        StreamWriter st = new StreamWriter(string.Format("{0}\\{1}.csv", _logpath, _file), true);
+                        st.WriteLine(_title);
+                        st.WriteLine(_content);
+                        st.Dispose();
+                    }
+                    else {
+                        StreamWriter st = new StreamWriter(string.Format("{0}\\{1}.csv", _logpath, _file), true);
+                        st.WriteLine(_content);
+                        st.Dispose();
+                    }
+                    return true;
                 }
-                else {
-                    StreamWriter st = new StreamWriter(string.Format("{0}\\{1}.csv", _logpath, _file), true);
-                    st.WriteLine(_content);
-                    st.Dispose();
+                catch {
+                    return false;
                 }
-                return true;
-            } catch {
-                return false;
             }
         }
 
@@ -57,6 +63,19 @@ namespace MultiCalibOpticalBoB_Ver1.Function.IO {
                 proc.Start();
                 return true;
             } catch {
+                return false;
+            }
+        }
+
+        public static bool OpenFolder() {
+            try {
+                Process proc = new Process();
+                proc.StartInfo.FileName = string.Format("{0}", _logpath);
+                proc.StartInfo.WorkingDirectory = Path.GetDirectoryName(string.Format("{0}", _logpath));
+                proc.Start();
+                return true;
+            }
+            catch {
                 return false;
             }
         }

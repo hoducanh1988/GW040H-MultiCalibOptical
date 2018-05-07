@@ -720,6 +720,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             this.SIGNALOFFRESULT = nameof(Parameters.testStatus.NONE);
             this.WRITEFLASHRESULT = nameof(Parameters.testStatus.NONE);
             this.VERIFYSIGNALRESULT = nameof(Parameters.testStatus.NONE);
+            this.WRITEMACRESULT = nameof(Parameters.testStatus.NONE);
             this.TOTALRESULT = nameof(Parameters.testStatus.NONE);
             this.SYSTEMLOG = "";
             this.ONTLOG = "";

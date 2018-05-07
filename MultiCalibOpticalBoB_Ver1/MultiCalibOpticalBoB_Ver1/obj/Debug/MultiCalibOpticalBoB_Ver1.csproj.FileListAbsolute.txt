@@ -275,3 +275,5 @@ C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\ConnectInstrument.baml
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\UserControls\ucLog.g.cs
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\UserControls\ucLog.baml
+C:\Users\Acer4738Z\Desktop\VNPT-Softs\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\UserControls\ucLog.g.cs
+C:\Users\Acer4738Z\Desktop\VNPT-Softs\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\UserControls\ucLog.baml

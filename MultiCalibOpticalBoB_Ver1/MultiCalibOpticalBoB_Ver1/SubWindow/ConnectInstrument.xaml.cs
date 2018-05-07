@@ -30,11 +30,11 @@ namespace MultiCalibOpticalBoB_Ver1
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
-            GlobalData.connectionManagement.WINDOWOPACITY = 0.3;
+            GlobalData.connectionManagement.WINDOWOPACITY = 0.5;
 
             timer = new DispatcherTimer();
             timer.Tick += new EventHandler(dispatcherTimer_Tick);
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             _count = 0;
             timer.Start();
         }
@@ -46,15 +46,16 @@ namespace MultiCalibOpticalBoB_Ver1
 
         private void dispatcherTimer_Tick(object sender, EventArgs e) {
             this._count++;
-            switch (this._count) {
-                case 1: { this.lblwait.Content = "Please wait"; break; }
-                case 2: { this.lblwait.Content = "Please wait."; break; }
-                case 3: { this.lblwait.Content = "Please wait.."; break; }
-                case 4: { this.lblwait.Content = "Please wait..."; break; }
-                case 5: { this.lblwait.Content = "Please wait...."; break; }
-                case 6: { this.lblwait.Content = "Please wait....."; break; }
-                default: { this._count = 0; break; }
-            }
+            this.lblwait.Content = string.Format("Please wait...{0}", this._count);
+            //switch (this._count) {
+            //    case 1: { this.lblwait.Content = "Please wait"; break; }
+            //    case 2: { this.lblwait.Content = "Please wait."; break; }
+            //    case 3: { this.lblwait.Content = "Please wait.."; break; }
+            //    case 4: { this.lblwait.Content = "Please wait..."; break; }
+            //    case 5: { this.lblwait.Content = "Please wait...."; break; }
+            //    case 6: { this.lblwait.Content = "Please wait....."; break; }
+            //    default: { this._count = 0; break; }
+            //}
         }
     }
 }
