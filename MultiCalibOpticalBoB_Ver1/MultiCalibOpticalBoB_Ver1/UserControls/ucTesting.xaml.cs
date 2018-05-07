@@ -25,7 +25,6 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
     /// </summary>
     public partial class ucTesting : UserControl {
 
-        int Delay_modem = 300;
         DispatcherTimer timer = null;
 
         public ucTesting() {
@@ -169,554 +168,6 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             return tmp;
         }
 
-        // CHỜ ONT KHỞI ĐỘNG XONG
-        bool _loginToONT(ref GW ont, string serialport, testinginfo _testinfo) {
-
-            _testinfo.SYSTEMLOG += string.Format("Verifying type of ONT...\r\n...{0}\r\n", GlobalData.initSetting.ONTTYPE);
-            bool _result = false;
-            string _message = "";
-            switch (GlobalData.initSetting.ONTTYPE) {
-                case "GW040H": {
-                        ont = new GW040H(serialport);
-                        break;
-                    }
-                case "GW020BoB": {
-                        ont = new GW020BoB(serialport);
-                        break;
-                    }
-                default: return false;
-            }
-
-            _testinfo.SYSTEMLOG += "Open comport of ONT...\r\n";
-            if (!ont.Open(out _message)) { _testinfo.SYSTEMLOG += string.Format("...{0}\r\n", _message); return false; }
-            _testinfo.SYSTEMLOG += "...PASS\r\n";
-
-            _testinfo.SYSTEMLOG += "Login to ONT...\r\n";
-            _result = ont.Login(out _message);
-            _testinfo.SYSTEMLOG += string.Format("...{0}\r\n", _message);
-            _testinfo.SYSTEMLOG += _result == true? "PASS\r\n" : "FAIL\r\n";
-            return _result;
-        }
-
-        string _getMACAddress(GW ont, testinginfo _testinfo) {
-            try {
-                _testinfo.SYSTEMLOG += string.Format("Get mac address...\r\n");
-                ont.Write("ifconfig\n");
-                Thread.Sleep(300);
-                string _tmpStr = ont.Read();
-                _tmpStr = _tmpStr.Replace("\r", "").Replace("\n", "").Trim();
-                string[] buffer = _tmpStr.Split(new string[] { "HWaddr" }, StringSplitOptions.None);
-                _tmpStr = buffer[1].Trim();
-                string mac = _tmpStr.Substring(0, 17).Replace(":", "");
-                _testinfo.SYSTEMLOG += string.Format("...PASS. {0}\r\n", mac);
-                return mac;
-            } catch (Exception ex) {
-                _testinfo.SYSTEMLOG += string.Format("...FAIL. {0}\r\n", ex.ToString());
-                return string.Empty;
-            }
-        }
-
-        bool _calibPower(GW ont, int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
-            try {
-                bool _result = false;
-                _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.Wait.ToString();
-                _testinfo.SYSTEMLOG += "Bắt Đầu Thực Hiện Calib TX...\r\n";
-                _testinfo.SYSTEMLOG += string.Format("BOSA Serial Number: {0}\r\n", _testinfo.BOSASERIAL);
-                _testinfo.SYSTEMLOG += string.Format("Ith = {0}\r\n", _bosainfo.Ith);
-                _testinfo.SYSTEMLOG += "--------------------------------------------------------------\r\n";
-                _testinfo.SYSTEMLOG += "STEP 1: TUNING POWER\r\n";
-
-                ont.WriteLine("echo set_flash_register_default >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-                ont.WriteLine("echo flash_dump >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-                ont.WriteLine("echo GPON_Tx_cal_init >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-
-                _var.Ith = double.Parse(_bosainfo.Ith);
-                _var.Iav_1 = _var.Ith + 10;
-                _var.Iav_1_dac = Math.Round(_var.Iav_1 * 4096 / 90);
-                _var.Iav_1_dac_hex = int.Parse(_var.Iav_1_dac.ToString()).ToString("X");
-
-                ont.WriteLine("echo IAV 0x" + _var.Iav_1_dac_hex + " >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-
-                _var.Pwr_1 = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
-                _testinfo.SYSTEMLOG += string.Format("Pwr_1 = {0}\r\n", _var.Pwr_1);
-
-                if (_var.Pwr_1 <= -8) {
-                    _testinfo.SYSTEMLOG += "Tuning Power: FAIL.\r\n";
-                    _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.FAIL.ToString();
-                    return false;
-                }
-
-                _var.Iav_2 = _var.Ith + 15;
-                _var.Iav_2_dac = Math.Round(_var.Iav_2 * 4096 / 90);
-                _var.Iav_2_dac_hex = int.Parse(_var.Iav_2_dac.ToString()).ToString("X");
-
-                ont.WriteLine("echo IAV 0x" + _var.Iav_2_dac_hex + " >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-                _var.Pwr_2 = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
-                _testinfo.SYSTEMLOG += string.Format("Pwr_2 = {0}\r\n",_var.Pwr_2);
-
-                _var.Slope = (_var.Pwr_2 - _var.Pwr_1) / (_var.Iav_2 - _var.Iav_1);
-                _var.Pwr_temp = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
-                _var.Iav = ((2.5 - _var.Pwr_1) / _var.Slope) + _var.Iav_1;
-
-                for (int i = 0; i < 9; i++) {
-                    _var.Iav_DAC = (Math.Round(_var.Iav * 4096 / 90)).ToString();
-                    _var.Iav_DAC_Hex = int.Parse(_var.Iav_DAC).ToString("X");
- 
-                    ont.WriteLine("echo IAV 0x" + _var.Iav_DAC_Hex + " >/proc/pon_phy/debug");
-                    Thread.Sleep(Delay_modem);
-                    _var.Pwr_temp = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
-                    _testinfo.SYSTEMLOG += string.Format("Pwr_temp = {0}\r\n", _var.Pwr_temp.ToString());
-
-                    if (_var.Pwr_temp >= 2 && _var.Pwr_temp <= 3) {
-                        _result = true;
-                        break;
-                    }
-                    else {
-                        _var.Iav = ((2.5 - _var.Pwr_temp) / _var.Slope) + _var.Iav;
-                    }
-                }
-
-                _testinfo.SYSTEMLOG += _result == true ? "Tuning Power: PASS.\r\n" : "Tuning Power: FAIL.\r\n";
-                _testinfo.TUNINGPOWERRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
-                return _result;
-            } catch {
-                _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.FAIL.ToString();
-                return false;
-            }
-        }
-
-        bool _calibER(GW ont,int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
-            try {
-                bool _result = false;
-                _testinfo.TUNINGERRESULT = Parameters.testStatus.Wait.ToString();
-                _testinfo.SYSTEMLOG += "--------------------------------------------------------------\r\n";
-                _testinfo.SYSTEMLOG += "STEP 2: TUNING ER\r\n";
-
-                _var.Imod = ((_var.Pwr_temp + 3) / _var.Slope) + _var.Iav - _var.Ith - 1;
-
-                //int k = 0;
-
-                //while (k < 9) {
-                //    k++;
-                //    _var.Imod_DAC = (Math.Round(_var.Imod * 4096 / 90)).ToString();
-                //    _var.Imod_DAC_Hex = int.Parse(_var.Imod_DAC).ToString("X");
-                //    ont.WriteLine("echo IMOD 0x" + _var.Imod_DAC_Hex + " >/proc/pon_phy/debug");
-                //    Thread.Sleep(Delay_modem);
-                //    _testinfo.SYSTEMLOG += string.Format("Imod = {0}\r\n", _var.Imod);
-                //    _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER(Port));
-                //    _testinfo.SYSTEMLOG += string.Format("ER_temp = {0}\r\n", _var.ER_temp);
-
-                //    if (_var.ER_temp.ToString().Contains("E+")) break;
-                //    if (_var.ER_temp >= 12 && _var.ER_temp <= 13) {
-                //        ont.WriteLine("echo set_flash_register 0x00060023 0x64 >/proc/pon_phy/debug"); //Bù ER ? nhiệt độ 45*C
-                //        Thread.Sleep(Delay_modem);
-                //        _result = true;
-                //        break;
-                //    }
-
-                //    double ER_err = _var.ER_temp - 12.5;
-                //    if (ER_err < 0) { // Cần tăng Imod
-                //        _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                //        _testinfo.SYSTEMLOG += "-----------------\r\n";
-                //        if (_var.ER_temp < 4.5)  _var.Imod += 22;
-                //        else if (_var.ER_temp >= 4.5 && _var.ER_temp < 5) _var.Imod += 7;
-                //        else if (_var.ER_temp >= 5 && _var.ER_temp < 5.5) _var.Imod += 7;
-                //        else if (_var.ER_temp >= 5.5 && _var.ER_temp < 6) _var.Imod += 7;
-                //        else if (_var.ER_temp >= 6 && _var.ER_temp < 6.5) _var.Imod += 7;
-                //        else if (_var.ER_temp >= 6.5 && _var.ER_temp < 7) _var.Imod += 7;
-                //        else if (_var.ER_temp >= 7 && _var.ER_temp < 7.5) _var.Imod += 5;
-                //        else if (_var.ER_temp >= 7.5 && _var.ER_temp < 8) _var.Imod += 5;
-                //        else if (_var.ER_temp >= 8 && _var.ER_temp < 8.5) _var.Imod += 4;
-                //        else if (_var.ER_temp >= 8.5 && _var.ER_temp < 9) _var.Imod += 4;
-                //        else if (_var.ER_temp >= 9 && _var.ER_temp < 9.5) _var.Imod += 3;
-                //        else if (_var.ER_temp >= 9.5 && _var.ER_temp < 10) _var.Imod += 3;
-                //        else if (_var.ER_temp >= 10 && _var.ER_temp < 10.5) _var.Imod += 3;
-                //        else if (_var.ER_temp >= 10.5 && _var.ER_temp < 11) _var.Imod += 2;
-                //        else if (_var.ER_temp >= 11 && _var.ER_temp < 11.5) _var.Imod += 1;
-                //        else _var.Imod += 1;
-                //    }
-                //    else { // Cần giảm Imod
-                //        _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                //        _testinfo.SYSTEMLOG += "-----------------\r\n";
-                //        if (ER_err >= 5) _var.Imod = _var.Imod - 4.5;
-                //        else if (ER_err >= 4 && ER_err < 5) _var.Imod = _var.Imod - 4;
-                //        else if (ER_err >= 3 && ER_err < 4) _var.Imod = _var.Imod - 3;
-                //        else if (ER_err >= 2.5 && ER_err < 3) _var.Imod = _var.Imod - 2;
-                //        else if (ER_err >= 2 && ER_err < 2.5) _var.Imod = _var.Imod - 1.5;
-                //        else if (ER_err >= 1.5 && ER_err < 2) _var.Imod = _var.Imod - 1;
-                //        else if (ER_err >= 1 && ER_err < 1.5) _var.Imod = _var.Imod - 1;
-                //        else if (ER_err >= 0.5 && ER_err < 1) _var.Imod = _var.Imod - 0.5;
-                //    }
-
-                //}
-
-
-
-
-                //bool _flag = false;
-                //while (!_flag) {
-                //    _var.Imod_DAC = (Math.Round(_var.Imod * 4096 / 90)).ToString();
-                //    _var.Imod_DAC_Hex = int.Parse(_var.Imod_DAC).ToString("X");
-                //    ont.WriteLine("echo IMOD 0x" + _var.Imod_DAC_Hex + " >/proc/pon_phy/debug");
-                //    Thread.Sleep(Delay_modem);
-                //    _testinfo.SYSTEMLOG += string.Format("Imod = {0}\r\n", _var.Imod);
-                //    _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER(Port));
-                //    _testinfo.SYSTEMLOG += string.Format("ER_temp = {0}\r\n", _var.ER_temp);
-
-                //    if (_var.ER_temp.ToString().Contains("E+")) { _flag = true; break; }
-                //    if (_var.ER_temp >= 12 && _var.ER_temp <= 13) {
-                //        ont.WriteLine("echo set_flash_register 0x00060023 0x64 >/proc/pon_phy/debug"); //Bù ER ? nhi?t d? 45*C
-                //        Thread.Sleep(Delay_modem);
-                //        _result = true;
-                //        _flag = true;
-                //        break;
-                //    }
-                //    double ER_err = _var.ER_temp - 12.5;
-                //    if (ER_err < 0) {
-                //        _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                //        _testinfo.SYSTEMLOG += "-----------------\r\n";
-                //        _var.Imod += 0.9;
-                //    }
-                //    else {
-                //        _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                //        _testinfo.SYSTEMLOG += "-----------------\r\n";
-                //        _var.Imod -= 0.9;
-                //    }
-                //}
-
-
-                for (int k = 0; k < 9; k++) {
-                    _var.Imod_DAC = (Math.Round(_var.Imod * 4096 / 90)).ToString();
-                    _var.Imod_DAC_Hex = int.Parse(_var.Imod_DAC).ToString("X");
-                    ont.WriteLine("echo IMOD 0x" + _var.Imod_DAC_Hex + " >/proc/pon_phy/debug");
-                    Thread.Sleep(Delay_modem);
-
-                    _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER(Port));
-                    _testinfo.SYSTEMLOG += string.Format("ER_temp = {0}\r\n", _var.ER_temp);
-
-                    if (!_var.ER_temp.ToString().Contains("E+")) {
-                        if (_var.ER_temp < 12 || _var.ER_temp > 13) {
-                            double ER_err = _var.ER_temp - 12.5;
-                            if (ER_err <= -5) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 5;
-                            }
-                            else if (ER_err > -5 && ER_err <= -4) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 4;
-                            }
-                            else if (ER_err > -4 && ER_err <= -3) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 3;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err > -3 && ER_err <= -2.5) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 2;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err > -2.5 && ER_err <= -2) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 1.5;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err > -2 && ER_err <= -1.5) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 1;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err > -1.5 && ER_err <= -1) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 0.5;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err > -1 && ER_err <= -0.5) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 0.5;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            //else if (ER_err >= 0.5)
-                            //{
-                            //    SetText(Tx_rtbAll, "Cần tăng Imod.");
-                            //    Imod = Imod + 0.5;
-                            //    SetText(Tx_rtbAll, "Imod mới = " + Imod);
-                            //}
-
-                            //------------------------------------------
-                            if (ER_err >= 5) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 4.5;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 4 && ER_err < 5) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 4;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 3 && ER_err < 4) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 3;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 2.5 && ER_err < 3) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 2;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 2 && ER_err < 2.5) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 1.5;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 1.5 && ER_err < 2) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 1;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 1 && ER_err < 1.5) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 1;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err >= 0.5 && ER_err < 1) {
-                                _testinfo.SYSTEMLOG += "Cần giảm Imod.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod - 0.5;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                        }
-                        else if (_var.ER_temp >= 12 && _var.ER_temp <= 13) {
-                            ont.WriteLine("echo set_flash_register 0x00060023 0x64 >/proc/pon_phy/debug"); //Bù ER ở nhiệt độ 45*C
-                            Thread.Sleep(Delay_modem);
-                            _result = true;
-                            break;
-                        }
-
-                    }
-                    else if (_var.ER_temp.ToString().Contains("E+")) {
-                        _result = false;
-                        break;
-                    }
-                }
-
-                _testinfo.SYSTEMLOG += _result == true ? "Tuning ER: PASS\r\n" : "Tuning ER: FAIL.\r\n";
-                _testinfo.TUNINGERRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
-                return _result;
-            } catch {
-                _testinfo.TUNINGERRESULT = Parameters.testStatus.FAIL.ToString();
-                return false;
-            }
-        }
-
-        bool _txDDMI(GW ont, int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
-            try {
-                bool _result = false;
-                _testinfo.TXDDMIRESULT = Parameters.testStatus.Wait.ToString();
-                _testinfo.SYSTEMLOG += "--------------------------------------------------------------\r\n";
-                _testinfo.SYSTEMLOG += "STEP 3: TX DDMI\r\n";
-
-                _var.Pwr_temp = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
-                _testinfo.SYSTEMLOG += "Pwr_temp = " + _var.Pwr_temp + "\r\n";
-                ont.WriteLine("echo set_flash_register_default >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-                ont.WriteLine("echo set_flash_register_Tx_data >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-                string RR;
-                string RR_DAC;
-                RR = (Math.Round(Math.Pow(10, (_var.Pwr_temp / 10)) * 100)).ToString();
-
-                RR_DAC = int.Parse(RR).ToString("X");
-                ont.WriteLine("echo set_flash_register_DDMI_TxPower 0x00" + RR_DAC + " 0x40 >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-                string str = ont.Read();
-                ont.WriteLine("echo DDMI_check_8472 >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-
-                str = ont.Read();
-                for (int n = 0; n < str.Split('\n').Length; n++) {
-                    if (str.Split('\n')[n].Contains("Tx power")) {
-                        _var.TX_Power_DDMI = str.Split('\n')[n].Split('=')[1].TrimEnd();
-                        _var.TX_Power_DDMI = (10 * Math.Log10(Convert.ToDouble(_var.TX_Power_DDMI) / 10000)).ToString("0.##");
-                        _testinfo.SYSTEMLOG +=  "TX_Power_DDMI = " + _var.TX_Power_DDMI.ToString() + " dBm\r\n";
-
-                        if (Convert.ToDouble(_var.TX_Power_DDMI) > (_var.Pwr_temp - 0.5) && Convert.ToDouble(_var.TX_Power_DDMI) < (_var.Pwr_temp + 0.5)) {
-                            _result = true;
-                        }
-                        else {
-                            _result = false;
-                        }
-                    }
-                }
-                _testinfo.SYSTEMLOG += _result == true ? "Check Power DDMI: PASS.\r\n" : "Check Power DDMI: FAIL.\r\n";
-                _testinfo.TXDDMIRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
-                return _result;
-            } catch {
-                _testinfo.TXDDMIRESULT = Parameters.testStatus.FAIL.ToString();
-                return false;
-            }
-        }
-
-        bool _signalOff(GW ont, int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
-            try {
-                bool _result = false;
-                _testinfo.SIGNALOFFRESULT = Parameters.testStatus.Wait.ToString();
-                _testinfo.SYSTEMLOG += "--------------------------------------------------------------\r\n";
-                _testinfo.SYSTEMLOG += "STEP 4: TEST OFF SIGNAL\r\n";
-                string str = ont.Read();
-                ont.WriteLine("echo dis_pattern >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-                str = ont.Read();
-                _var.Pwr_temp = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
-                _testinfo.SYSTEMLOG += "Power_Off = " + _var.Pwr_temp + "\r\n";
-                if (_var.Pwr_temp < -25) {
-                    _result = true;
-                }
-                else {
-                    _result = false;
-                }
-                _testinfo.SYSTEMLOG += _result == true ? "TxPower Off: PASS\r\n" : "TxPower Off: FAIL\r\n";
-                _testinfo.SIGNALOFFRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
-                return _result;
-            }
-            catch {
-                _testinfo.SIGNALOFFRESULT = Parameters.testStatus.FAIL.ToString();
-                return false;
-            }
-        }
-
-        bool _writeFlash(GW ont, bosainfo _bosainfo, testinginfo _testinfo) {
-            try {
-                bool _result = false;
-                _testinfo.WRITEFLASHRESULT = Parameters.testStatus.Wait.ToString();
-                _testinfo.SYSTEMLOG += "--------------------------------------------------------------\r\n";
-                _testinfo.SYSTEMLOG += "STEP 5: WRITE INTO FLASH\r\n";
-
-                ont.WriteLine("echo set_flash_register_Tx_data >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-                ont.WriteLine("echo set_flash_register 0x07050701 0x94 >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-                ont.WriteLine("echo save_flash_matrix >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-                //P.WriteLine("mtd writeflash /tmp/7570_bob.conf 160 198144 reservearea");//single band
-                ont.WriteLine("mtd writeflash /tmp/7570_bob.conf 160 656896 reservearea");//dual band
-                Thread.Sleep(Delay_modem + 1000);
-                for (int m = 0; m < 3; m++) {
-                    string str = ont.Read();
-                    ont.WriteLine("echo flash_dump >/proc/pon_phy/debug");
-                    Thread.Sleep(Delay_modem * 5);
-                    str = ont.Read();
-                    _testinfo.SYSTEMLOG += str + "\r\n";
-                    if (!str.Contains("0x07050701")) {
-                        _result = false;
-                    }
-                    else {
-                        _result = true;
-                        break;
-                    }
-                }
-                _testinfo.SYSTEMLOG += _result == true ? "Write flash thành công.\r\n" : "Write flash thất bại.\r\n";
-                _testinfo.SYSTEMLOG += "Hoàn thành quá trình Calibration.\r\n";
-                _testinfo.WRITEFLASHRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
-                return _result;
-            }
-            catch {
-                _testinfo.WRITEFLASHRESULT = Parameters.testStatus.FAIL.ToString();
-                return false;
-            }
-        }
-
-        bool _verifySignal(GW ont, int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
-            try {
-                bool _result = false;
-                _testinfo.VERIFYSIGNALRESULT = Parameters.testStatus.Wait.ToString();
-                _testinfo.SYSTEMLOG += "--------------------------------------------------------------\r\n";
-                _testinfo.SYSTEMLOG += "STEP 6: VERIFY SIGNAL\r\n";
-
-                ont.WriteLine("echo GPON_pattern >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-
-                _var.Pwr_temp = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
-                _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER(Port));
-                _testinfo.SYSTEMLOG += "ER_temp = " + _var.ER_temp + "\r\n";
-                _testinfo.SYSTEMLOG += "Power_temp = " + _var.Pwr_temp + "\r\n";
-
-                if (_var.Pwr_temp > 2 && _var.Pwr_temp < 3 && _var.ER_temp > 11.5 && _var.ER_temp < 13.5) {
-                    _result = true;
-                }
-                else {
-                    _result = false;
-                }
-
-                _testinfo.SYSTEMLOG += _result == true ? "Verify Signal: PASS.\r\n" : "Verify Signal: FAIL.\r\n";
-                _testinfo.VERIFYSIGNALRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
-                return _result;
-            }
-            catch {
-                _testinfo.VERIFYSIGNALRESULT = Parameters.testStatus.FAIL.ToString();
-                return false;
-            }
-        }
-
-        bool _writeMAC(GW ont, testinginfo _testinfo) {
-            try {
-                //Write GPON
-                ont.Write(string.Format("prolinecmd gponsn set {0}\n", _testinfo.GPON));
-                string st = string.Format("writeflash: total write");
-                string _data = ""; int index = 0;
-
-                while (!_data.Contains(st)) {
-                    Thread.Sleep(500);
-                    if (index >= 6) break;
-                    else index++;
-                    _data += ont.Read();
-                }
-                if (index >= 6) return false;
-                //Write WPS
-
-                //Write MAC
-                _data = ""; index = 0;
-                ont.Write(string.Format("sys mac {0}\n", _testinfo.MACADDRESS));
-                st = string.Format("new mac addr = {0}:{1}:{2}:{3}:{4}:{5}",
-                       _testinfo.MACADDRESS.Substring(0, 2).ToLower(),
-                       _testinfo.MACADDRESS.Substring(2, 2).ToLower(),
-                       _testinfo.MACADDRESS.Substring(4, 2).ToLower(),
-                       _testinfo.MACADDRESS.Substring(6, 2).ToLower(),
-                       _testinfo.MACADDRESS.Substring(8, 2).ToLower(),
-                       _testinfo.MACADDRESS.Substring(10, 2).ToLower()
-                       );
-                while (!_data.Contains(st)) {
-                    Thread.Sleep(500);
-                    if (index >= 6) break;
-                    else index++;
-                    _data += ont.Read();
-                }
-                if (index >= 6) return false;
-                return true;
-            } catch {
-                return false;
-            }
-        }
-
         //****************************************************************************************************
         //****************************************************************************************************
         //****************************************************************************************************
@@ -724,17 +175,29 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             //login to ONT
             bool _result = false;
             GW ontDevice = null;
-            if (this._loginToONT(ref ontDevice, _testtemp.COMPORT, _testtemp) == false) goto END;
+            switch (GlobalData.initSetting.ONTTYPE) {
+                case "GW040H": {
+                        ontDevice = new GW040H(_testtemp.COMPORT);
+                        break;
+                    }
+                case "GW020BoB": {
+                        ontDevice = new GW020BoB(_testtemp.COMPORT);
+                        break;
+                    }
+                default: return false;
+            }
+
+            if (ontDevice.loginToONT(_testtemp) == false) goto END;
 
             //Get MAC Address
             if (!GlobalData.initSetting.ENABLEWRITEMAC) {
-                _testtemp.MACADDRESS = this._getMACAddress(ontDevice, _testtemp);
+                _testtemp.MACADDRESS = ontDevice.getMACAddress(_testtemp);
                 if (_testtemp.MACADDRESS == string.Empty) goto END;
             }
            
             //Calib Power
             if (GlobalData.initSetting.ENABLETUNINGPOWER) {
-                if (this._calibPower(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
+                if (ontDevice.calibPower(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
             }
 
             //Calib ER
@@ -753,7 +216,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 if (GlobalData.switchDevice.switchToPort(int.Parse(_testtemp.ONTINDEX)) == false) goto END;
                 
                 //Calib ER
-                if (this._calibER(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
+                if (ontDevice.calibER(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
                 //Xóa thứ tự đăng kí Calib ER (để Thread # có thể sử dụng)
                 this._removeFromListSequenceTestER(_testtemp);
 
@@ -763,27 +226,27 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
 
             //TX DDMI
             if (GlobalData.initSetting.ENABLETXDDMI) {
-                if (this._txDDMI(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
+                if (ontDevice.txDDMI(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
             }
 
             //Signal Off
-            if (GlobalData.initSetting.ENABLESIGNALOFF) {
-                if (this._signalOff(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
+            if (GlobalData.initSetting.ENABLESIGNALOFF && GlobalData.initSetting.ONTTYPE == "GW040H") {
+                if (ontDevice.signalOff(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
             }
 
             //Write flash
             if (GlobalData.initSetting.ENABLEWRITEFLASH) {
-                if (this._writeFlash(ontDevice, _bosainfo, _testtemp) == false) goto END;
+                if (ontDevice.writeFlash(_bosainfo, _testtemp) == false) goto END;
             }
 
             //Verify Signal
             if (GlobalData.initSetting.ENABLEVERIFYSIGNAL) {
-                if (this._verifySignal(ontDevice, int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
+                if (ontDevice.verifySignal(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
             }
 
             //Write MAC
             if (GlobalData.initSetting.ENABLEWRITEMAC) {
-                if (this._writeMAC(ontDevice, _testtemp) == false) goto END;
+                if (ontDevice.writeMAC(_testtemp) == false) goto END;
             }
 
             _result = true;
