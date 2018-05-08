@@ -20,7 +20,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.IO {
             lock (lockthis) {
                 try {
                     string _file = DateTime.Now.ToString("yyyyMMdd");
-                    string _title = "DATETIME,MAC-ADDRESS,BOSA-SERIAL,TUNINGPOWER-RESULT,TUNINGER-RESULT,TXDDMI-RESULT,SIGNALOFF-RESULT,WRITEFLASH-RESULT,VERIFYSIGNAL-RESULT,WRITEMAC-RESULT,ERROR-CODE,TOTAL-RESULT";
+                    string _title = "DATETIME,MAC-ADDRESS,BOSA-SERIAL,TUNINGPOWER-RESULT,TUNINGER-RESULT,TXDDMI-RESULT,SIGNALOFF-RESULT,WRITEFLASH-RESULT,VERIFYSIGNAL-RESULT,WRITEMAC-RESULT,ERROR-CODE,TOTAL-RESULT,TOTAL-TIME";
 
                     string _content = "";
                     _content += DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + ",";
@@ -33,8 +33,9 @@ namespace MultiCalibOpticalBoB_Ver1.Function.IO {
                     _content += _testinfo.WRITEFLASHRESULT + ",";
                     _content += _testinfo.VERIFYSIGNALRESULT + ",";
                     _content += _testinfo.WRITEMACRESULT + ",";
-                    _content += _testinfo.ERRORCODE + ",";
-                    _content += _testinfo.TOTALRESULT;
+                    _content += _testinfo.ERRORCODE.Replace("Mã Lỗi", "") + ",";
+                    _content += _testinfo.TOTALRESULT + ",";
+                    _content += _testinfo.TOTALTIME;
 
                     if (File.Exists(string.Format("{0}\\{1}.csv", _logpath, _file)) == false) {
                         StreamWriter st = new StreamWriter(string.Format("{0}\\{1}.csv", _logpath, _file), true);

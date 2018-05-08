@@ -23,7 +23,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
 
         public ucAbout() {
             InitializeComponent();
-            listHist.Add(new history() { ID = "1", VERSION = "1.0.0.0", CONTENT = "- Phát hành lần đầu", DATE = "07/05/2018", CHANGETYPE = "Tạo mới", PERSON = "Hồ Đức Anh" });
+            listHist.Add(new history() { ID = "1", VERSION = "1.0.0.0", CONTENT = "- Phát hành lần đầu", DATE = "18/04/2018", CHANGETYPE = "Tạo mới", PERSON = "Hồ Đức Anh" });
            
             this.GridAbout.ItemsSource = listHist;
         }

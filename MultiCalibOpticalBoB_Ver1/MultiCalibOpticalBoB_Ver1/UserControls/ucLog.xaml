@@ -306,7 +306,8 @@
                         </Border>
                         <GridSplitter Grid.Column="1" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                         <Border x:Name="border_SQL_Log" Grid.Column="2" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="1,0,0,0">
-                            <DataGrid x:Name="bosareport_datagrid" Margin="5">
+                            <DataGrid x:Name="bosareport_datagrid" Margin="5"
+                                      CanUserAddRows="False" CanUserDeleteRows="False">
 
                             </DataGrid>
                         </Border>

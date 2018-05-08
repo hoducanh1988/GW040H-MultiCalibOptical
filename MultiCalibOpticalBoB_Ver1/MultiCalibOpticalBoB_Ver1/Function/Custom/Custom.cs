@@ -706,14 +706,86 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             }
         }
 
+        int _autovalue;
+        public int AUTOVALUE {
+            get { return _autovalue; }
+            set {
+                _autovalue = value;
+                AUTOPROGRESS = string.Format("{0}/{1}", AUTOVALUE, AUTOMAX);
+                OnPropertyChanged(nameof(AUTOVALUE));
+            }
+        }
+        int _automax;
+        public int AUTOMAX {
+            get { return _automax; }
+            set {
+                _automax = value;
+                AUTOPROGRESS = string.Format("{0}/{1}", AUTOVALUE, AUTOMAX);
+                OnPropertyChanged(nameof(AUTOMAX));
+            }
+        }
+        string _autoprogress;
+        public string AUTOPROGRESS {
+            get { return _autoprogress; }
+            set {
+                _autoprogress = value;
+                OnPropertyChanged(nameof(AUTOPROGRESS));
+            }
+        }
+        string _autoerrorrate;
+        public string AUTOERRORRATE {
+            get { return _autoerrorrate; }
+            set {
+                _autoerrorrate = value;
+                OnPropertyChanged(nameof(AUTOERRORRATE));
+            }
+        }
+        string _totaltime;
+        public string TOTALTIME {
+            get { return _totaltime; }
+            set {
+                _totaltime = value;
+                OnPropertyChanged(nameof(TOTALTIME));
+            }
+        }
+
 
         public testinginfo() {
             Initialization();
         }
 
         public void Initialization() {
+            this.TOTALTIME = "0";
+            this.AUTOPROGRESS = "";
+            this.AUTOERRORRATE = "";
             this.MACADDRESS = "--";
             this.BOSASERIAL = "--";
+            this.TUNINGPOWERRESULT = nameof(Parameters.testStatus.NONE);
+            this.TUNINGERRESULT = nameof(Parameters.testStatus.NONE);
+            this.TXDDMIRESULT = nameof(Parameters.testStatus.NONE);
+            this.SIGNALOFFRESULT = nameof(Parameters.testStatus.NONE);
+            this.WRITEFLASHRESULT = nameof(Parameters.testStatus.NONE);
+            this.VERIFYSIGNALRESULT = nameof(Parameters.testStatus.NONE);
+            this.WRITEMACRESULT = nameof(Parameters.testStatus.NONE);
+            this.TOTALRESULT = nameof(Parameters.testStatus.NONE);
+            this.SYSTEMLOG = "";
+            this.ONTLOG = "";
+            this.ERRORCODE = "";
+            this.BUTTONCONTENT = "START";
+            this.BUTTONENABLE = true;
+
+            this.ETUNINGPOWER = GlobalData.initSetting.ENABLETUNINGPOWER;
+            this.ETUNINGER = GlobalData.initSetting.ENABLETUNINGER;
+            this.ETXDDMI = GlobalData.initSetting.ENABLETXDDMI;
+            this.ESIGNALOFF = GlobalData.initSetting.ENABLESIGNALOFF;
+            this.EWRITEFLASH = GlobalData.initSetting.ENABLEWRITEFLASH;
+            this.EVERIFYSIGNAL = GlobalData.initSetting.ENABLEVERIFYSIGNAL;
+            this.EWRITEMAC = GlobalData.initSetting.ENABLEWRITEMAC;
+        }
+
+        public void Initialization_Auto() {
+            this.TOTALTIME = "0";
+            this.MACADDRESS = "--";
             this.TUNINGPOWERRESULT = nameof(Parameters.testStatus.NONE);
             this.TUNINGERRESULT = nameof(Parameters.testStatus.NONE);
             this.TXDDMIRESULT = nameof(Parameters.testStatus.NONE);

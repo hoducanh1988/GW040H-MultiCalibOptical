@@ -349,26 +349,31 @@
                     <Grid Grid.Row="2">
                         <StackPanel HorizontalAlignment="Center">
                             <Label Content="TOTAL" FontSize="13" FontWeight="SemiBold" HorizontalContentAlignment="Center"/>
-                            <Label Margin="0,-20,0,0" Content="{Binding Path=TOTALRESULT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="70" FontWeight="Bold" HorizontalContentAlignment="Center">
-                                <Label.Style>
-                                    <Style TargetType="Label">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="PASS">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="FAIL">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="Wait">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextWait}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="NONE">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextNone}"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Label.Style>
-                            </Label>
+                            <WrapPanel>
+                                <Label Margin="0,-20,0,0" Content="{Binding Path=TOTALRESULT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="70" FontWeight="Bold" HorizontalContentAlignment="Center">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="PASS">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="FAIL">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="Wait">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextWait}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="NONE">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNone}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                                <Label Content="{Binding Path=AUTOPROGRESS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></Label>
+                                <Label Content="{Binding Path=AUTOERRORRATE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></Label>
+                            </WrapPanel>
+                            
                             <Label Margin="0,-10,0,0" Content="{Binding Path=ERRORCODE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="15" Foreground="Red" FontWeight="SemiBold" HorizontalContentAlignment="Center"/>
                         </StackPanel>
                     </Grid>
@@ -676,26 +681,31 @@
                     <Grid Grid.Row="2">
                         <StackPanel HorizontalAlignment="Center">
                             <Label Content="TOTAL" FontSize="13" FontWeight="SemiBold" HorizontalContentAlignment="Center"/>
-                            <Label Margin="0,-20,0,0" Content="{Binding Path=TOTALRESULT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="70" FontWeight="Bold" HorizontalContentAlignment="Center">
-                                <Label.Style>
-                                    <Style TargetType="Label">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="PASS">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="FAIL">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="Wait">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextWait}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="NONE">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextNone}"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Label.Style>
-                            </Label>
+                            <WrapPanel>
+                                <Label Margin="0,-20,0,0" Content="{Binding Path=TOTALRESULT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="70" FontWeight="Bold" HorizontalContentAlignment="Center">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="PASS">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="FAIL">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="Wait">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextWait}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="NONE">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNone}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                                <Label Content="{Binding Path=AUTOPROGRESS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></Label>
+                                <Label Content="{Binding Path=AUTOERRORRATE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></Label>
+                            </WrapPanel>
+                            
                             <Label Margin="0,-10,0,0" Content="{Binding Path=ERRORCODE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="15" Foreground="Red" FontWeight="SemiBold" HorizontalContentAlignment="Center"/>
                         </StackPanel>
                     </Grid>
@@ -1003,26 +1013,31 @@
                     <Grid Grid.Row="2">
                         <StackPanel HorizontalAlignment="Center">
                             <Label Content="TOTAL" FontSize="13" FontWeight="SemiBold" HorizontalContentAlignment="Center"/>
-                            <Label Margin="0,-20,0,0" Content="{Binding Path=TOTALRESULT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="70" FontWeight="Bold" HorizontalContentAlignment="Center">
-                                <Label.Style>
-                                    <Style TargetType="Label">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="PASS">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="FAIL">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="Wait">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextWait}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="NONE">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextNone}"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Label.Style>
-                            </Label>
+                            <WrapPanel>
+                                <Label Margin="0,-20,0,0" Content="{Binding Path=TOTALRESULT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="70" FontWeight="Bold" HorizontalContentAlignment="Center">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="PASS">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="FAIL">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="Wait">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextWait}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="NONE">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNone}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                                <Label Content="{Binding Path=AUTOPROGRESS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></Label>
+                                <Label Content="{Binding Path=AUTOERRORRATE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></Label>
+                            </WrapPanel>
+                            
                             <Label Margin="0,-10,0,0" Content="{Binding Path=ERRORCODE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="15" Foreground="Red" FontWeight="SemiBold" HorizontalContentAlignment="Center"/>
                         </StackPanel>
                     </Grid>
@@ -1330,26 +1345,30 @@
                     <Grid Grid.Row="2">
                         <StackPanel HorizontalAlignment="Center">
                             <Label Content="TOTAL" FontSize="13" FontWeight="SemiBold" HorizontalContentAlignment="Center"/>
-                            <Label Margin="0,-20,0,0" Content="{Binding Path=TOTALRESULT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="70" FontWeight="Bold" HorizontalContentAlignment="Center">
-                                <Label.Style>
-                                    <Style TargetType="Label">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="PASS">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="FAIL">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="Wait">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextWait}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="NONE">
-                                                <Setter Property="Foreground" Value="{StaticResource colorTextNone}"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Label.Style>
-                            </Label>
+                            <WrapPanel>
+                                <Label Margin="0,-20,0,0" Content="{Binding Path=TOTALRESULT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="70" FontWeight="Bold" HorizontalContentAlignment="Center">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="PASS">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="FAIL">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="Wait">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextWait}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="NONE">
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNone}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                                <Label Content="{Binding Path=AUTOPROGRESS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></Label>
+                                <Label Content="{Binding Path=AUTOERRORRATE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></Label>
+                            </WrapPanel>
                             <Label Margin="0,-10,0,0" Content="{Binding Path=ERRORCODE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="15" Foreground="Red" FontWeight="SemiBold" HorizontalContentAlignment="Center"/>
                         </StackPanel>
                     </Grid>

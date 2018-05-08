@@ -32,6 +32,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             string _name = b.Name;
             switch (_name) {
                 case "sqlGetData": {
+                        this.bosareport_datagrid.ItemsSource = GlobalData.listBosaInfo;
                         break;
                     }
                 case "logtestListAll": {
