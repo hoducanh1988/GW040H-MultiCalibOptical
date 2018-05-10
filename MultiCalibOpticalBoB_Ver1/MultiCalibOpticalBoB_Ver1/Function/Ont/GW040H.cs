@@ -114,7 +114,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
 
                 _var.Imod = ((_var.Pwr_temp + 3) / _var.Slope) + _var.Iav - _var.Ith - 1;
 
-                for (int k = 0; k < 9; k++) {
+                for (int k = 0; k < 12; k++) {
                     _var.Imod_DAC = (Math.Round(_var.Imod * 4096 / 90)).ToString();
                     _var.Imod_DAC_Hex = int.Parse(_var.Imod_DAC).ToString("X");
                     base.WriteLine("echo IMOD 0x" + _var.Imod_DAC_Hex + " >/proc/pon_phy/debug");
@@ -128,31 +128,31 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                         if (_var.ER_temp < 12 || _var.ER_temp > 13) {
                             double ER_err = _var.ER_temp - 12.5;
                             if (ER_err <= -5) {
+                                _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +7.\r\n";
+                                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                                _var.Imod = _var.Imod + 7;
+                            }
+                            else if (ER_err > -5 && ER_err <= -4) {
                                 _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +5.\r\n";
                                 _testinfo.SYSTEMLOG += "-----------------\r\n";
                                 _var.Imod = _var.Imod + 5;
                             }
-                            else if (ER_err > -5 && ER_err <= -4) {
+                            else if (ER_err > -4 && ER_err <= -3) {
                                 _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +4.\r\n";
                                 _testinfo.SYSTEMLOG += "-----------------\r\n";
                                 _var.Imod = _var.Imod + 4;
+                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
                             }
-                            else if (ER_err > -4 && ER_err <= -3) {
+                            else if (ER_err > -3 && ER_err <= -2.5) {
                                 _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +3.\r\n";
                                 _testinfo.SYSTEMLOG += "-----------------\r\n";
                                 _var.Imod = _var.Imod + 3;
                                 //Hienthi.SetText(rtb, "Imod mới = " + Imod);
                             }
-                            else if (ER_err > -3 && ER_err <= -2.5) {
+                            else if (ER_err > -2.5 && ER_err <= -2) {
                                 _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +2.\r\n";
                                 _testinfo.SYSTEMLOG += "-----------------\r\n";
                                 _var.Imod = _var.Imod + 2;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
-                            else if (ER_err > -2.5 && ER_err <= -2) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +1.5.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 1.5;
                                 //Hienthi.SetText(rtb, "Imod mới = " + Imod);
                             }
                             else if (ER_err > -2 && ER_err <= -1.5) {
@@ -164,7 +164,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                             else if (ER_err > -1.5 && ER_err <= -1) {
                                 _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +0.5.\r\n";
                                 _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 0.5;
+                                _var.Imod = _var.Imod + 1;
                                 //Hienthi.SetText(rtb, "Imod mới = " + Imod);
                             }
                             else if (ER_err > -1 && ER_err <= -0.5) {

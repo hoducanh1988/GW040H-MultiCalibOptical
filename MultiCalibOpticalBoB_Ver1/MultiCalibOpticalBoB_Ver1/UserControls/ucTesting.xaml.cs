@@ -357,7 +357,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                     Function.IO.LogDetail.Save(testtmp);
                     Function.IO.LogTest.Save(testtmp);
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-                    Thread.Sleep(1000); //auto test
+                    Thread.Sleep(3000); //auto test
                     if (_testtime < 99)
                         this._resetDisplay_Auto(_index); //manual
                 }
