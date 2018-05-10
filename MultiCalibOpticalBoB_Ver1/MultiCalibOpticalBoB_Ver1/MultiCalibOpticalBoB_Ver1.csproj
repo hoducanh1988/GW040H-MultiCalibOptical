@@ -96,6 +96,9 @@
     <Compile Include="SubWindow\ImportToSQL.xaml.cs">
       <DependentUpon>ImportToSQL.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubWindow\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubWindow\SelectPort.xaml.cs">
       <DependentUpon>SelectPort.xaml</DependentUpon>
     </Compile>
@@ -193,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubWindow\ImportToSQL.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubWindow\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,47 @@
+﻿<Window x:Class="MultiCalibOpticalBoB_Ver1.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiCalibOpticalBoB_Ver1"
+        mc:Ignorable="d"
+        Title="Login" Height="200" Width="350" Style="{StaticResource customWindow}" ShowActivated="True" ShowInTaskbar="False" Loaded="Window_Loaded" Topmost ="True" WindowStartupLocation="CenterScreen">
+
+    <Border CornerRadius="5" Background="{StaticResource colorBackground}" BorderBrush="{StaticResource colorBorder}" BorderThickness=".5">
+        <Border CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="200" Width="350">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border  Background="#343132" CornerRadius="5,0,0,5" Grid.Column="0" >
+                    <StackPanel>
+                        <Label Foreground="White" FontSize="30" FontWeight="SemiBold">LOGIN</Label>
+                        <Label Foreground="White" FontSize="15">Username:</Label>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="txtUser" FontSize="20" Padding="5,0,0,0" Margin="5,0,0,0" Background="{StaticResource colorBackground}" Width="230"></TextBox>
+                            <Image Margin="-20,0,0,0" Width="20" Source="/Asset/Images/user.png"></Image>
+                        </StackPanel>
+                        <Label Foreground="White" FontSize="15">Password:</Label>
+                        <StackPanel Orientation="Horizontal">
+                            <PasswordBox KeyDown="txtPass_KeyDown" FontSize="20" x:Name="txtPass" Padding="5,0,0,0" Margin="5,0,0,0" Background="{StaticResource colorBackground}" Width="230"></PasswordBox>
+                            <Image Margin="-20,0,0,0" Width="20" Source="/Asset/Images/password.png"></Image>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
+                <Border Background="Transparent" CornerRadius="0,5,5,0" Grid.Column="1">
+                    <Button Click="btnGo_Click" x:Name="btnGo" Height="195" Background="#35BBD9" >
+                        <Button.Content>
+                            <Grid>
+                                <Image  Margin="-10,-30,0,0" Width="40" Source="/Asset/Images/next.png"></Image>
+                                <Label FontSize="30" Foreground="{StaticResource colorTextTitle}" FontWeight="Bold" Margin="-10,80,0,0">GO</Label>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                </Border>
+            </Grid>
+        </Border>
+    </Border>
+    
+</Window>

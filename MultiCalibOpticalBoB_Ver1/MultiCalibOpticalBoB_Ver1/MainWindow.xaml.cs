@@ -32,16 +32,43 @@ namespace MultiCalibOpticalBoB_Ver1 {
         }
 
         private void bringUCtoFront(int index) {
-            List<Control> list = new List<Control>() { ucTesting, ucStep, ucSetting, ucLog, ucHelp, ucAbout };
-            for (int i = 0; i < list.Count; i++) {
-                if (i == index) {
-                    list[i].Visibility = Visibility.Visible;
-                    Canvas.SetZIndex(list[i], 1);
-                }
-                else {
-                    list[i].Visibility = Visibility.Collapsed;
-                    Canvas.SetZIndex(list[i], 0);
-                }
+            List<Control> list = new List<Control>() { ucTesting, ucStep, ucSetting, ucLog, ucHelp, ucAbout, ucLogin };
+
+            switch (index) {
+                case 2: {
+                        //disable all
+                        for (int i = 0; i < list.Count; i++) {
+                            list[i].Visibility = Visibility.Collapsed;
+                            Canvas.SetZIndex(list[i], 0);
+                        }
+                        Login li = new Login();
+                        li.ShowDialog();
+                        //visible login
+                        if (GlobalData.loginUser == "admin" && GlobalData.loginPass == "vnpt") {
+                            ucSetting.Visibility = Visibility.Visible;
+                            Canvas.SetZIndex(ucSetting, 1);
+                            GlobalData.loginUser = "";
+                            GlobalData.loginPass = "";
+                        }
+                        else {
+                            ucLogin.Visibility = Visibility.Visible;
+                            Canvas.SetZIndex(ucLogin, 1);
+                        }
+                        break;
+                    }
+                default: {
+                        for (int i = 0; i < list.Count; i++) {
+                            if (i == index) {
+                                list[i].Visibility = Visibility.Visible;
+                                Canvas.SetZIndex(list[i], 1);
+                            }
+                            else {
+                                list[i].Visibility = Visibility.Collapsed;
+                                Canvas.SetZIndex(list[i], 0);
+                            }
+                        }
+                        break;
+                    }
             }
         }
 

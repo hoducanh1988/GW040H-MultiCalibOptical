@@ -161,7 +161,7 @@
                                     <TextBox IsEnabled="False" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=PWINSTRNAME, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <Label Content="Port module đo Power" FontSize="13"></Label>
                                     <ComboBox x:Name="cbbSettingPwPort" FontSize="13" FontWeight="Bold" Text="{Binding Path=PWINSTRPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
-                                    <Label Content="Tên module đo chuyển mạch" FontSize="13"></Label>
+                                    <Label Content="Tên module chuyển mạch" FontSize="13"></Label>
                                     <TextBox IsEnabled="False" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=SWINSTRNAME, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <Label Content="Port module chuyển mạch" FontSize="13"></Label>
                                     <ComboBox x:Name="cbbSettingSwPort" FontSize="13" FontWeight="Bold" Text="{Binding Path=SWINSTRPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
@@ -209,11 +209,11 @@
                                 <StackPanel Grid.Column="0">
                                     <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT CHO SQL SERVER:"></Label>
                                     <Label Content="Tên Server" FontSize="13"></Label>
-                                    <TextBox FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=SQLNAME, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox IsEnabled="False" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=SQLNAME, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <Label Content="User" FontSize="13"></Label>
-                                    <TextBox FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=SQLUSER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox IsEnabled="False" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=SQLUSER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <Label Content="Password" FontSize="13"></Label>
-                                    <TextBox FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=SQLPASS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox IsEnabled="False" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=SQLPASS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <Label Content="Database" FontSize="13"></Label>
                                     <TextBox IsEnabled="False" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Text="{Binding Path=SQLDB, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                 </StackPanel>
@@ -424,9 +424,9 @@
                                     </Label.Style>
                                 </Label>
                                 <!--Write MAC-->
-                                <Label Grid.Row="6" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Write MAC:</Label>
-                                <ToggleButton Grid.Row="6" Grid.Column="1" x:Name="togwm" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEWRITEMAC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
-                                <Label Grid.Row="6" Grid.Column="2" FontSize="25" FontWeight="Bold">
+                                <Label IsEnabled="False" Grid.Row="6" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Write MAC:</Label>
+                                <ToggleButton IsEnabled="False" Grid.Row="6" Grid.Column="1" x:Name="togwm" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEWRITEMAC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label IsEnabled="False" Grid.Row="6" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
                                             <Style.Triggers>

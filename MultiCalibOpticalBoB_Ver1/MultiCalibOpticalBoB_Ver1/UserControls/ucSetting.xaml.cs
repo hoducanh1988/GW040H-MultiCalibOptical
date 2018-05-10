@@ -38,6 +38,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 case "SAVE SETTING": {
                         GlobalData.initSetting.Save();
                         BaseFunctions.display_Port_Name();
+                        if (GlobalData.listBosaInfo.Count == 0) BaseFunctions.loadBosaReport();
                         MessageBox.Show("Success.", "SAVE SETTING", MessageBoxButton.OK, MessageBoxImage.Information);
                         if (GlobalData.connectionManagement.IQS1700STATUS == false || GlobalData.connectionManagement.IQS9100BSTATUS == false || GlobalData.connectionManagement.DCAX86100DSTATUS == false || GlobalData.connectionManagement.SQLSTATUS == false)
                             BaseFunctions.connect_Instrument();

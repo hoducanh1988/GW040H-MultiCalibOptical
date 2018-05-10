@@ -52,11 +52,11 @@
             </Grid>
             <!--content-->
             <Grid Grid.Row="2" Margin="5,10,5,5">
+                <uc:ucLogin x:Name="ucLogin"/>
                 <uc:ucAbout x:Name="ucAbout"/>
                 <uc:ucHelp x:Name="ucHelp"/>
                 <uc:ucLog x:Name="ucLog"/>
                 <uc:ucSetting x:Name="ucSetting"/>
-                <uc:ucLogin x:Name="ucLogin"/>
                 <uc:ucStep x:Name="ucStep"/>
                 <uc:ucTesting x:Name="ucTesting"/>
             </Grid>

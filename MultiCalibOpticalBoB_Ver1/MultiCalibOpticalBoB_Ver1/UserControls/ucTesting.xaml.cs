@@ -37,7 +37,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             this.border_DUT03.DataContext = GlobalData.testingDataDut3;
             this.border_DUT04.DataContext = GlobalData.testingDataDut4;
 
-            this._loadSetting(); //Load setting
+            //this._loadSetting(); //Load setting
             BaseFunctions.connect_Instrument(); //Connect Instrument
 
             timer = new DispatcherTimer();
@@ -62,33 +62,6 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
         #region Sub Function 
         private Object thisLock = new Object();
 
-        bool _loadSetting() {
-            if (GlobalData.initSetting.BOSAREPORT.Trim().Length == 0) return false;
-            Thread t = new Thread(new ThreadStart(() => {
-                //Load data from excel to dataGrid
-                DataTable dt = new DataTable();
-                dt = BosaReport.readData();
-
-                //Import data from dataGrid to Sql Server (using Sql Bulk)
-                int counter = 0;
-                GlobalData.listBosaInfo = new List<bosainfo>();
-                for (int i = 0; i < dt.Rows.Count; i++) {
-                    string _bosaSN = "", _Ith = "", _Vbr = "";
-                    _bosaSN = dt.Rows[i].ItemArray[0].ToString().Trim();
-                    if (_bosaSN.Length > 0 && BaseFunctions.bosa_SerialNumber_Is_Correct(_bosaSN) == true) {
-                        _Ith = dt.Rows[i].ItemArray[1].ToString().Trim();
-                        _Vbr = dt.Rows[i].ItemArray[18].ToString().Trim();
-
-                        bosainfo _bs = new bosainfo() { BosaSN = _bosaSN, Ith = _Ith, Vbr = _Vbr };
-                        GlobalData.listBosaInfo.Add(_bs);
-                        counter++;
-                    }
-                }
-            }));
-            t.IsBackground = true;
-            t.Start();
-            return true;
-        }
 
         bool _addToListSequenceTestER(testinginfo _testinfo) {
             lock (thisLock) {
