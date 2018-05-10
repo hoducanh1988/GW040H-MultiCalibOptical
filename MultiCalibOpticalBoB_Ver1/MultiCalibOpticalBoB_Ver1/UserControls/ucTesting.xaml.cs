@@ -68,14 +68,14 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 _testinfo.SYSTEMLOG += string.Format("Add index {0} to list sequence test ER...\r\n", _testinfo.ONTINDEX);
                 GlobalData.listSequenceTestER.Add(_testinfo.ONTINDEX);
                 string data = "";
-                foreach(var item in GlobalData.listSequenceTestER) {
+                foreach (var item in GlobalData.listSequenceTestER) {
                     data += item + ",";
                 }
                 _testinfo.SYSTEMLOG += string.Format("...{0}\r\n", data);
                 return true;
             }
         }
-            
+
         bool _waitForTurn(testinginfo _testinfo) {
             bool _flag = false;
             int timeout = 900; //timeout =90s
@@ -93,7 +93,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             if (count > timeout) return false; //Request time out
             return true;
         }
-       
+
         bool _removeFromListSequenceTestER(testinginfo _testinfo) {
             lock (thisLock) {
                 _testinfo.SYSTEMLOG += string.Format("Remove index {0} from list sequence test ER...\r\n", _testinfo.ONTINDEX);
@@ -187,9 +187,9 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             //Get MAC Address
             if (!GlobalData.initSetting.ENABLEWRITEMAC) {
                 _testtemp.MACADDRESS = ontDevice.getMACAddress(_testtemp);
-                if (_testtemp.MACADDRESS == string.Empty) { _testtemp.ERRORCODE = "(Mã Lỗi: COT-GM-0001)";  goto END; }
+                if (_testtemp.MACADDRESS == string.Empty) { _testtemp.ERRORCODE = "(Mã Lỗi: COT-GM-0001)"; goto END; }
             }
-           
+
             //Calib Power
             if (GlobalData.initSetting.ENABLETUNINGPOWER) {
                 if (ontDevice.calibPower(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
@@ -205,11 +205,11 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
 
                 //Chờ đến lượt timeout 30s
                 if (this._waitForTurn(_testtemp) == false) goto END;
-                
+
                 //Switch Port check ER
                 _testtemp.SYSTEMLOG += string.Format("Switching port...{0}\r\n", _testtemp.ONTINDEX);
                 if (GlobalData.switchDevice.switchToPort(int.Parse(_testtemp.ONTINDEX)) == false) goto END;
-                
+
                 //Calib ER
                 if (ontDevice.calibER(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
                 //Xóa thứ tự đăng kí Calib ER (để Thread # có thể sử dụng)
@@ -269,71 +269,71 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             //***BEGIN -----------------------------------------//
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(() => {
                 //Auto test
-                int _testtime = 0; //auto test
-                int _passcount = 0; //auto test
+                //int _testtime = 0; //auto test
+                //int _passcount = 0; //auto test
 
-                while (_testtime < 100) { //auto test
-                    _testtime++; //auto test
-                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-                    //Start count time
-                    System.Diagnostics.Stopwatch st = new System.Diagnostics.Stopwatch();
-                    st.Start();
+                //while (_testtime < 100) { //auto test
+                //_testtime++; //auto test
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+                //Start count time
+                System.Diagnostics.Stopwatch st = new System.Diagnostics.Stopwatch();
+                st.Start();
 
-                    string _name = buttonName;
-                    testinginfo testtmp = null;
-                    BaseFunctions.get_Testing_Info_By_Name(_name, ref testtmp);
-                    variables vari = new variables();
+                string _name = buttonName;
+                testinginfo testtmp = null;
+                BaseFunctions.get_Testing_Info_By_Name(_name, ref testtmp);
+                variables vari = new variables();
 
-                    testtmp.AUTOMAX = 100; //auto test
-                    testtmp.AUTOVALUE = _testtime; //auto test
+                //testtmp.AUTOMAX = 100; //auto test
+                //testtmp.AUTOVALUE = _testtime; //auto test
 
-                    testtmp.SYSTEMLOG += string.Format("Input Bosa Serial...\r\n...{0}\r\n", testtmp.BOSASERIAL);
-                    string _BosaSN = testtmp.BOSASERIAL;
-                    if (_BosaSN == "--") return;
+                testtmp.SYSTEMLOG += string.Format("Input Bosa Serial...\r\n...{0}\r\n", testtmp.BOSASERIAL);
+                string _BosaSN = testtmp.BOSASERIAL;
+                if (_BosaSN == "--") return;
 
-                    if (GlobalData.initSetting.ENABLEWRITEMAC) { if (testtmp.MACADDRESS == "--") return; }
+                if (GlobalData.initSetting.ENABLEWRITEMAC) { if (testtmp.MACADDRESS == "--") return; }
 
-                    //Get Bosa Information from Bosa Serial
-                    bosainfo bosaInfo = new bosainfo();
-                    //bosaInfo = GlobalData.sqlServer.getDataByBosaSN(_BosaSN);
-                    testtmp.SYSTEMLOG += string.Format("Get Bosa information...\r\n");
-                    bosaInfo = this._getDataByBosaSN(_BosaSN);
-                    if (bosaInfo == null) {
-                        testtmp.ERRORCODE = "(Mã Lỗi: COT-BS-0001)";
-                        testtmp.SYSTEMLOG += string.Format("...FAIL. {0}. Bosa SN is not existed\r\n", testtmp.ERRORCODE);
-                        testtmp.TOTALRESULT = Parameters.testStatus.FAIL.ToString();
-                        goto END;
-                    }
-                    testtmp.SYSTEMLOG += string.Format("...PASS\r\n");
-
-                    //Calib
-                    testtmp.TOTALRESULT = Parameters.testStatus.Wait.ToString();
-                    testtmp.BUTTONCONTENT = "STOP"; testtmp.BUTTONENABLE = false;
-                    bool _result = RunAll(testtmp, bosaInfo, vari);
-
-                    if (_result == true) _passcount++; //auto test
-
-                    testtmp.TOTALRESULT = _result == false ? Parameters.testStatus.FAIL.ToString() : Parameters.testStatus.PASS.ToString();
-                  
-                    testtmp.AUTOERRORRATE = string.Format("Fail:{0}%", (double) Math.Round(((_testtime - _passcount) * 100.0) / _testtime, 2)); //auto test
-
-                    END:
-                    testtmp.SYSTEMLOG += string.Format("\r\n----------------------------\r\nTotal Judged={0}\r\n", testtmp.TOTALRESULT);
-                    testtmp.BUTTONCONTENT = "START"; testtmp.BUTTONENABLE = true;
-
-                    //Stop count time
-                    st.Stop();
-                    testtmp.SYSTEMLOG += string.Format("Total time = {0} seconds\r\n", st.ElapsedMilliseconds / 1000);
-                    testtmp.TOTALTIME += (st.ElapsedMilliseconds / 1000).ToString();
-
-                    //save log
-                    Function.IO.LogDetail.Save(testtmp);
-                    Function.IO.LogTest.Save(testtmp);
-                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-                    Thread.Sleep(3000); //auto test
-                    if (_testtime < 99)
-                        this._resetDisplay_Auto(_index); //manual
+                //Get Bosa Information from Bosa Serial
+                bosainfo bosaInfo = new bosainfo();
+                //bosaInfo = GlobalData.sqlServer.getDataByBosaSN(_BosaSN);
+                testtmp.SYSTEMLOG += string.Format("Get Bosa information...\r\n");
+                bosaInfo = this._getDataByBosaSN(_BosaSN);
+                if (bosaInfo == null) {
+                    testtmp.ERRORCODE = "(Mã Lỗi: COT-BS-0001)";
+                    testtmp.SYSTEMLOG += string.Format("...FAIL. {0}. Bosa SN is not existed\r\n", testtmp.ERRORCODE);
+                    testtmp.TOTALRESULT = Parameters.testStatus.FAIL.ToString();
+                    goto END;
                 }
+                testtmp.SYSTEMLOG += string.Format("...PASS\r\n");
+
+                //Calib
+                testtmp.TOTALRESULT = Parameters.testStatus.Wait.ToString();
+                testtmp.BUTTONCONTENT = "STOP"; testtmp.BUTTONENABLE = false;
+                bool _result = RunAll(testtmp, bosaInfo, vari);
+
+                //if (_result == true) _passcount++; //auto test
+
+                testtmp.TOTALRESULT = _result == false ? Parameters.testStatus.FAIL.ToString() : Parameters.testStatus.PASS.ToString();
+
+                //testtmp.AUTOERRORRATE = string.Format("Fail:{0}%", (double) Math.Round(((_testtime - _passcount) * 100.0) / _testtime, 2)); //auto test
+
+                END:
+                testtmp.SYSTEMLOG += string.Format("\r\n----------------------------\r\nTotal Judged={0}\r\n", testtmp.TOTALRESULT);
+                testtmp.BUTTONCONTENT = "START"; testtmp.BUTTONENABLE = true;
+
+                //Stop count time
+                st.Stop();
+                testtmp.SYSTEMLOG += string.Format("Total time = {0} seconds\r\n", st.ElapsedMilliseconds / 1000);
+                testtmp.TOTALTIME += (st.ElapsedMilliseconds / 1000).ToString();
+
+                //save log
+                Function.IO.LogDetail.Save(testtmp);
+                Function.IO.LogTest.Save(testtmp);
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+                //Thread.Sleep(3000); //auto test
+                //if (_testtime < 99)
+                //    this._resetDisplay_Auto(_index); //manual
+                //}
             }));
             t.IsBackground = true;
             t.Start();
