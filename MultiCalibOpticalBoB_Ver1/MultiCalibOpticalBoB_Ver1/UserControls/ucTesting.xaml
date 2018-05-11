@@ -148,6 +148,42 @@
                                         </Border>
                                         <Label Margin="10,0,0,0" FontSize="15" FontWeight="Bold">Tuning ER</Label>
                                     </WrapPanel>
+                                    <!--Tuning Crossing-->
+                                    <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGCROSSING}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGCROSSING}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
+                                        <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="NONE">
+                                                            <Setter Property="Background" Value="Transparent"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="Wait">
+                                                            <Setter Property="Background" Value="{StaticResource BackgroundWait}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="PASS">
+                                                            <Setter Property="Background" Value="{StaticResource BackgroundPass}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="FAIL">
+                                                            <Setter Property="Background" Value="{StaticResource BackgroundFail}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                        </Border>
+                                        <Label Margin="10,0,0,0" FontSize="15" FontWeight="Bold">Tuning Crossing</Label>
+                                    </WrapPanel>
                                     <!--TX DDMI-->
                                     <WrapPanel Margin="0,5,0,0">
                                         <WrapPanel.Style>
@@ -479,6 +515,42 @@
                                             </Border.Style>
                                         </Border>
                                         <Label Margin="10,0,0,0" FontSize="15" FontWeight="Bold">Tuning ER</Label>
+                                    </WrapPanel>
+                                    <!--Tuning Crossing-->
+                                    <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGCROSSING}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGCROSSING}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
+                                        <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="NONE">
+                                                            <Setter Property="Background" Value="Transparent"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="Wait">
+                                                            <Setter Property="Background" Value="{StaticResource BackgroundWait}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="PASS">
+                                                            <Setter Property="Background" Value="{StaticResource BackgroundPass}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="FAIL">
+                                                            <Setter Property="Background" Value="{StaticResource BackgroundFail}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                        </Border>
+                                        <Label Margin="10,0,0,0" FontSize="15" FontWeight="Bold">Tuning Crossing</Label>
                                     </WrapPanel>
                                     <!--TX DDMI-->
                                     <WrapPanel Margin="0,5,0,0">
@@ -812,6 +884,42 @@
                                         </Border>
                                         <Label Margin="10,0,0,0" FontSize="15" FontWeight="Bold">Tuning ER</Label>
                                     </WrapPanel>
+                                    <!--Tuning Crossing-->
+                                    <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGCROSSING}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGCROSSING}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
+                                        <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="NONE">
+                                                            <Setter Property="Background" Value="Transparent"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="Wait">
+                                                            <Setter Property="Background" Value="{StaticResource BackgroundWait}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="PASS">
+                                                            <Setter Property="Background" Value="{StaticResource BackgroundPass}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="FAIL">
+                                                            <Setter Property="Background" Value="{StaticResource BackgroundFail}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                        </Border>
+                                        <Label Margin="10,0,0,0" FontSize="15" FontWeight="Bold">Tuning Crossing</Label>
+                                    </WrapPanel>
                                     <!--TX DDMI-->
                                     <WrapPanel Margin="0,5,0,0">
                                         <WrapPanel.Style>
@@ -1143,6 +1251,42 @@
                                             </Border.Style>
                                         </Border>
                                         <Label Margin="10,0,0,0" FontSize="15" FontWeight="Bold">Tuning ER</Label>
+                                    </WrapPanel>
+                                    <!--Tuning Crossing-->
+                                    <WrapPanel Margin="0,5,0,0">
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGCROSSING}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=ETUNINGCROSSING}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
+                                        <Border CornerRadius="2" Width="80" Height="20" BorderBrush="#777777" BorderThickness="1">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="NONE">
+                                                            <Setter Property="Background" Value="Transparent"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="Wait">
+                                                            <Setter Property="Background" Value="{StaticResource BackgroundWait}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="PASS">
+                                                            <Setter Property="Background" Value="{StaticResource BackgroundPass}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=TUNINGCROSSINGRESULT}" Value="FAIL">
+                                                            <Setter Property="Background" Value="{StaticResource BackgroundFail}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                        </Border>
+                                        <Label Margin="10,0,0,0" FontSize="15" FontWeight="Bold">Tuning Crossing</Label>
                                     </WrapPanel>
                                     <!--TX DDMI-->
                                     <WrapPanel Margin="0,5,0,0">

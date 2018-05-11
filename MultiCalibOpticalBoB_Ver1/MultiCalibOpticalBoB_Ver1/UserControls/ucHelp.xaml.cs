@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Xps.Packaging;
 
 namespace MultiCalibOpticalBoB_Ver1.UserControls {
     /// <summary>
@@ -20,6 +21,9 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
     public partial class ucHelp : UserControl {
         public ucHelp() {
             InitializeComponent();
+            XpsDocument xpsDocument = new XpsDocument(string.Format("{0}Help\\UserGuide.xps", System.AppDomain.CurrentDomain.BaseDirectory), System.IO.FileAccess.Read);
+            FixedDocumentSequence fds = xpsDocument.GetFixedDocumentSequence();
+            docViewer.Document = fds;
         }
     }
 }

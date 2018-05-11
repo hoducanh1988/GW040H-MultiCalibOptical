@@ -5,6 +5,7 @@ FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBo
 FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\MainWindow.xaml;;
 FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\SubWindow\ConnectInstrument.xaml;;
 FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\SubWindow\ImportToSQL.xaml;;
+FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\SubWindow\Login.xaml;;
 FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\SubWindow\SelectPort.xaml;;
 FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\SubWindow\wBosaSerialNumber.xaml;;
 FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\SubWindow\wUsbDebugger.xaml;;
@@ -15,5 +16,4 @@ FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBo
 FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\UserControls\ucSetting.xaml;;
 FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\UserControls\ucStep.xaml;;
 FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\UserControls\ucTesting.xaml;;
-FC:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\SubWindow\Login.xaml;;
 

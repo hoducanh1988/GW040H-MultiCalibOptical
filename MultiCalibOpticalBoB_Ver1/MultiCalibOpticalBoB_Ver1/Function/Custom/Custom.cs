@@ -351,6 +351,17 @@ namespace MultiCalibOpticalBoB_Ver1.Function
                 OnPropertyChanged(nameof(ENABLETUNINGER));
             }
         }
+        public bool ENABLETUNINGCROSSING {
+            get { return Properties.Settings.Default.enabletuningcrossing; }
+            set {
+                Properties.Settings.Default.enabletuningcrossing = value;
+                GlobalData.testingDataDut1.ETUNINGCROSSING = value;
+                GlobalData.testingDataDut2.ETUNINGCROSSING = value;
+                GlobalData.testingDataDut3.ETUNINGCROSSING = value;
+                GlobalData.testingDataDut4.ETUNINGCROSSING = value;
+                OnPropertyChanged(nameof(ENABLETUNINGCROSSING));
+            }
+        }
         public bool ENABLETXDDMI {
             get { return Properties.Settings.Default.enabletxddmi; }
             set {
@@ -509,6 +520,14 @@ namespace MultiCalibOpticalBoB_Ver1.Function
                 OnPropertyChanged(nameof(ETUNINGER));
             }
         }
+        bool _etuningcrossing;
+        public bool ETUNINGCROSSING {
+            get { return _etuningcrossing; }
+            set {
+                _etuningcrossing = value;
+                OnPropertyChanged(nameof(ETUNINGCROSSING));
+            }
+        }
         bool _etxddmi;
         public bool ETXDDMI {
             get { return _etxddmi; }
@@ -614,6 +633,14 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             set {
                 _tuningerresult = value;
                 OnPropertyChanged(nameof(TUNINGERRESULT));
+            }
+        }
+        string _tuningcrossingresult;
+        public string TUNINGCROSSINGRESULT {
+            get { return _tuningcrossingresult; }
+            set {
+                _tuningcrossingresult = value;
+                OnPropertyChanged(nameof(TUNINGCROSSINGRESULT));
             }
         }
         string _txddmiresult;
@@ -776,6 +803,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function
 
             this.ETUNINGPOWER = GlobalData.initSetting.ENABLETUNINGPOWER;
             this.ETUNINGER = GlobalData.initSetting.ENABLETUNINGER;
+            this.ETUNINGCROSSING = GlobalData.initSetting.ENABLETUNINGCROSSING;
             this.ETXDDMI = GlobalData.initSetting.ENABLETXDDMI;
             this.ESIGNALOFF = GlobalData.initSetting.ENABLESIGNALOFF;
             this.EWRITEFLASH = GlobalData.initSetting.ENABLEWRITEFLASH;

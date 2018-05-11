@@ -490,5 +490,17 @@ namespace MultiCalibOpticalBoB_Ver1.Properties {
                 this["Mac6digits"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool enabletuningcrossing {
+            get {
+                return ((bool)(this["enabletuningcrossing"]));
+            }
+            set {
+                this["enabletuningcrossing"] = value;
+            }
+        }
     }
 }

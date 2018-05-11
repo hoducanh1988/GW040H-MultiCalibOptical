@@ -21,6 +21,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
         public abstract string getMACAddress(testinginfo _testinfo);
         public abstract bool calibPower(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var);
         public abstract bool calibER(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var);
+        public abstract bool calibCrossing(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var);
         public abstract bool txDDMI(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var);
         public abstract bool signalOff(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var);
         public abstract bool writeFlash(bosainfo _bosainfo, testinginfo _testinfo);

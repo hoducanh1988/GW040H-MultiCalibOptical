@@ -567,6 +567,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 return false;
             }
         }
+
+        public override bool calibCrossing(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
+            throw new NotImplementedException();
+        }
         //Calib Quang------------------------------//
     }
 }

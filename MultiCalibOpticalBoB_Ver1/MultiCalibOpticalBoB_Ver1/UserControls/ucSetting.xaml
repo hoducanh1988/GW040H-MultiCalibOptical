@@ -347,10 +347,29 @@
                                         </Style>
                                     </Label.Style>
                                 </Label>
-                                <!--TX DDMI-->
-                                <Label Grid.Row="2" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">TX DDMI:</Label>
-                                <ToggleButton Grid.Row="2" Grid.Column="1" x:Name="togtd" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLETXDDMI, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <!--Tuning Crossing-->
+                                <Label Grid.Row="2" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Tuning Crossing:</Label>
+                                <ToggleButton Grid.Row="2" Grid.Column="1" x:Name="togtc" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLETUNINGCROSSING, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
                                 <Label Grid.Row="2" Grid.Column="2" FontSize="25" FontWeight="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=togtc, Path=IsChecked}" Value="true">
+                                                    <Setter Property="Content" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorContentOK}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=togtc, Path=IsChecked}" Value="false">
+                                                    <Setter Property="Content" Value="OFF"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                                <!--TX DDMI-->
+                                <Label Grid.Row="3" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">TX DDMI:</Label>
+                                <ToggleButton Grid.Row="3" Grid.Column="1" x:Name="togtd" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLETXDDMI, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="3" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
                                             <Style.Triggers>
@@ -367,9 +386,9 @@
                                     </Label.Style>
                                 </Label>
                                 <!--Signal Off-->
-                                <Label Grid.Row="3" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Signal Off:</Label>
-                                <ToggleButton Grid.Row="3" Grid.Column="1" x:Name="togso" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLESIGNALOFF, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
-                                <Label Grid.Row="3" Grid.Column="2" FontSize="25" FontWeight="Bold">
+                                <Label Grid.Row="4" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Signal Off:</Label>
+                                <ToggleButton Grid.Row="4" Grid.Column="1" x:Name="togso" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLESIGNALOFF, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="4" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
                                             <Style.Triggers>
@@ -386,9 +405,9 @@
                                     </Label.Style>
                                 </Label>
                                 <!--Write to flash-->
-                                <Label Grid.Row="4" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Write to Flash:</Label>
-                                <ToggleButton Grid.Row="4" Grid.Column="1" x:Name="togwf" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEWRITEFLASH, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
-                                <Label Grid.Row="4" Grid.Column="2" FontSize="25" FontWeight="Bold">
+                                <Label Grid.Row="5" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Write to Flash:</Label>
+                                <ToggleButton Grid.Row="5" Grid.Column="1" x:Name="togwf" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEWRITEFLASH, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="5" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
                                             <Style.Triggers>
@@ -405,9 +424,9 @@
                                     </Label.Style>
                                 </Label>
                                 <!--Verify Signal-->
-                                <Label Grid.Row="5" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Verify Signal:</Label>
-                                <ToggleButton Grid.Row="5" Grid.Column="1" x:Name="togvs" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEVERIFYSIGNAL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
-                                <Label Grid.Row="5" Grid.Column="2" FontSize="25" FontWeight="Bold">
+                                <Label Grid.Row="6" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Verify Signal:</Label>
+                                <ToggleButton Grid.Row="6" Grid.Column="1" x:Name="togvs" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEVERIFYSIGNAL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label Grid.Row="6" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
                                             <Style.Triggers>
@@ -424,9 +443,9 @@
                                     </Label.Style>
                                 </Label>
                                 <!--Write MAC-->
-                                <Label IsEnabled="False" Grid.Row="6" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Write MAC:</Label>
-                                <ToggleButton IsEnabled="False" Grid.Row="6" Grid.Column="1" x:Name="togwm" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEWRITEMAC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
-                                <Label IsEnabled="False" Grid.Row="6" Grid.Column="2" FontSize="25" FontWeight="Bold">
+                                <Label IsEnabled="False" Grid.Row="7" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Write MAC:</Label>
+                                <ToggleButton IsEnabled="False" Grid.Row="7" Grid.Column="1" x:Name="togwm" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEWRITEMAC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label IsEnabled="False" Grid.Row="7" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
                                             <Style.Triggers>

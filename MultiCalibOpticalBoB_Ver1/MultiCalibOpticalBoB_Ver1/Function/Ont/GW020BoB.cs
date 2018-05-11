@@ -60,5 +60,9 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
         public override bool writeMAC(testinginfo _testinfo) {
             throw new NotImplementedException();
         }
+
+        public override bool calibCrossing(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
+            throw new NotImplementedException();
+        }
     }
 }

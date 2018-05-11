@@ -39,6 +39,8 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                         GlobalData.initSetting.Save();
                         BaseFunctions.display_Port_Name();
                         if (GlobalData.listBosaInfo.Count == 0) BaseFunctions.loadBosaReport();
+                        GlobalData.initSetting.ENABLETUNINGCROSSING = GlobalData.initSetting.ONTTYPE == "GW040H" ? false : true;
+                        GlobalData.initSetting.ENABLESIGNALOFF = GlobalData.initSetting.ONTTYPE == "GW040H" ? true : false;
                         MessageBox.Show("Success.", "SAVE SETTING", MessageBoxButton.OK, MessageBoxImage.Information);
                         if (GlobalData.connectionManagement.IQS1700STATUS == false || GlobalData.connectionManagement.IQS9100BSTATUS == false || GlobalData.connectionManagement.DCAX86100DSTATUS == false || GlobalData.connectionManagement.SQLSTATUS == false)
                             BaseFunctions.connect_Instrument();

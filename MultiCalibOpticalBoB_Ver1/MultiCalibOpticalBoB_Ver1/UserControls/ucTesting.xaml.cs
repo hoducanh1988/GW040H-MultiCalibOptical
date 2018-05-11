@@ -173,10 +173,14 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             switch (GlobalData.initSetting.ONTTYPE) {
                 case "GW040H": {
                         ontDevice = new GW040H(_testtemp.COMPORT);
+                        GlobalData.initSetting.ENABLETUNINGCROSSING = false;
+                        GlobalData.initSetting.ENABLESIGNALOFF = true;
                         break;
                     }
                 case "GW020BoB": {
                         ontDevice = new GW020BoB(_testtemp.COMPORT);
+                        GlobalData.initSetting.ENABLETUNINGCROSSING = true;
+                        GlobalData.initSetting.ENABLESIGNALOFF = false;
                         break;
                     }
                 default: return false;
@@ -218,6 +222,9 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 et.Stop();
                 _testtemp.SYSTEMLOG += string.Format("ER time = {0} sec\r\n", et.ElapsedMilliseconds / 1000);
             }
+
+            //Calib Crossing
+
 
             //TX DDMI
             if (GlobalData.initSetting.ENABLETXDDMI) {
