@@ -279,6 +279,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 _var.Iav_1_dac = Math.Round(_var.Iav_1 * 4096 / 90);
                 _var.Iav_1_dac_hex = int.Parse(_var.Iav_1_dac.ToString()).ToString("X");
 
+                _testinfo.SYSTEMLOG += string.Format("echo IAV 0x{0} >/proc/pon_phy/debug\r\n", _var.Iav_1_dac_hex);
                 base.WriteLine("echo IAV 0x" + _var.Iav_1_dac_hex + " >/proc/pon_phy/debug");
                 Thread.Sleep(Delay_modem);
 
@@ -296,8 +297,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 _var.Iav_2_dac = Math.Round(_var.Iav_2 * 4096 / 90);
                 _var.Iav_2_dac_hex = int.Parse(_var.Iav_2_dac.ToString()).ToString("X");
 
+                _testinfo.SYSTEMLOG += string.Format("echo IAV 0x{0} >/proc/pon_phy/debug\r\n", _var.Iav_2_dac_hex);
                 base.WriteLine("echo IAV 0x" + _var.Iav_2_dac_hex + " >/proc/pon_phy/debug");
                 Thread.Sleep(Delay_modem);
+               
                 _var.Pwr_2 = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
                 _testinfo.SYSTEMLOG += string.Format("Pwr_2 = {0}\r\n", _var.Pwr_2);
 
