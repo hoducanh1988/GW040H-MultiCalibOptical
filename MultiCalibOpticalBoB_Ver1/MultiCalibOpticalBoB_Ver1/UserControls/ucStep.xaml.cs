@@ -145,7 +145,37 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                         Thread t = new Thread(new ThreadStart(() => {
                             GlobalData.manualTest.IQS610PLOG += string.Format("Read power Watt of module IQS1700 at Port...\n");
                             string message = "";
-
+                            try {
+                                double value1 = 0, value2 = 0, value3 = 0, value4 = 0;
+                                Thread t1 = new Thread(new ThreadStart(() => {
+                                    value1 = BaseFunctions.convert_dBm_To_uW(GlobalData.powerDevice.getPower_dBm(1));
+                                }));
+                                t1.IsBackground = true;
+                                t1.Start();
+                                Thread t2 = new Thread(new ThreadStart(() => {
+                                    value2 = BaseFunctions.convert_dBm_To_uW(GlobalData.powerDevice.getPower_dBm(2));
+                                }));
+                                t2.IsBackground = true;
+                                t2.Start();
+                                Thread t3 = new Thread(new ThreadStart(() => {
+                                    value3 = BaseFunctions.convert_dBm_To_uW(GlobalData.powerDevice.getPower_dBm(3));
+                                }));
+                                t3.IsBackground = true;
+                                t3.Start();
+                                Thread t4 = new Thread(new ThreadStart(() => {
+                                    value4 = BaseFunctions.convert_dBm_To_uW(GlobalData.powerDevice.getPower_dBm(4));
+                                }));
+                                t4.IsBackground = true;
+                                t4.Start();
+                                while (t1.IsAlive == true || t2.IsAlive == true || t3.IsAlive == true || t4.IsAlive == true) { Thread.Sleep(100); }
+                                message += "Channel1: " + value1.ToString() + " uW\n";
+                                message += "Channel2: " + value2.ToString() + " uW\n";
+                                message += "Channel3: " + value3.ToString() + " uW\n";
+                                message += "Channel4: " + value4.ToString() + " uW\n";
+                            }
+                            catch (Exception ex) {
+                                message = ex.ToString();
+                            }
                             GlobalData.manualTest.IQS610PLOG += message + "\n";
                             GlobalData.manualTest.IQS610PLOG += string.Format("=> Result: {0}\n", "PASS");
                         }));

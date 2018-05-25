@@ -262,6 +262,13 @@ namespace MultiCalibOpticalBoB_Ver1.Function {
             }
         }
 
+        public static double convert_dBm_To_uW(string _dBm) {
+            double p = double.Parse(_dBm);
+            double uW = 0;
+            uW = Math.Pow(10, p / 10) * 1000;
+            return uW;
+        }
+
 
         public static void connect_Instrument() {
             Thread t = new Thread(new ThreadStart(() => {
