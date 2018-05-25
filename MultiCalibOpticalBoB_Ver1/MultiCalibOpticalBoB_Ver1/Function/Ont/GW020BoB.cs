@@ -680,6 +680,5 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             throw new NotImplementedException();
         }
 
-
     }
 }
