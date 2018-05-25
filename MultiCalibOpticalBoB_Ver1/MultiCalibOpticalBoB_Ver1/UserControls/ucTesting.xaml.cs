@@ -200,7 +200,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             }
 
             //Calib ER
-            if (GlobalData.initSetting.ENABLETUNINGER) {
+            if (GlobalData.initSetting.ENABLETUNINGER || GlobalData.initSetting.ENABLETUNINGCROSSING) {
                 System.Diagnostics.Stopwatch et = new System.Diagnostics.Stopwatch();
                 et.Start();
 
@@ -215,16 +215,21 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 if (GlobalData.switchDevice.switchToPort(int.Parse(_testtemp.ONTINDEX)) == false) goto END;
 
                 //Calib ER
-                if (ontDevice.calibER(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
+                if (GlobalData.initSetting.ENABLETUNINGER) {
+                    if (ontDevice.calibER(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
+                }
+                
+                //Calib Crossing
+                if (GlobalData.initSetting.ENABLETUNINGCROSSING && GlobalData.initSetting.ONTTYPE == "GW020BoB") {
+                    if (ontDevice.calibCrossing(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
+                }
+
                 //Xóa thứ tự đăng kí Calib ER (để Thread # có thể sử dụng)
                 this._removeFromListSequenceTestER(_testtemp);
 
                 et.Stop();
                 _testtemp.SYSTEMLOG += string.Format("ER time = {0} sec\r\n", et.ElapsedMilliseconds / 1000);
             }
-
-            //Calib Crossing
-
 
             //TX DDMI
             if (GlobalData.initSetting.ENABLETXDDMI) {
@@ -237,12 +242,12 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             }
 
             //Write flash
-            if (GlobalData.initSetting.ENABLEWRITEFLASH) {
+            if (GlobalData.initSetting.ENABLEWRITEFLASH && GlobalData.initSetting.ONTTYPE == "GW040H") {
                 if (ontDevice.writeFlash(_bosainfo, _testtemp) == false) goto END;
             }
 
             //Verify Signal
-            if (GlobalData.initSetting.ENABLEVERIFYSIGNAL) {
+            if (GlobalData.initSetting.ENABLEVERIFYSIGNAL && GlobalData.initSetting.ONTTYPE == "GW040H") {
                 if (ontDevice.verifySignal(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
             }
 
@@ -268,11 +273,14 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             string buttonName = b.Name;
             string _index = buttonName.Substring(buttonName.Length - 1, 1);
             this._resetDisplay(_index); //manual
-            this.Opacity = 0.3;
-            wBosaSerialNumber wb = new wBosaSerialNumber(_index);
-            wb.ShowDialog();
-            this.Opacity = 1;
 
+            if (GlobalData.initSetting.ONTTYPE == "GW040H") {
+                this.Opacity = 0.3;
+                wBosaSerialNumber wb = new wBosaSerialNumber(_index);
+                wb.ShowDialog();
+                this.Opacity = 1;
+            }
+           
             //***BEGIN -----------------------------------------//
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(() => {
                 //Auto test
@@ -291,27 +299,31 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 BaseFunctions.get_Testing_Info_By_Name(_name, ref testtmp);
                 variables vari = new variables();
 
-                //testtmp.AUTOMAX = 100; //auto test
-                //testtmp.AUTOVALUE = _testtime; //auto test
-
-                testtmp.SYSTEMLOG += string.Format("Input Bosa Serial...\r\n...{0}\r\n", testtmp.BOSASERIAL);
-                string _BosaSN = testtmp.BOSASERIAL;
-                if (_BosaSN == "--") return;
+                string _BosaSN = "";
+                if (GlobalData.initSetting.ONTTYPE == "GW040H") {
+                    testtmp.SYSTEMLOG += string.Format("Input Bosa Serial...\r\n...{0}\r\n", testtmp.BOSASERIAL);
+                    _BosaSN = testtmp.BOSASERIAL;
+                    if (_BosaSN == "--") return;
+                }
+                
 
                 if (GlobalData.initSetting.ENABLEWRITEMAC) { if (testtmp.MACADDRESS == "--") return; }
 
                 //Get Bosa Information from Bosa Serial
                 bosainfo bosaInfo = new bosainfo();
                 //bosaInfo = GlobalData.sqlServer.getDataByBosaSN(_BosaSN);
-                testtmp.SYSTEMLOG += string.Format("Get Bosa information...\r\n");
-                bosaInfo = this._getDataByBosaSN(_BosaSN);
-                if (bosaInfo == null) {
-                    testtmp.ERRORCODE = "(Mã Lỗi: COT-BS-0001)";
-                    testtmp.SYSTEMLOG += string.Format("...FAIL. {0}. Bosa SN is not existed\r\n", testtmp.ERRORCODE);
-                    testtmp.TOTALRESULT = Parameters.testStatus.FAIL.ToString();
-                    goto END;
+
+                if (GlobalData.initSetting.ONTTYPE == "GW040H") {
+                    testtmp.SYSTEMLOG += string.Format("Get Bosa information...\r\n");
+                    bosaInfo = this._getDataByBosaSN(_BosaSN);
+                    if (bosaInfo == null) {
+                        testtmp.ERRORCODE = "(Mã Lỗi: COT-BS-0001)";
+                        testtmp.SYSTEMLOG += string.Format("...FAIL. {0}. Bosa SN is not existed\r\n", testtmp.ERRORCODE);
+                        testtmp.TOTALRESULT = Parameters.testStatus.FAIL.ToString();
+                        goto END;
+                    }
+                    testtmp.SYSTEMLOG += string.Format("...PASS\r\n");
                 }
-                testtmp.SYSTEMLOG += string.Format("...PASS\r\n");
 
                 //Calib
                 testtmp.TOTALRESULT = Parameters.testStatus.Wait.ToString();

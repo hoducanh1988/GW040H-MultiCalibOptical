@@ -789,6 +789,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             this.BOSASERIAL = "--";
             this.TUNINGPOWERRESULT = nameof(Parameters.testStatus.NONE);
             this.TUNINGERRESULT = nameof(Parameters.testStatus.NONE);
+            this.TUNINGCROSSINGRESULT = nameof(Parameters.testStatus.NONE);
             this.TXDDMIRESULT = nameof(Parameters.testStatus.NONE);
             this.SIGNALOFFRESULT = nameof(Parameters.testStatus.NONE);
             this.WRITEFLASHRESULT = nameof(Parameters.testStatus.NONE);
@@ -816,6 +817,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function
             this.MACADDRESS = "--";
             this.TUNINGPOWERRESULT = nameof(Parameters.testStatus.NONE);
             this.TUNINGERRESULT = nameof(Parameters.testStatus.NONE);
+            this.TUNINGCROSSINGRESULT = nameof(Parameters.testStatus.NONE);
             this.TXDDMIRESULT = nameof(Parameters.testStatus.NONE);
             this.SIGNALOFFRESULT = nameof(Parameters.testStatus.NONE);
             this.WRITEFLASHRESULT = nameof(Parameters.testStatus.NONE);
@@ -830,6 +832,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function
 
             this.ETUNINGPOWER = GlobalData.initSetting.ENABLETUNINGPOWER;
             this.ETUNINGER = GlobalData.initSetting.ENABLETUNINGER;
+            this.ETUNINGCROSSING = GlobalData.initSetting.ENABLETUNINGCROSSING;
             this.ETXDDMI = GlobalData.initSetting.ENABLETXDDMI;
             this.ESIGNALOFF = GlobalData.initSetting.ENABLESIGNALOFF;
             this.EWRITEFLASH = GlobalData.initSetting.ENABLEWRITEFLASH;

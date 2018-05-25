@@ -182,7 +182,7 @@
                                 <StackPanel Grid.Column="0">
                                     <WrapPanel>
                                         <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT CHO USB DEBUG:"></Label>
-                                        <Button Style="{StaticResource roundCornerButton}" Content="Hỗ trợ cài đặt" Click="Button_Click"></Button>
+                                        <!--<Button Style="{StaticResource roundCornerButton}" Content="Hỗ trợ cài đặt" Click="Button_Click"></Button>-->
                                     </WrapPanel>
                                     <Label Content="USB Debug - DUT #01" FontSize="13"></Label>
                                     <ComboBox x:Name="cbbSettingUsb1" FontSize="13" FontWeight="Bold" Text="{Binding Path=USBDEBUG1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>

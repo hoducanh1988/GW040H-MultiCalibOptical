@@ -128,49 +128,49 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                         if (_var.ER_temp < 12 || _var.ER_temp > 13) {
                             double ER_err = _var.ER_temp - 12.5;
                             if (ER_err <= -5) {
+                                _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +12.\r\n";
+                                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                                _var.Imod = _var.Imod + 12;
+                            }
+                            else if (ER_err > -5 && ER_err <= -4) {
+                                _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +10.\r\n";
+                                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                                _var.Imod = _var.Imod + 10;
+                            }
+                            else if (ER_err > -4 && ER_err <= -3) {
                                 _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +7.\r\n";
                                 _testinfo.SYSTEMLOG += "-----------------\r\n";
                                 _var.Imod = _var.Imod + 7;
-                            }
-                            else if (ER_err > -5 && ER_err <= -4) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +5.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 5;
-                            }
-                            else if (ER_err > -4 && ER_err <= -3) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +4.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 4;
                                 //Hienthi.SetText(rtb, "Imod mới = " + Imod);
                             }
                             else if (ER_err > -3 && ER_err <= -2.5) {
+                                _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +5.\r\n";
+                                _testinfo.SYSTEMLOG += "-----------------\r\n";
+                                _var.Imod = _var.Imod + 5;
+                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
+                            }
+                            else if (ER_err > -2.5 && ER_err <= -2) {
                                 _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +3.\r\n";
                                 _testinfo.SYSTEMLOG += "-----------------\r\n";
                                 _var.Imod = _var.Imod + 3;
                                 //Hienthi.SetText(rtb, "Imod mới = " + Imod);
                             }
-                            else if (ER_err > -2.5 && ER_err <= -2) {
+                            else if (ER_err > -2 && ER_err <= -1.5) {
                                 _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +2.\r\n";
                                 _testinfo.SYSTEMLOG += "-----------------\r\n";
                                 _var.Imod = _var.Imod + 2;
                                 //Hienthi.SetText(rtb, "Imod mới = " + Imod);
                             }
-                            else if (ER_err > -2 && ER_err <= -1.5) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +1.\r\n";
-                                _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 1;
-                                //Hienthi.SetText(rtb, "Imod mới = " + Imod);
-                            }
                             else if (ER_err > -1.5 && ER_err <= -1) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +0.5.\r\n";
+                                _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +1.5.\r\n";
                                 _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 1;
+                                _var.Imod = _var.Imod + 1.5;
                                 //Hienthi.SetText(rtb, "Imod mới = " + Imod);
                             }
                             else if (ER_err > -1 && ER_err <= -0.5) {
-                                _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +0.5.\r\n";
+                                _testinfo.SYSTEMLOG += "Cần tăng Imod thêm +1.\r\n";
                                 _testinfo.SYSTEMLOG += "-----------------\r\n";
-                                _var.Imod = _var.Imod + 0.5;
+                                _var.Imod = _var.Imod + 1;
                                 //Hienthi.SetText(rtb, "Imod mới = " + Imod);
                             }
                             //else if (ER_err >= 0.5)
