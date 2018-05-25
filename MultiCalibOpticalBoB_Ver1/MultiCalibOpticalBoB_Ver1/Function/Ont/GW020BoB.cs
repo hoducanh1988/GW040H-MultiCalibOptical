@@ -594,7 +594,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
 
                     // Đọc thanh ghi EE, EF -> chuyển sang Decimal
                     ADC_TX_Point1 = Read_ADC_value_Tx_Power_dec("ee");
-                    TX1_Power = GlobalData.powerDevice.getPower_mW(Port).ToString();
+                    TX1_Power = BaseFunctions.convert_dBm_To_uW(GlobalData.powerDevice.getPower_dBm(Port)).ToString();
 
 
                     // Phát điểm công suất 2:point 2 - A8 = BE 
@@ -604,7 +604,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
 
                     //Đọc thanh ghi EE, EF -> chuyển sang Decimal
                     ADC_TX_Point2 = Read_ADC_value_Tx_Power_dec("ee"); ;
-                    TX2_Power = GlobalData.powerDevice.getPower_mW(Port).ToString();
+                    TX2_Power = BaseFunctions.convert_dBm_To_uW(GlobalData.powerDevice.getPower_dBm(Port)).ToString();
 
                     _testinfo.SYSTEMLOG += " \r\n";
                     _testinfo.SYSTEMLOG += string.Format("ADC_TX_Point1 = {0}\r\n", ADC_TX_Point1);
