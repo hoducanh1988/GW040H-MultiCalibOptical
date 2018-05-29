@@ -268,6 +268,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             string Trim_ER_NEW = "";
             bool Tuning_ER_Result = false;
 
+            _testinfo.TUNINGERRESULT = Parameters.testStatus.Wait.ToString();
+
             try {
                 // Đọc giá trị thanh ghi B0_TRIM_ER (AUTO_ER_3) 
                 Read_Value = Read_from_I2C("b0");
@@ -331,6 +333,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
                 Tuning_ER_Result = false;
             }
 
+            _testinfo.TUNINGERRESULT = Tuning_ER_Result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
             return Tuning_ER_Result;
         }
 
@@ -348,6 +351,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             bool Tuning_Tx_Power_Result = false;
             bool Check_Ibias_Result = false;
             int A8_DEC = 160;
+
+            _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.Wait.ToString();
 
             for (int i = 0; i < 10; i++) {
                 _testinfo.SYSTEMLOG += string.Format("A8_DEC = {0}\r\n", A8_DEC.ToString());
@@ -391,6 +396,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             else Check_Ibias_Result = false;
 
             Tuning_Tx_Power_Result = Tuning_Tx_Power_Result && Check_Ibias_Result;
+            _testinfo.TUNINGPOWERRESULT = Tuning_Tx_Power_Result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
             return Tuning_Tx_Power_Result;
         }
 
@@ -485,6 +491,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             bool _result = false;
             string value = "";
             string value_register_A8 = "";
+            _testinfo.TXDDMIRESULT = Parameters.testStatus.Wait.ToString();
 
             base.WriteLine("laser msg --get A8 1");
             Thread.Sleep(100);
@@ -500,7 +507,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
                 base.WriteLine("laser msg --set a2 1 1a"); //Lệnh set Board ở chế độ Burst Mode
                 Thread.Sleep(100);
             }
-            
+
+            _testinfo.TXDDMIRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
             return _result;
         }
 
@@ -522,13 +530,15 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             int A3_TX_CTRL_bit74_dec;
             bool Tuning_Crossing_Result = false;
 
-            A3_TX_CTRL_hex = Read_from_I2C("A3");
+            _testinfo.TUNINGCROSSINGRESULT = Parameters.testStatus.Wait.ToString();
+
+           A3_TX_CTRL_hex = Read_from_I2C("A3");
             A3_TX_CTRL_bin = hex2bin(A3_TX_CTRL_hex);
             A3_TX_CTRL_bit74_bin = A3_TX_CTRL_bin.Substring(0, 4);
             A3_TX_CTRL_bit30 = A3_TX_CTRL_bin.Substring(4, 4);
             A3_TX_CTRL_bit74_dec = Convert.ToInt32(A3_TX_CTRL_bit74_bin, 2);
             _testinfo.SYSTEMLOG += string.Format("A3h old = {0}\r\n", A3_TX_CTRL_hex);
-
+            
             for (int i = 0; i < 5; i++) {
                 Crossing_measure = Convert.ToDouble(GlobalData.erDevice.getCrossing(Port));
                 //MessageBox.Show("Crossing = " + Crossing_measure.ToString());
@@ -561,6 +571,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
                     continue;
                 }
             }
+
+            _testinfo.TUNINGCROSSINGRESULT = Tuning_Crossing_Result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
             return Tuning_Crossing_Result;
         }
 

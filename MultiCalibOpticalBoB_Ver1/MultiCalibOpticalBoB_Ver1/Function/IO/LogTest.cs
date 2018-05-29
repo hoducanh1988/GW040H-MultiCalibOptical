@@ -20,7 +20,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.IO {
             lock (lockthis) {
                 try {
                     string _file = DateTime.Now.ToString("yyyyMMdd");
-                    string _title = "DATETIME,MAC-ADDRESS,BOSA-SERIAL,TUNINGPOWER-RESULT,TUNINGER-RESULT,TXDDMI-RESULT,SIGNALOFF-RESULT,WRITEFLASH-RESULT,VERIFYSIGNAL-RESULT,WRITEMAC-RESULT,ERROR-CODE,TOTAL-RESULT,TOTAL-TIME";
+                    string _title = GlobalData.initSetting.ONTTYPE == "GW040H" ? "DATETIME,MAC-ADDRESS,BOSA-SERIAL,TUNINGPOWER-RESULT,TUNINGER-RESULT,TXDDMI-RESULT,SIGNALOFF-RESULT,WRITEFLASH-RESULT,VERIFYSIGNAL-RESULT,WRITEMAC-RESULT,ERROR-CODE,TOTAL-RESULT,TOTAL-TIME" : "DATETIME,MAC-ADDRESS,BOSA-SERIAL,TUNINGPOWER-RESULT,TUNINGER-RESULT,TUNING-CROSSING,TXDDMI-RESULT,ERROR-CODE,TOTAL-RESULT,TOTAL-TIME";
 
                     string _content = "";
                     _content += DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + ",";
@@ -28,11 +28,14 @@ namespace MultiCalibOpticalBoB_Ver1.Function.IO {
                     _content += _testinfo.BOSASERIAL + ",";
                     _content += _testinfo.TUNINGPOWERRESULT + ",";
                     _content += _testinfo.TUNINGERRESULT + ",";
+                    if (GlobalData.initSetting.ONTTYPE != "GW040H") _content += _testinfo.TUNINGCROSSINGRESULT + ",";
                     _content += _testinfo.TXDDMIRESULT + ",";
-                    _content += _testinfo.SIGNALOFFRESULT + ",";
-                    _content += _testinfo.WRITEFLASHRESULT + ",";
-                    _content += _testinfo.VERIFYSIGNALRESULT + ",";
-                    _content += _testinfo.WRITEMACRESULT + ",";
+                    if (GlobalData.initSetting.ONTTYPE == "GW040H") {
+                        _content += _testinfo.SIGNALOFFRESULT + ",";
+                        _content += _testinfo.WRITEFLASHRESULT + ",";
+                        _content += _testinfo.VERIFYSIGNALRESULT + ",";
+                        _content += _testinfo.WRITEMACRESULT + ",";
+                    }
                     _content += _testinfo.ERRORCODE.Replace("Mã Lỗi", "") + ",";
                     _content += _testinfo.TOTALRESULT + ",";
                     _content += _testinfo.TOTALTIME;
