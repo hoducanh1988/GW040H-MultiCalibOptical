@@ -279,3 +279,5 @@ C:\Users\Acer4738Z\Desktop\VNPT-Softs\GitHub\GW040H-MultiCalibOptical\MultiCalib
 C:\Users\Acer4738Z\Desktop\VNPT-Softs\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\UserControls\ucLog.baml
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\Login.g.cs
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\Login.baml
+C:\Users\Acer4738Z\Desktop\VNPT-Softs\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\Login.g.cs
+C:\Users\Acer4738Z\Desktop\VNPT-Softs\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\Login.baml

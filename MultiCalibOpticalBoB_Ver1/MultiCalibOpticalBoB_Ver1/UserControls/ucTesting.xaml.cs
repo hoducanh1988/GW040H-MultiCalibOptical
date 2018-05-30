@@ -167,6 +167,8 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
         //****************************************************************************************************
         //****************************************************************************************************
         bool RunAll(testinginfo _testtemp, bosainfo _bosainfo, variables _vari) {
+            System.Diagnostics.Stopwatch pt = new System.Diagnostics.Stopwatch();
+            pt.Start();
             //login to ONT
             bool _result = false;
             GW ontDevice = null;
@@ -199,10 +201,13 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 if (ontDevice.calibPower(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
             }
 
+            pt.Stop();
+            _testtemp.SYSTEMLOG += string.Format("PW time = {0} ms\r\n", pt.ElapsedMilliseconds);
+
             //Calib ER
             if (GlobalData.initSetting.ENABLETUNINGER || GlobalData.initSetting.ENABLETUNINGCROSSING) {
-                System.Diagnostics.Stopwatch et = new System.Diagnostics.Stopwatch();
-                et.Start();
+                pt.Reset();
+                pt.Restart();
 
                 //Đăng kí thứ tự Calib ER
                 if (this._addToListSequenceTestER(_testtemp) == false) goto END;
@@ -227,11 +232,12 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 //Xóa thứ tự đăng kí Calib ER (để Thread # có thể sử dụng)
                 this._removeFromListSequenceTestER(_testtemp);
 
-                et.Stop();
-                _testtemp.SYSTEMLOG += string.Format("ER time = {0} sec\r\n", et.ElapsedMilliseconds / 1000);
+                pt.Stop();
+                _testtemp.SYSTEMLOG += string.Format("ER time = {0} ms\r\n", pt.ElapsedMilliseconds);
             }
 
             //TX DDMI
+            pt.Reset(); pt.Restart();
             if (GlobalData.initSetting.ENABLETXDDMI) {
                 if (ontDevice.txDDMI(int.Parse(_testtemp.ONTINDEX), _bosainfo, _testtemp, _vari) == false) goto END;
             }
@@ -255,6 +261,9 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             if (GlobalData.initSetting.ENABLEWRITEMAC) {
                 if (ontDevice.writeMAC(_testtemp) == false) goto END;
             }
+
+            pt.Stop();
+            _testtemp.SYSTEMLOG += string.Format("DDMI,SIGOFF,WRITE time = {0} ms\r\n", pt.ElapsedMilliseconds);
 
             _result = true;
 

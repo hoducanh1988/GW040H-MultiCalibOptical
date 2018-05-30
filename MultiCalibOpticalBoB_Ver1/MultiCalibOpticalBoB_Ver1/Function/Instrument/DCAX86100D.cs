@@ -98,15 +98,25 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument {
                         case 4: { _erAtt = GlobalData.initSetting.ERCABLEATTENUATION4; break; }
                     }
                     myN1010A.WriteString(":CHAN1A:ATTenuator:DECibels " + _erAtt, true);
-                    Thread.Sleep(Delaytime_short);
+                    Thread.Sleep(100);
                     myN1010A.WriteString(":SYSTem:AUToscale", true);
-                    Thread.Sleep(Delaytime_long);
+                    Thread.Sleep(100);
                     myN1010A.WriteString("*OPC?", true);
-                    Thread.Sleep(Delaytime_long);
+                    Thread.Sleep(100);
                     myN1010A.WriteString(":MEASure:EYE:ERATio", true);
-                    Thread.Sleep(Delaytime_long + 200);
+                    Thread.Sleep(100);
+                    string _txt = "";
+                    int _timeout = 0;
+                    while (!_txt.Contains("CORR")) {
+                        _timeout++;
+                        if (_timeout >= 300) break;
+                        myN1010A.WriteString(":MEASure:EYE:ERATio:STATus?", true);
+                        Thread.Sleep(10);
+                        _txt = myN1010A.ReadString();
+                    }
+                    if (_timeout >= 300) return string.Empty;
+
                     myN1010A.WriteString(":MEASure:EYE:ERATio?", true);
-                    Thread.Sleep(Delaytime_long + 200);
                     string er = myN1010A.ReadString();
                     return er;
                 }
@@ -129,15 +139,25 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument {
                         case 4: { _erAtt = GlobalData.initSetting.ERCABLEATTENUATION4; break; }
                     }
                     myN1010A.WriteString(":CHAN1A:ATTenuator:DECibels " + _erAtt, true);
-                    Thread.Sleep(Delaytime_short);
+                    Thread.Sleep(100);
                     myN1010A.WriteString(":SYSTem:AUToscale", true);
-                    Thread.Sleep(Delaytime_long);
+                    Thread.Sleep(100);
                     myN1010A.WriteString("*OPC?", true);
-                    Thread.Sleep(Delaytime_long);
+                    Thread.Sleep(100);
                     myN1010A.WriteString(":MEASure:EYE:CROSsing", true);
-                    Thread.Sleep(Delaytime_long);
+                    Thread.Sleep(100);
+                    string _txt = "";
+                    int _timeout = 0;
+                    while (!_txt.Contains("CORR")) {
+                        _timeout++;
+                        if (_timeout >= 300) break;
+                        myN1010A.WriteString(":MEASure:EYE:CROSsing:STATus?", true);
+                        Thread.Sleep(10);
+                        _txt = myN1010A.ReadString();
+                    }
+                    if (_timeout >= 300) return string.Empty;
+
                     myN1010A.WriteString(":MEASure:EYE:CROSsing?", true);
-                    Thread.Sleep(Delaytime_long);
                     crossing_point = myN1010A.ReadString();
                     return crossing_point;
                 }
