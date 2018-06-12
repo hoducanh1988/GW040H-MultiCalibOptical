@@ -317,12 +317,12 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                     _var.Pwr_temp = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
                     _testinfo.SYSTEMLOG += string.Format("Pwr_temp = {0}\r\n", _var.Pwr_temp.ToString());
 
-                    if (_var.Pwr_temp >= 2 && _var.Pwr_temp <= 3) {
+                    if (_var.Pwr_temp >= 2.5 && _var.Pwr_temp <= 3) {
                         _result = true;
                         break;
                     }
                     else {
-                        _var.Iav = ((2.5 - _var.Pwr_temp) / _var.Slope) + _var.Iav;
+                        _var.Iav = ((2.8 - _var.Pwr_temp) / _var.Slope) + _var.Iav;
                     }
                 }
 

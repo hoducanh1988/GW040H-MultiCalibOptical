@@ -150,7 +150,7 @@ namespace MultiCalibOpticalBoB_Ver1
                     _bosaSN = dt.Rows[i].ItemArray[0].ToString().Trim();
                     if (_bosaSN.Length > 0 && BaseFunctions.bosa_SerialNumber_Is_Correct(_bosaSN) == true) {
                         _Ith = dt.Rows[i].ItemArray[1].ToString().Trim();
-                        _Vbr = dt.Rows[i].ItemArray[18].ToString().Trim();
+                        _Vbr = dt.Rows[i].ItemArray[5].ToString().Trim();
 
                         bosainfo _bs = new bosainfo() { BosaSN = _bosaSN, Ith = _Ith, Vbr = _Vbr };
                         GlobalData.listBosaInfo.Add(_bs);

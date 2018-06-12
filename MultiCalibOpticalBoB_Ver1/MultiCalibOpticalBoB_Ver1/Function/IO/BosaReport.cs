@@ -16,7 +16,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.IO
                 using (OleDbConnection conn = new OleDbConnection(_connectionString)) {
                     DataTable dt = new DataTable();
                     conn.Open();
-                    OleDbDataAdapter objDA = new System.Data.OleDb.OleDbDataAdapter("select * from [Sheet1$A8:AA]", conn);
+                    OleDbDataAdapter objDA = new System.Data.OleDb.OleDbDataAdapter("select * from [Sheet1$A8:H]", conn);
                     DataSet excelDataSet = new DataSet();
                     objDA.Fill(excelDataSet);
                     dt = excelDataSet.Tables[0];
