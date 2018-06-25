@@ -10,6 +10,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function
 {
     public class GlobalData
     {
+        public static mainwindowinfo mainW = new mainwindowinfo();
+
         public static defaultsetting initSetting = new defaultsetting();
         public static manualtest manualTest = new manualtest();
         public static connectionstatus connectionManagement = new connectionstatus();
@@ -33,5 +35,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function
 
         public static string loginUser = "";
         public static string loginPass = "";
+
+        //set suy hao
+        public static bool isPower = false;
+        public static double attOntPower = 0;
+
     }
 }

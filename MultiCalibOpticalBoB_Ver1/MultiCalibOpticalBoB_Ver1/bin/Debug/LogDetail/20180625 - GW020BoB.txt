@@ -1,0 +1,80 @@
+﻿Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = PASS
+Kiểm tra kết nối tới máy đo DCA X86100D GPIB0::7::INSTR...
+...Kết quả = PASS
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...PASS
+Login to ONT...
+..., Gửi lệnh Enter để truy nhập vào login...
+Feedback:=> 
+ > 
+
+PASS
+Get mac address...
+...PASS. A4F4C20D70A3
+[OK] Đã Write Pass xong.
+A8_DEC = 160
+Power Level = 0.0241
+A8_DEC = 175
+Power Level = 1.526
+A8_DEC = 178
+Power Level = 1.8538
+A8_DEC = 181
+Power Level = 2.1914
+A8_DEC = 184
+Power Level = 2.5038
+[OK] Tuning Tx Power => PASS
+Ibias = 14.2 mA
+PW time = 3106 ms
+Add index 1 to list sequence test ER...
+...1,
+Wait for turning ER...
+...Waited time:100 ms
+Switching port...1
+Đang chờ set TRIM = -10%
+ER_current = 9.525dBm
+Đang tăng TrimER.
+TrimER_current = -2.5%
+Đang chờ set TRIM = -2.5%
+ER_current = 11.18dBm
+Đang tăng TrimER.
+TrimER_current = 0%
+Đang chờ set TRIM = 0%
+ER_current = 11.78dBm
+Đang tăng TrimER.
+TrimER_current = 2.5%
+Đang chờ set TRIM = 2.5%
+ER_current = 12.46dBm
+Trim ER để 12 < ER < 13 = 2.5
+[OK] TX Tuning ER thành công.
+A3h old = 10
+Crossing Point % = 51.6
+Thực hiện tăng giá trị thanh ghi A3.
+A3h new = 20
+Crossing Point % = 50.5
+[OK] Crossing Point đã đạt 50% +- 0.5
+Remove index 1 from list sequence test ER...
+...
+ER time = 10490 ms
+Set Point 1: Reg A8 = 154 -> HEX
+Set Point 1: Reg A8 = 184 -> HEX
+ 
+ADC_TX_Point1 = 944
+ADC_TX_Point2 = 1772
+TX1_Power(uW) = 878.516656407272
+TX2_Power(uW) = 1780.04097702307
+Slope = 0AE3
+Offset = 455D
+Thực hiện Write Slope & Offset to EEPROM
+Power DDMI =  2.99
+Power thực tế = 2.512
+[OK] Hoàn thành TX Calibration Power
+DDMI,SIGOFF,WRITE time = 1707 ms
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=PASS
+Total time = 15 seconds

@@ -12,7 +12,7 @@ namespace MultiCalibOpticalBoB_Ver1.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -169,7 +169,7 @@ namespace MultiCalibOpticalBoB_Ver1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ANHHO\\SQLEXPRESS")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\SQLEXPRESS")]
         public string SqlName {
             get {
                 return ((string)(this["SqlName"]));
@@ -493,7 +493,7 @@ namespace MultiCalibOpticalBoB_Ver1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool enabletuningcrossing {
             get {
                 return ((bool)(this["enabletuningcrossing"]));

@@ -1,0 +1,81 @@
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...(Mã Lỗi: COT-LI-0001), System.IO.IOException: The port 'COM13' does not exist.
+   at System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   at System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   at System.IO.Ports.SerialPort.Open()
+   at MultiCalibOpticalBoB_Ver1.Function.Protocol.Serial.Open(String& _message) in C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\Function\Protocol\Serial.cs:line 39
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...(Mã Lỗi: COT-LI-0001), System.IO.IOException: The port 'COM13' does not exist.
+   at System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   at System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   at System.IO.Ports.SerialPort.Open()
+   at MultiCalibOpticalBoB_Ver1.Function.Protocol.Serial.Open(String& _message) in C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\Function\Protocol\Serial.cs:line 39
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...(Mã Lỗi: COT-LI-0001), System.IO.IOException: The port 'COM13' does not exist.
+   at System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   at System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   at System.IO.Ports.SerialPort.Open()
+   at MultiCalibOpticalBoB_Ver1.Function.Protocol.Serial.Open(String& _message) in C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\Function\Protocol\Serial.cs:line 39
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...PASS
+Login to ONT...
+..., Gửi lệnh Enter để truy nhập vào login...
+Feedback:=> 
+Login: 
+Gửi thông tin user: admin...
+Feedback:=> 
+Feedback:=> admin
+Password: 
+Gửi thông tin password: ttcn@77CN...
+Feedback:=> admin
+Password: 
+Feedback:=> admin
+Password: 
+ > 
+
+PASS
+Get mac address...
+...PASS. A06518211010
+[OK] Đã Write Pass xong.
+A8_DEC = 160
+Power Level = -85.7541
+A8_DEC = 175
+Power Level = -76.8991
+A8_DEC = 190
+Power Level = -1000
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=FAIL
+Total time = 7 seconds
+

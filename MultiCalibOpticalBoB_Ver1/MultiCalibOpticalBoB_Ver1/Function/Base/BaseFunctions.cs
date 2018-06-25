@@ -271,6 +271,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function {
 
 
         public static void connect_Instrument() {
+            GlobalData.mainW.WINDOWTITLE = "Tool Multi Calib Optical For Product " + GlobalData.initSetting.ONTTYPE;
             Thread t = new Thread(new ThreadStart(() => {
                 App.Current.Dispatcher.Invoke(new Action(() => {
                     ct = new ConnectInstrument();
@@ -311,6 +312,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function {
                     }));
                     t1.Start();
                 }
+                t1.Join();
 
                 ////Switch Instrument
                 if (!t2.IsAlive) {
@@ -331,11 +333,13 @@ namespace MultiCalibOpticalBoB_Ver1.Function {
                             if (ret == true) {
                                 GlobalData.erDevice.Initialize();
                                 GlobalData.connectionManagement.DCAX86100DSTATUS = true;
+                                GlobalData.erDevice.Calibrate();
                             }
                         }
                     }));
                     t3.Start();
                 }
+                t3.Join();
 
                 //SQL Server
                 if (!t4.IsAlive) {

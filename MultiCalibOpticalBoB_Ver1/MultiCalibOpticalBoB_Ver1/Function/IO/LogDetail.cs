@@ -18,7 +18,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.IO {
         public static bool Save(testinginfo _testinfo) {
             lock (lockthis) {
                 try {
-                    string _file = DateTime.Now.ToString("yyyyMMdd");
+                    string _file = string.Format("{0}_{1}", DateTime.Now.ToString("yyyyMMdd"), GlobalData.initSetting.ONTTYPE);
 
                     StreamWriter st = new StreamWriter(string.Format("{0}\\{1}.txt", _logpath, _file), true);
                     st.WriteLine(_testinfo.SYSTEMLOG);

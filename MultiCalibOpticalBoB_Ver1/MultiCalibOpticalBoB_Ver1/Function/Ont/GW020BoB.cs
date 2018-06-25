@@ -12,6 +12,9 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
 
         public GW020BoB(string _portname) : base(_portname) { }
 
+        #region Support
+
+        //OK
         public override bool Login(out string message) {
             message = "";
             try {
@@ -21,16 +24,16 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
                 while (!_flag) {
                     //Gửi lệnh Enter để ONT về trạng thái đăng nhập
                     message += "Gửi lệnh Enter để truy nhập vào login...\r\n";
-                    base.WriteLine("\r\n");
-                    Thread.Sleep(250);
+                    base.WriteLine("");
+                    Thread.Sleep(200);
                     string data = "";
                     data = base.Read();
                     message += string.Format("Feedback:=> {0}\r\n", data);
-                    if (data.Replace("\r", "").Replace("\n", "").Trim().Contains("#")) return true;
-                    while (!data.Contains("tc login:")) {
+                    if (data.Replace("\r", "").Replace("\n", "").Trim().Contains(">")) return true;
+                    while (!data.Contains("Login:")) {
                         data += base.Read();
                         message += string.Format("Feedback:=> {0}\r\n", data);
-                        Thread.Sleep(500);
+                        Thread.Sleep(200);
                         if (index >= max) break;
                         else index++;
                     }
@@ -41,10 +44,11 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
                     message += "Gửi thông tin user: " + GlobalData.initSetting.ONTLOGINUSER + "...\r\n";
 
                     //Chờ ONT xác nhận User
+                    data = "";
                     while (!data.Contains("Password:")) {
                         data += base.Read();
                         message += string.Format("Feedback:=> {0}\r\n", data);
-                        Thread.Sleep(500);
+                        Thread.Sleep(100);
                         if (index >= max) break;
                         else index++;
                     }
@@ -55,7 +59,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
                     message += "Gửi thông tin password: " + GlobalData.initSetting.ONTLOGINPASS + "...\r\n";
 
                     //Chờ ONT xác nhận Password
-                    while (!data.Contains("root login  on `console'")) {
+                    while (!data.Contains(">")) {
                         data += base.Read();
                         message += string.Format("Feedback:=> {0}\r\n", data);
                         Thread.Sleep(500);
@@ -73,10 +77,12 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             }
         }
 
+        //OK
         void Write_To_Register(string register_address, string value) {
             base.WriteLine("laser msg --set " + register_address + " 1 " + value);
         }
 
+        //OK
         string DecToHex_2Symbol(int dec) {
             string hex = "";
             hex = dec.ToString("X2");
@@ -86,10 +92,12 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             return hex;
         }
 
+        //OK
         private string Read_from_I2C(string Reg_Address) {
             string str = "";
             string value_register = "";
 
+            base.Read();
             base.WriteLine("laser msg --get " + Reg_Address + " 1");
             Thread.Sleep(delay);
             str = base.Read();
@@ -101,6 +109,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             return value_register;
         }
 
+        //OK
         private string DectoBin(int DEC) {
             string Bin = Convert.ToString(DEC, 2);
             int leng;
@@ -117,16 +126,19 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             return Bin;
         }
 
+        //OK
         string hex2bin(string value) {
             return Convert.ToString(Convert.ToInt32(value, 16), 2).PadLeft(value.Length * 4, '0');
         }
 
+        //OK
         string bin2hex(string value) {
             string hex_value = "";
             hex_value = Convert.ToInt32(value, 2).ToString("X2");
             return hex_value;
         }
 
+        //OK
         string DecToHex(int dec) {
             string hex = "";
             hex = dec.ToString("X4");
@@ -136,16 +148,19 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             return hex;
         }
 
+        //OK
         string HexToDec(string Hex) {
             int decValue = int.Parse(Hex, System.Globalization.NumberStyles.HexNumber);
             return decValue.ToString();
 
         }
 
+        //OK
         string Read_ADC_value_Tx_Power_dec(string register_address) {
             string message_Respond = "";
             string ADC_value = "NONE";
             try {
+                base.Read();
                 base.WriteLine("laser msg --get " + register_address + " 2");
                 Thread.Sleep(100);
                 message_Respond = base.Read();
@@ -166,6 +181,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
 
         // Hàm tính Slope_Tx => Complete
         // Nếu giá trị Slope không hợ lệ hàm sẽ trả về "NONE"
+        //OK
         string Calculate_Slope_Tx(string ADC1_Value, string ADC2_value, string Tx1_Power, string Tx2_Power) {
             float slope_Tx_f;
             string slope_Tx_Hex = "";
@@ -200,6 +216,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
 
         // Hàm tính Offset_Tx 
         // Nếu giá trị Slope không hợp lệ hàm sẽ trả về "NONE"
+        //OK
         string Calculate_Offset_Tx(string ADC1_Value, string ADC2_value, string Tx1_Power, string Tx2_Power) {
             float offset_Tx = 0;
             float slope_Tx = 0;
@@ -229,9 +246,164 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
 
         }
 
+        //OK
+        public override string getMACAddress(testinginfo _testinfo) {
+            //Get MAC Address
+            string _mac = "";
+            try {
+                _testinfo.SYSTEMLOG += string.Format("Get mac address...\r\n");
+                base.Write("ifconfig\n");
+                Thread.Sleep(300);
+                string _tmpStr = base.Read();
+                _tmpStr = _tmpStr.Replace("\r", "").Replace("\n", "").Trim();
+                string[] buffer = _tmpStr.Split(new string[] { "HWaddr" }, StringSplitOptions.None);
+                _tmpStr = buffer[1].Trim();
+                _mac = _tmpStr.Substring(0, 17).Replace(":", "");
+                _testinfo.SYSTEMLOG += string.Format("...PASS. {0}\r\n", _mac);
+            }
+            catch (Exception ex) {
+                _testinfo.ERRORCODE = "(Mã Lỗi: COT-GM-0001)";
+                _testinfo.SYSTEMLOG += string.Format("...FAIL. {0}. {1}\r\n", _testinfo.ERRORCODE, ex.ToString());
+            }
+
+            //Write Pass
+            base.WriteLine("laser msg --set 7b 1 ff"); //Chuỗi lệnh Write Password
+            Thread.Sleep(100);
+            base.WriteLine("laser msg --set 7c 1 ff"); //
+            Thread.Sleep(100);
+            base.WriteLine("laser msg --set 7d 1 ff"); //
+            Thread.Sleep(100);
+            base.WriteLine("laser msg --set 7e 1 ff"); //
+            Thread.Sleep(100);
+            base.WriteLine("laser msg --set 7f 1 2"); //
+            Thread.Sleep(100);
+            base.WriteLine("laser msg --set c4 1 0"); //
+            Thread.Sleep(100);
+            base.WriteLine("laser msg --set c7 1 0"); //Lệnh Enable Edit EEPROM
+            Thread.Sleep(100);
+
+            base.WriteLine("laser msg --set 6e 1 44"); //2 lệnh Soft Reset
+            Thread.Sleep(100);
+            base.WriteLine("laser msg --set 6e 1 04"); //
+            Thread.Sleep(100);
+
+            base.WriteLine("sh");
+            Thread.Sleep(100);
+            base.WriteLine("bs /misc prbs gpon 23 0"); //Lệnh phát tín hiệu PRBS
+            Thread.Sleep(100);
+            base.WriteLine("exit");
+
+            base.WriteLine("laser msg --set a2 1 3a"); //Lệnh set Board ở chế độ CW Mode
+            Thread.Sleep(100);
+
+            _testinfo.SYSTEMLOG += "[OK] Đã Write Pass xong.\r\n";
+
+            return _mac;
+        }
+
+        //OK
+        public override bool loginToONT(testinginfo _testinfo) {
+            _testinfo.SYSTEMLOG += string.Format("Verifying type of ONT...\r\n...{0}\r\n", GlobalData.initSetting.ONTTYPE);
+            bool _result = false;
+            string _message = "";
+
+            _testinfo.SYSTEMLOG += "Open comport of ONT...\r\n";
+            if (!base.Open(out _message)) {
+                _testinfo.ERRORCODE = "(Mã Lỗi: COT-LI-0001)";
+                _testinfo.SYSTEMLOG += string.Format("...{0}, {1}\r\n", _testinfo.ERRORCODE, _message);
+                return false;
+            }
+            _testinfo.SYSTEMLOG += "...PASS\r\n";
+
+            _testinfo.SYSTEMLOG += "Login to ONT...\r\n";
+            _result = this.Login(out _message);
+
+            if (_result == false) _testinfo.ERRORCODE = "(Mã Lỗi: COT-LI-0002)";
+            _testinfo.SYSTEMLOG += string.Format("...{0}, {1}\r\n", _testinfo.ERRORCODE, _message);
+            _testinfo.SYSTEMLOG += _result == true ? "PASS\r\n" : "FAIL\r\n";
+
+            return _result;
+        }
+
+        #endregion
+
+        #region Calibration
 
         /// <summary>
-        /// 
+        /// ---------------------------01----------------------------//OK
+        /// </summary>
+        /// <param name="Port"></param>
+        /// <param name="_bosainfo"></param>
+        /// <param name="_testinfo"></param>
+        /// <param name="_var"></param>
+        /// <returns></returns>
+        public override bool calibPower(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
+            float power_temp;
+            double Ibias;
+            bool Tuning_Tx_Power_Result = false;
+            bool Check_Ibias_Result = false;
+            int A8_DEC = 160;
+
+            _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.Wait.ToString();
+
+            for (int i = 0; i < 10; i++) {
+                _testinfo.SYSTEMLOG += string.Format("A8_DEC = {0}\r\n", A8_DEC.ToString());
+                Write_To_Register("a8", DecToHex_2Symbol(A8_DEC)); //Set giá trị thanh ghi A8 = 160 tương đương với mức Pwr 1
+                Thread.Sleep(100);
+                power_temp = float.Parse(GlobalData.powerDevice.getPower_dBm(Port));
+                _testinfo.SYSTEMLOG += string.Format("Power Level = {0}\r\n", power_temp);
+                if (power_temp == -1000) return false;
+
+                if (power_temp > 4) {
+                    A8_DEC = A8_DEC - 20;
+                }
+
+                else if (power_temp > 3) {
+                    A8_DEC = A8_DEC - 3;
+                }
+
+                else if (power_temp < 1) {
+                    A8_DEC = A8_DEC + 15;
+                }
+
+                else if (power_temp < 2.5) {
+                    A8_DEC = A8_DEC + 3;
+                }
+                else if (power_temp <= 3 && power_temp >= 2.5) {
+                    _testinfo.SYSTEMLOG += "[OK] Tuning Tx Power => PASS\r\n";
+                    Tuning_Tx_Power_Result = true;
+                    break;
+                }
+                else {
+                    _testinfo.SYSTEMLOG += "Công suất khởi tạo nhỏ hơn công suất mục tiêu\r\n";
+                    Tuning_Tx_Power_Result = false;
+                    break;
+                }
+            }
+
+            base.Read();
+            base.WriteLine("laser txbias --read");
+            Thread.Sleep(200);
+            string _str = base.Read();
+            //System.Windows.MessageBox.Show(_str);
+            Ibias = (Convert.ToDouble(_str.Split('=')[1].Replace("uA","").Replace("\r","").Replace("\n","").Replace(">","").Trim())) / 1000;
+            _testinfo.SYSTEMLOG += string.Format("Ibias = {0} mA\r\n", Ibias);
+
+            //if (Ibias > 13) Check_Ibias_Result = true;
+            //else Check_Ibias_Result = false;
+
+            if (Ibias > 10) Check_Ibias_Result = true;
+            else Check_Ibias_Result = false;
+
+            Tuning_Tx_Power_Result = Tuning_Tx_Power_Result && Check_Ibias_Result;
+            _testinfo.TUNINGPOWERRESULT = Tuning_Tx_Power_Result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
+            return Tuning_Tx_Power_Result;
+        }
+
+
+
+        /// <summary>
+        /// ---------------------------02----------------------------//OK
         /// </summary>
         /// <param name="Port"></param>
         /// <param name="_bosainfo"></param>
@@ -337,184 +509,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             return Tuning_ER_Result;
         }
 
+
+
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Port"></param>
-        /// <param name="_bosainfo"></param>
-        /// <param name="_testinfo"></param>
-        /// <param name="_var"></param>
-        /// <returns></returns>
-        public override bool calibPower(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
-            float power_temp;
-            double Ibias;
-            bool Tuning_Tx_Power_Result = false;
-            bool Check_Ibias_Result = false;
-            int A8_DEC = 160;
-
-            _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.Wait.ToString();
-
-            for (int i = 0; i < 10; i++) {
-                _testinfo.SYSTEMLOG += string.Format("A8_DEC = {0}\r\n", A8_DEC.ToString());
-                Write_To_Register("a8", DecToHex_2Symbol(A8_DEC)); //Set giá trị thanh ghi A8 = 160 tương đương với mức Pwr 1
-                Thread.Sleep(100);
-                power_temp = float.Parse(GlobalData.powerDevice.getPower_dBm(Port));
-                _testinfo.SYSTEMLOG += string.Format("Power Level = {0}\r\n", power_temp);
-
-                if (power_temp > 4) {
-                    A8_DEC = A8_DEC - 20;
-                }
-
-                else if (power_temp > 3) {
-                    A8_DEC = A8_DEC - 3;
-                }
-
-                else if (power_temp < 1) {
-                    A8_DEC = A8_DEC + 15;
-                }
-
-                else if (power_temp < 2.5) {
-                    A8_DEC = A8_DEC + 3;
-                }
-                else if (power_temp <= 3 && power_temp >= 2.5) {
-                    _testinfo.SYSTEMLOG += "[OK] Tuning Tx Power => PASS\r\n";
-                    Tuning_Tx_Power_Result = true;
-                    break;
-                }
-                else {
-                    _testinfo.SYSTEMLOG += "Công suất khởi tạo nhỏ hơn công suất mục tiêu\r\n";
-                    Tuning_Tx_Power_Result = false;
-                    break;
-                }
-            }
-
-            base.WriteLine("laser txbias --read");
-            Thread.Sleep(200);
-            Ibias = (Convert.ToDouble(base.Read().Split('=')[1])) / 1000;
-            _testinfo.SYSTEMLOG += string.Format("Ibias = {0} mA\r\n", Ibias);
-            if (Ibias > 13) Check_Ibias_Result = true;
-            else Check_Ibias_Result = false;
-
-            Tuning_Tx_Power_Result = Tuning_Tx_Power_Result && Check_Ibias_Result;
-            _testinfo.TUNINGPOWERRESULT = Tuning_Tx_Power_Result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
-            return Tuning_Tx_Power_Result;
-        }
-
-
-        public override string getMACAddress(testinginfo _testinfo) {
-            //Get MAC Address
-            string _mac = "";
-            try {
-                _testinfo.SYSTEMLOG += string.Format("Get mac address...\r\n");
-                base.Write("ifconfig\n");
-                Thread.Sleep(300);
-                string _tmpStr = base.Read();
-                _tmpStr = _tmpStr.Replace("\r", "").Replace("\n", "").Trim();
-                string[] buffer = _tmpStr.Split(new string[] { "HWaddr" }, StringSplitOptions.None);
-                _tmpStr = buffer[1].Trim();
-                _mac = _tmpStr.Substring(0, 17).Replace(":", "");
-                _testinfo.SYSTEMLOG += string.Format("...PASS. {0}\r\n", _mac);
-            }
-            catch (Exception ex) {
-                _testinfo.ERRORCODE = "(Mã Lỗi: COT-GM-0001)";
-                _testinfo.SYSTEMLOG += string.Format("...FAIL. {0}. {1}\r\n", _testinfo.ERRORCODE, ex.ToString());
-            }
-
-            //Write Pass
-            base.WriteLine("laser msg --set 7b 1 ff"); //Chuỗi lệnh Write Password
-            Thread.Sleep(100);
-            base.WriteLine("laser msg --set 7c 1 ff"); //
-            Thread.Sleep(100);
-            base.WriteLine("laser msg --set 7d 1 ff"); //
-            Thread.Sleep(100);
-            base.WriteLine("laser msg --set 7e 1 ff"); //
-            Thread.Sleep(100);
-            base.WriteLine("laser msg --set 7f 1 2"); //
-            Thread.Sleep(100);
-            base.WriteLine("laser msg --set c4 1 0"); //
-            Thread.Sleep(100);
-            base.WriteLine("laser msg --set c7 1 0"); //Lệnh Enable Edit EEPROM
-            Thread.Sleep(100);
-
-            base.WriteLine("laser msg --set 6e 1 44"); //2 lệnh Soft Reset
-            Thread.Sleep(100);
-            base.WriteLine("laser msg --set 6e 1 04"); //
-            Thread.Sleep(100);
-
-            base.WriteLine("sh");
-            Thread.Sleep(100);
-            base.WriteLine("bs /misc prbs gpon 23 0"); //Lệnh phát tín hiệu PRBS
-            Thread.Sleep(100);
-            base.WriteLine("exit");
-
-            base.WriteLine("laser msg --set a2 1 3a"); //Lệnh set Board ở chế độ CW Mode
-            Thread.Sleep(100);
-
-            _testinfo.SYSTEMLOG += "[OK] Đã Write Pass xong.\r\n";
-
-            return _mac;
-        }
-
-        public override bool loginToONT(testinginfo _testinfo) {
-            _testinfo.SYSTEMLOG += string.Format("Verifying type of ONT...\r\n...{0}\r\n", GlobalData.initSetting.ONTTYPE);
-            bool _result = false;
-            string _message = "";
-
-            _testinfo.SYSTEMLOG += "Open comport of ONT...\r\n";
-            if (!base.Open(out _message)) {
-                _testinfo.ERRORCODE = "(Mã Lỗi: COT-LI-0001)";
-                _testinfo.SYSTEMLOG += string.Format("...{0}, {1}\r\n", _testinfo.ERRORCODE, _message);
-                return false;
-            }
-            _testinfo.SYSTEMLOG += "...PASS\r\n";
-
-            _testinfo.SYSTEMLOG += "Login to ONT...\r\n";
-            _result = this.Login(out _message);
-
-            if (_result == false) _testinfo.ERRORCODE = "(Mã Lỗi: COT-LI-0002)";
-            _testinfo.SYSTEMLOG += string.Format("...{0}, {1}\r\n", _testinfo.ERRORCODE, _message);
-            _testinfo.SYSTEMLOG += _result == true ? "PASS\r\n" : "FAIL\r\n";
-
-            return _result;
-        }
-
-      
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Port"></param>
-        /// <param name="_bosainfo"></param>
-        /// <param name="_testinfo"></param>
-        /// <param name="_var"></param>
-        /// <returns></returns>
-        public override bool txDDMI(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
-            bool _result = false;
-            string value = "";
-            string value_register_A8 = "";
-            _testinfo.TXDDMIRESULT = Parameters.testStatus.Wait.ToString();
-
-            base.WriteLine("laser msg --get A8 1");
-            Thread.Sleep(100);
-            value = base.Read();
-            for (int j = 0; j < value.Split('\n').Length; j++) {
-                if (value.Split('\n')[j].Contains("I2C")) {
-                    value_register_A8 = value.Split('\n')[j].Split(':')[1].Trim();
-                }
-            }
-
-            _result = Calibrate_TX_GN25L98( Port, _testinfo, Int32.Parse(HexToDec(value_register_A8)) - 30, Int32.Parse(HexToDec(value_register_A8)));
-            if (_result) {
-                base.WriteLine("laser msg --set a2 1 1a"); //Lệnh set Board ở chế độ Burst Mode
-                Thread.Sleep(100);
-            }
-
-            _testinfo.TXDDMIRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
-            return _result;
-        }
-
-        
-        /// <summary>
-        /// 
+        /// ---------------------------03----------------------------//
         /// </summary>
         /// <param name="Port"></param>
         /// <param name="_bosainfo"></param>
@@ -532,13 +530,13 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
 
             _testinfo.TUNINGCROSSINGRESULT = Parameters.testStatus.Wait.ToString();
 
-           A3_TX_CTRL_hex = Read_from_I2C("A3");
+            A3_TX_CTRL_hex = Read_from_I2C("A3");
             A3_TX_CTRL_bin = hex2bin(A3_TX_CTRL_hex);
             A3_TX_CTRL_bit74_bin = A3_TX_CTRL_bin.Substring(0, 4);
             A3_TX_CTRL_bit30 = A3_TX_CTRL_bin.Substring(4, 4);
             A3_TX_CTRL_bit74_dec = Convert.ToInt32(A3_TX_CTRL_bit74_bin, 2);
             _testinfo.SYSTEMLOG += string.Format("A3h old = {0}\r\n", A3_TX_CTRL_hex);
-            
+
             for (int i = 0; i < 5; i++) {
                 Crossing_measure = Convert.ToDouble(GlobalData.erDevice.getCrossing(Port));
                 //MessageBox.Show("Crossing = " + Crossing_measure.ToString());
@@ -576,8 +574,45 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             return Tuning_Crossing_Result;
         }
 
+
+
         /// <summary>
-        /// 
+        /// ---------------------------04----------------------------//
+        /// </summary>
+        /// <param name="Port"></param>
+        /// <param name="_bosainfo"></param>
+        /// <param name="_testinfo"></param>
+        /// <param name="_var"></param>
+        /// <returns></returns>
+        public override bool txDDMI(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
+            bool _result = false;
+            string value = "";
+            string value_register_A8 = "";
+            _testinfo.TXDDMIRESULT = Parameters.testStatus.Wait.ToString();
+
+            base.WriteLine("laser msg --get A8 1");
+            Thread.Sleep(100);
+            value = base.Read();
+            for (int j = 0; j < value.Split('\n').Length; j++) {
+                if (value.Split('\n')[j].Contains("I2C")) {
+                    value_register_A8 = value.Split('\n')[j].Split(':')[1].Trim();
+                }
+            }
+
+            _result = Calibrate_TX_GN25L98( Port, _testinfo, Int32.Parse(HexToDec(value_register_A8)) - 30, Int32.Parse(HexToDec(value_register_A8)));
+            if (_result) {
+                base.WriteLine("laser msg --set a2 1 1a"); //Lệnh set Board ở chế độ Burst Mode
+                Thread.Sleep(100);
+            }
+
+            _testinfo.TXDDMIRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
+            return _result;
+        }
+
+
+
+        /// <summary>
+        /// ---------------------------04----------------------------//
         /// </summary>
         /// <param name="Port"></param>
         /// <param name="_testinfo"></param>
@@ -672,6 +707,28 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override bool outTXPower() {
+            try {
+                base.WriteLine("sh");
+                Thread.Sleep(100);
+                base.WriteLine("bs /misc prbs gpon 23 0");
+                Thread.Sleep(100);
+                base.WriteLine("exit");
+                Thread.Sleep(100);
+                return true;
+            }
+            catch {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region GW040H
         public override bool verifySignal(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
             throw new NotImplementedException();
         }
@@ -684,13 +741,11 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
             throw new NotImplementedException();
         }
 
-        public override bool outTXPower() {
-            throw new NotImplementedException();
-        }
 
         public override bool signalOff(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
             throw new NotImplementedException();
         }
+        #endregion
 
     }
 }

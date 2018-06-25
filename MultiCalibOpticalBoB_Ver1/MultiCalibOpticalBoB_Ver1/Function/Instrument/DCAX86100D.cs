@@ -87,6 +87,36 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument {
             }
         }
 
+        // Ham kiem tra ket noi toi may do DCA
+        public bool isConnected() {
+            lock (thislock) {
+                bool _result = false;
+                int _count = 0;
+                //-------------------------------------//
+                REP:
+                _count++;
+                try {
+                    myN1010A.WriteString("*IDN?", true);
+                    Thread.Sleep(100);
+                    string data = myN1010A.ReadString();
+                    if (data.Contains("86100D")) {
+                        _result = true;
+                        goto END;
+                    } else {
+                        if (_count < 10) goto REP;
+                        else goto END;
+                    }
+                } catch {
+                    if (_count < 10) goto REP;
+                    else goto END;
+                }
+                //-------------------------------------//
+                END:
+                return _result;
+            }
+        }
+
+        // Hàm đọc ER từ máy DCA
         public string getER(int _port) {
             lock (thislock) {
                 try {
@@ -125,6 +155,29 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument {
                 }
             }
         }
+
+        // Hàm đọc Power dBm từ máy đo DCA
+        public string getdBm() {
+            lock (thislock) {
+                try {
+                    myN1010A.WriteString(":SYSTem:AUToscale", true);
+                    Thread.Sleep(Delaytime_long);
+                    myN1010A.WriteString("*OPC?", true);
+                    Thread.Sleep(Delaytime_long);
+
+                    myN1010A.WriteString(":MEASure:EYE:APOWer", true);
+                    Thread.Sleep(Delaytime_short);
+                    myN1010A.WriteString(":MEASure:EYE:APOWer:UNITs DBM", true);
+                    Thread.Sleep(Delaytime_short);
+                    myN1010A.WriteString(":MEASure:EYE:APOWer?", true);
+                    Thread.Sleep(Delaytime_short);
+                    return myN1010A.ReadString();
+                } catch (Exception error) {
+                    return error.Message;
+                }
+            }
+        }
+
 
         // Hàm đọc Crossing % từ máy DCA
         public string getCrossing(int _port) {
@@ -168,48 +221,49 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument {
         }
 
 
+        // Calib máy đo
         public bool Calibrate() {
             lock (thislock) {
                 try {
-                    myN1010A.WriteString(":CAL:SLOT1:STAR", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString(":CAL:SDON?", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString(":CAL:CONT", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString(":CAL:SDON?", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString(":CAL:CONT", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString("*OPC?", true);
-                    Thread.Sleep(Delaytime_long);
-                    //
-                    myN1010A.WriteString(":CAL:DARK:CHAN1A:STAR", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString(":CAL:SDON?", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString(":CAL:CONT", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString(":CAL:SDON?", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString(":CAL:CONT", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString("*OPC?", true);
-                    Thread.Sleep(Delaytime_long);
-                    //
-                    myN1010A.WriteString(":CAL:DARK:CHAN2A:STAR", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString(":CAL:SDON?", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString(":CAL:CONT", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString(":CAL:SDON?", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString(":CAL:CONT", true);
-                    Thread.Sleep(Delaytime_long);
-                    myN1010A.WriteString("*OPC?", true);
-                    Thread.Sleep(Delaytime_long);
-                    //
+                    string _data = "";
+                    myN1010A.WriteString(":CAL:SLOT1:STAT?", true);
+                    Thread.Sleep(100);
+                    _data = myN1010A.ReadString();
+                    if (_data.Contains("UNCALIBRATED") == true) {
+                        myN1010A.WriteString(":CAL:SLOT1:STAR", true);
+                        myN1010A.WriteString(":CAL:SDON?", true);
+                        myN1010A.WriteString(":CAL:CONT", true);
+                        myN1010A.WriteString(":CAL:SDON?", true);
+                        myN1010A.WriteString(":CAL:CONT", true);
+                        myN1010A.WriteString(":CAL:SDON?", true);
+                        myN1010A.WriteString(":CAL:CONT", true);
+                        myN1010A.WriteString("*OPC?", true);
+                    }
+
+                    myN1010A.WriteString(":CAL:DARK:CHAN1A:STAT?", true);
+                    Thread.Sleep(100);
+                    _data = myN1010A.ReadString();
+                    if (_data.Contains("UNCALIBRATED") == true) {
+                        myN1010A.WriteString(":CAL:DARK:CHAN1A:STAR", true);
+                        myN1010A.WriteString(":CAL:SDON?", true);
+                        myN1010A.WriteString(":CAL:CONT", true);
+                        myN1010A.WriteString(":CAL:SDON?", true);
+                        myN1010A.WriteString(":CAL:CONT", true);
+                        myN1010A.WriteString("*OPC?", true); 
+                    }
+                   
+                    myN1010A.WriteString(":CAL:DARK:CHAN2A:STAT?", true);
+                    Thread.Sleep(100);
+                    _data = myN1010A.ReadString();
+                    if (_data.Contains("UNCALIBRATED") == true) {
+                        myN1010A.WriteString(":CAL:DARK:CHAN2A:STAR", true);
+                        myN1010A.WriteString(":CAL:SDON?", true);
+                        myN1010A.WriteString(":CAL:CONT", true);
+                        myN1010A.WriteString(":CAL:SDON?", true);
+                        myN1010A.WriteString(":CAL:CONT", true);
+                        myN1010A.WriteString("*OPC?", true);
+                    }
+
                     return true;
                 }
                 catch {

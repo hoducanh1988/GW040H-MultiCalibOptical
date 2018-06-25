@@ -103,7 +103,7 @@
                                               GridLinesVisibility="None"
                                               HeadersVisibility="Column"
                                               BorderThickness="0,0,0,0"
-                                              SelectionUnit="FullRow" SelectionMode="Single"
+                                              SelectionUnit="FullRow" SelectionMode="Extended"
                                               >
 
                                 <DataGrid.CellStyle>

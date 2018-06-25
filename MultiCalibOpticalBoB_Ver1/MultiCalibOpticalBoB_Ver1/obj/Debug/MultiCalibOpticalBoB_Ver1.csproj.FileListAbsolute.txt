@@ -167,7 +167,6 @@ C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\bin\Debug\MaterialDesignThemes.Wpf.dll
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\bin\Debug\MaterialDesignThemes.Wpf.pdb
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\bin\Debug\MaterialDesignThemes.Wpf.xml
-C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\MultiCalibOpticalBoB_Ver1.csprojResolveAssemblyReference.cache
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\MultiCalibOpticalBoB_Ver1.csproj.ResolveComReference.cache
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\Asset\Resources\Button.baml
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\Asset\Resources\CheckBox.baml
@@ -281,3 +280,6 @@ C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\Login.baml
 C:\Users\Acer4738Z\Desktop\VNPT-Softs\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\Login.g.cs
 C:\Users\Acer4738Z\Desktop\VNPT-Softs\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\Login.baml
+C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\wInputdBm.g.cs
+C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\wInputdBm.baml
+C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\MultiCalibOpticalBoB_Ver1.csprojAssemblyReference.cache

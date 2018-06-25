@@ -95,7 +95,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Protocol {
         public string Read() {
             try {
                 return this._serialport.ReadExisting();
-            } catch {
+            } catch (Exception ex) {
+                System.Windows.MessageBox.Show(ex.ToString(), "ERROR", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return "";
             }
         }

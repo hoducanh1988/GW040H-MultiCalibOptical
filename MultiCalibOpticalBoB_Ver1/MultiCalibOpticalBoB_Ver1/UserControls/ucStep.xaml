@@ -90,9 +90,9 @@
                                                 Click="Button_Click"/>
                                             <Button x:Name="IQSgetdBm" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Get Power (dBm)"
                                                 Click="Button_Click"/>
-                                            <Button x:Name="IQSgetmW" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Get Power (mW)"
+                                            <Button x:Name="IQSgetmW" IsEnabled="False" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Get Power (mW)"
                                                 Click="Button_Click"/>
-                                            <Button x:Name="IQSSwitch" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Switch To Port"
+                                            <Button x:Name="IQSSwitch" IsEnabled="False" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Switch To Port"
                                                 Click="Button_Click"/>
                                         </StackPanel>
                                     </ScrollViewer>
@@ -166,9 +166,11 @@
                                                 Click="Button_Click"/>
                                             <Button IsEnabled="False" x:Name="DCAinit" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Initialization"
                                                 Click="Button_Click"/>
-                                            <Button x:Name="DCAcalib" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Calibrate"
+                                            <Button x:Name="DCAgetdBm"  Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Get Power (dBm)"
                                                 Click="Button_Click"/>
-                                            <Button x:Name="DCAgetER" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Get ER"
+                                            <Button x:Name="DCAcalib" IsEnabled="True" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Calibrate"
+                                                Click="Button_Click"/>
+                                            <Button x:Name="DCAgetER" IsEnabled="False" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Get ER"
                                                 Click="Button_Click"/>
                                         </StackPanel>
                                     </ScrollViewer>
@@ -237,7 +239,7 @@
                                     </GroupBox.Header>
                                     <ScrollViewer>
                                         <StackPanel>
-                                            <Button x:Name="ONTlogin" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Login"
+                                            <Button x:Name="ONTlogin" IsEnabled="False" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Login"
                                                 Click="Button_Click"/>
                                             <Button x:Name="ONTtx" Margin="0,10,0,0" Background="{StaticResource colorBorder}" Foreground="White" Content="Output Optical Power"
                                                 Click="Button_Click"/>

@@ -66,9 +66,9 @@
                                 <StackPanel Grid.Column="0">
                                     <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT THÔNG TIN BOSA:"></Label>
                                     <Label Content="Tổng số kí tự trên tem BOSA Serial Number" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=BOSASNLEN, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
+                                    <TextBox IsEnabled="False" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=BOSASNLEN, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
                                     <Label Content="File BOSA Report" FontSize="13"></Label>
-                                    <TextBox IsEnabled="False" FontSize="13" FontWeight="Normal" Padding="5,0,0,0" Text="{Binding Path=BOSAREPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox Background="#fffdbf"  IsReadOnly="True" FontSize="13" FontWeight="Normal" Padding="5,0,0,0" Text="{Binding Path=BOSAREPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <WrapPanel Margin="0,10,0,0">
                                         <Button Click="Button_Click"  Width="140" HorizontalAlignment="Left">Browser...</Button>
                                         <Button Click="Button_Click" Margin="10,0,0,0"  Width="140" HorizontalAlignment="Left">Import to SQL</Button>
@@ -92,7 +92,7 @@
                                     <Label Content="Tổng số kí tự trên tem Mac Address" FontSize="13"></Label>
                                     <TextBox IsEnabled="False" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=MACLEN, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
                                     <Label Content="Định dạng 6 kí tự đầu tiên trên tem Mac Address" FontSize="13"></Label>
-                                    <TextBox FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=MAC6DIGIT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox Background="#fffdbf" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=MAC6DIGIT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                 </StackPanel>
                                 <Grid Grid.Column="1" Margin="10">
                                     <!--<Image Source="/Asset/Images/BOSA.jpg"/>-->
@@ -110,11 +110,11 @@
                                 <StackPanel Grid.Column="0">
                                     <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT CHO SẢN PHẨM (ONT):"></Label>
                                     <Label Content="Loại sản phẩm" FontSize="13"></Label>
-                                    <ComboBox x:Name="cbbSettingOntType" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ONTTYPE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></ComboBox>
+                                    <ComboBox Background="#fffdbf" Height="30" VerticalContentAlignment="Center" x:Name="cbbSettingOntType" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ONTTYPE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></ComboBox>
                                     <Label Content="Tên đăng nhập" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Normal" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ONTLOGINUSER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox Background="#fffdbf" CharacterCasing="Normal" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ONTLOGINUSER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <Label Content="Mã đăng nhập" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Normal" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ONTLOGINPASS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox Background="#fffdbf" CharacterCasing="Normal" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ONTLOGINPASS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                 </StackPanel>
                                 <Grid Grid.Column="1" Margin="10">
                                     <!--<Image Source="/Asset/Images/igate.png"/>-->
@@ -134,7 +134,7 @@
                                     <Label Content="Tên máy đo" FontSize="13"></Label>
                                     <TextBox IsEnabled="False" FontSize="13" FontWeight="Bold" Text="{Binding Path=ERINSTRNAME, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Padding="5,0,0,0"></TextBox>
                                     <Label Content="Địa chỉ GPIB Address" FontSize="13"></Label>
-                                    <TextBox FontSize="13" FontWeight="Bold" Text="{Binding Path=ERINSTRGPIB, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox Padding="5,0,0,0" IsEnabled="False" FontSize="13" FontWeight="Bold" Text="{Binding Path=ERINSTRGPIB, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <Label Content="Port" FontSize="13"></Label>
                                     <TextBox IsEnabled="False" FontSize="13" FontWeight="Bold" Text="{Binding Path=ERINSTRPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                 </StackPanel>
@@ -154,17 +154,17 @@
                                 <StackPanel Grid.Column="0">
                                     <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="CÀI ĐẶT CHO MÁY ĐO POWER EXFO IQS610P:"></Label>
                                     <Label Content="Địa chỉ IP Address" FontSize="13"></Label>
-                                    <TextBox FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=EXFOIP, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox IsEnabled="False" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=EXFOIP, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <Label Content="Telnet Port Number" FontSize="13"></Label>
                                     <TextBox IsEnabled="False" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=EXFOPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <Label Content="Tên module đo Power" FontSize="13"></Label>
-                                    <TextBox IsEnabled="False" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=PWINSTRNAME, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox IsReadOnly="True" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=PWINSTRNAME, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <Label Content="Port module đo Power" FontSize="13"></Label>
-                                    <ComboBox x:Name="cbbSettingPwPort" FontSize="13" FontWeight="Bold" Text="{Binding Path=PWINSTRPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
+                                    <ComboBox Padding="5,0,0,0" Background="#fffdbf" Height="30" VerticalContentAlignment="Center" x:Name="cbbSettingPwPort" FontSize="13" FontWeight="Bold" Text="{Binding Path=PWINSTRPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
                                     <Label Content="Tên module chuyển mạch" FontSize="13"></Label>
-                                    <TextBox IsEnabled="False" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=SWINSTRNAME, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox IsReadOnly="True" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=SWINSTRNAME, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                     <Label Content="Port module chuyển mạch" FontSize="13"></Label>
-                                    <ComboBox x:Name="cbbSettingSwPort" FontSize="13" FontWeight="Bold" Text="{Binding Path=SWINSTRPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
+                                    <ComboBox Padding="5,0,0,0" Background="#fffdbf" Height="30" VerticalContentAlignment="Center" x:Name="cbbSettingSwPort" FontSize="13" FontWeight="Bold" Text="{Binding Path=SWINSTRPORT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
                                 </StackPanel>
                                 <Grid Grid.Column="1" Margin="20">
                                     <!--<Image Source="/Asset/Images/IQS610P.jpg" Margin="120"/>-->
@@ -185,13 +185,13 @@
                                         <!--<Button Style="{StaticResource roundCornerButton}" Content="Hỗ trợ cài đặt" Click="Button_Click"></Button>-->
                                     </WrapPanel>
                                     <Label Content="USB Debug - DUT #01" FontSize="13"></Label>
-                                    <ComboBox x:Name="cbbSettingUsb1" FontSize="13" FontWeight="Bold" Text="{Binding Path=USBDEBUG1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
+                                    <ComboBox Padding="5,0,0,0" Background="#fffdbf" Height="30" VerticalContentAlignment="Center" x:Name="cbbSettingUsb1" FontSize="13" FontWeight="Bold" Text="{Binding Path=USBDEBUG1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
                                     <Label Content="USB Debug - DUT #02" FontSize="13"></Label>
-                                    <ComboBox x:Name="cbbSettingUsb2" FontSize="13" FontWeight="Bold" Text="{Binding Path=USBDEBUG2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
+                                    <ComboBox Padding="5,0,0,0" Background="#fffdbf" Height="30" VerticalContentAlignment="Center" x:Name="cbbSettingUsb2" FontSize="13" FontWeight="Bold" Text="{Binding Path=USBDEBUG2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
                                     <Label Content="USB Debug - DUT #03" FontSize="13"></Label>
-                                    <ComboBox x:Name="cbbSettingUsb3" FontSize="13" FontWeight="Bold" Text="{Binding Path=USBDEBUG3, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
+                                    <ComboBox Padding="5,0,0,0" Background="#fffdbf" Height="30" VerticalContentAlignment="Center" x:Name="cbbSettingUsb3" FontSize="13" FontWeight="Bold" Text="{Binding Path=USBDEBUG3, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
                                     <Label Content="USB Debug - DUT #04" FontSize="13"></Label>
-                                    <ComboBox x:Name="cbbSettingUsb4" FontSize="13" FontWeight="Bold" Text="{Binding Path=USBDEBUG4, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
+                                    <ComboBox Padding="5,0,0,0" Background="#fffdbf" Height="30" VerticalContentAlignment="Center" x:Name="cbbSettingUsb4" FontSize="13" FontWeight="Bold" Text="{Binding Path=USBDEBUG4, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
                                 </StackPanel>
                                 <Grid Grid.Column="1" Margin="20">
                                     <!--<Image Source="/Asset/Images/usbDebug.png" Margin="50"/>-->
@@ -246,36 +246,59 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Grid.Column="0">
+                                    
                                     <!--JIG 1-->
-                                    <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="JIG SỐ 1:"></Label>
+                                    <WrapPanel>
+                                        <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="JIG SỐ 1:"></Label>
+                                        <Button x:Name="btnOutTX1" Background="#777777" Foreground="White" Margin="10,0,0,0" Width="170" Content="ONT phát quang TX" Click="Button_Click"/>
+                                        <Button x:Name="btnCalAtt1"  Background="#777777" Foreground="White" Margin="10,0,0,0" Width="120" Content="Đo suy hao" Click="Button_Click"/>
+                                    </WrapPanel>
                                     <Label Content="Suy hao dây đo Power (dBm)" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
+                                    <TextBox Background="#fffdbf" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
                                     <Label Content="Suy hao dây đo ER (dBm)" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox Background="#fffdbf" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    
                                     <!--MINUS-->
                                     <Label FontSize="15" FontWeight="Bold" Content="-"></Label>
+                                    
                                     <!--JIG 2-->
-                                    <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="JIG SỐ 2:"></Label>
+                                    <WrapPanel>
+                                        <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="JIG SỐ 2:"></Label>
+                                        <Button x:Name="btnOutTX2" Background="#777777" Foreground="White" Margin="10,0,0,0" Width="170" Content="ONT phát quang TX" Click="Button_Click"/>
+                                        <Button x:Name="btnCalAtt2" Background="#777777" Foreground="White" Margin="10,0,0,0" Width="120" Content="Đo suy hao" Click="Button_Click"/>
+                                    </WrapPanel>
                                     <Label Content="Suy hao dây đo Power (dBm)" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
+                                    <TextBox Background="#fffdbf" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
                                     <Label Content="Suy hao dây đo ER (dBm)" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox Background="#fffdbf" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                   
                                     <!--MINUS-->
                                     <Label FontSize="15" FontWeight="Bold" Content="-"></Label>
+                                    
                                     <!--JIG 3-->
-                                    <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="JIG SỐ 3:"></Label>
+                                    <WrapPanel>
+                                        <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="JIG SỐ 3:"></Label>
+                                        <Button x:Name="btnOutTX3" Background="#777777" Foreground="White" Margin="10,0,0,0" Width="170" Content="ONT phát quang TX" Click="Button_Click"/>
+                                        <Button x:Name="btnCalAtt3" Background="#777777" Foreground="White" Margin="10,0,0,0" Width="120" Content="Đo suy hao" Click="Button_Click"/>
+                                    </WrapPanel>
                                     <Label Content="Suy hao dây đo Power (dBm)" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION3, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
+                                    <TextBox Background="#fffdbf" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION3, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
                                     <Label Content="Suy hao dây đo ER (dBm)" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION3, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox Background="#fffdbf" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION3, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    
                                     <!--MINUS-->
                                     <Label FontSize="15" FontWeight="Bold" Content="-"></Label>
+                                    
                                     <!--JIG 4-->
-                                    <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="JIG SỐ 4:"></Label>
+                                    <WrapPanel>
+                                        <Label Foreground="{StaticResource colorBorder}" FontSize="14" FontWeight="Bold" Content="JIG SỐ 4:"></Label>
+                                        <Button x:Name="btnOutTX4" Background="#777777" Foreground="White" Margin="10,0,0,0" Width="170" Content="ONT phát quang TX" Click="Button_Click"/>
+                                        <Button x:Name="btnCalAtt4" Background="#777777" Foreground="White" Margin="10,0,0,0" Width="120" Content="Đo suy hao" Click="Button_Click"/>
+                                    </WrapPanel>
                                     <Label Content="Suy hao dây đo Power (dBm)" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION4, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
+                                    <TextBox Background="#fffdbf" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=POWERCABLEATTENUATION4, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
                                     <Label Content="Suy hao dây đo ER (dBm)" FontSize="13"></Label>
-                                    <TextBox CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION4, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                    <TextBox Background="#fffdbf" CharacterCasing="Upper" FontSize="13" FontWeight="Bold" Padding="5,0,0,0" Text="{Binding Path=ERCABLEATTENUATION4, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
                                 </StackPanel>
                             </Grid>
                            
@@ -311,7 +334,7 @@
                                 </Grid.ColumnDefinitions>
                                 <!--Tuning Power-->
                                 <Label Grid.Row="0" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Tuning Power:</Label>
-                                <ToggleButton Grid.Row="0" Grid.Column="1" x:Name="togtp" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLETUNINGPOWER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <ToggleButton IsEnabled="False" Grid.Row="0" Grid.Column="1" x:Name="togtp" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLETUNINGPOWER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
                                 <Label Grid.Row="0" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
@@ -330,7 +353,7 @@
                                 </Label>
                                 <!--Tuning ER-->
                                 <Label Grid.Row="1" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Tuning ER:</Label>
-                                <ToggleButton Grid.Row="1" Grid.Column="1" x:Name="togte" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLETUNINGER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <ToggleButton IsEnabled="False" Grid.Row="1" Grid.Column="1" x:Name="togte" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLETUNINGER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
                                 <Label Grid.Row="1" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
@@ -349,7 +372,7 @@
                                 </Label>
                                 <!--Tuning Crossing-->
                                 <Label Grid.Row="2" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Tuning Crossing:</Label>
-                                <ToggleButton Grid.Row="2" Grid.Column="1" x:Name="togtc" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLETUNINGCROSSING, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <ToggleButton IsEnabled="False" Grid.Row="2" Grid.Column="1" x:Name="togtc" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLETUNINGCROSSING, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
                                 <Label Grid.Row="2" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
@@ -368,7 +391,7 @@
                                 </Label>
                                 <!--TX DDMI-->
                                 <Label Grid.Row="3" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">TX DDMI:</Label>
-                                <ToggleButton Grid.Row="3" Grid.Column="1" x:Name="togtd" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLETXDDMI, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <ToggleButton IsEnabled="False" Grid.Row="3" Grid.Column="1" x:Name="togtd" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLETXDDMI, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
                                 <Label Grid.Row="3" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
@@ -387,7 +410,7 @@
                                 </Label>
                                 <!--Signal Off-->
                                 <Label Grid.Row="4" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Signal Off:</Label>
-                                <ToggleButton Grid.Row="4" Grid.Column="1" x:Name="togso" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLESIGNALOFF, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <ToggleButton IsEnabled="False" Grid.Row="4" Grid.Column="1" x:Name="togso" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLESIGNALOFF, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
                                 <Label Grid.Row="4" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
@@ -406,7 +429,7 @@
                                 </Label>
                                 <!--Write to flash-->
                                 <Label Grid.Row="5" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Write to Flash:</Label>
-                                <ToggleButton Grid.Row="5" Grid.Column="1" x:Name="togwf" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEWRITEFLASH, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <ToggleButton IsEnabled="False" Grid.Row="5" Grid.Column="1" x:Name="togwf" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEWRITEFLASH, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
                                 <Label Grid.Row="5" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
@@ -424,9 +447,9 @@
                                     </Label.Style>
                                 </Label>
                                 <!--Verify Signal-->
-                                <Label Grid.Row="6" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Verify Signal:</Label>
-                                <ToggleButton Grid.Row="6" Grid.Column="1" x:Name="togvs" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEVERIFYSIGNAL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
-                                <Label Grid.Row="6" Grid.Column="2" FontSize="25" FontWeight="Bold">
+                                <Label IsEnabled="False" Grid.Row="6" Grid.Column="0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Right">Verify Signal:</Label>
+                                <ToggleButton IsEnabled="False" Grid.Row="6" Grid.Column="1" x:Name="togvs" Margin="-20,0,0,0" Height="30" Style="{StaticResource iosToggleButton}" IsChecked="{Binding Path=ENABLEVERIFYSIGNAL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ToggleButton>
+                                <Label IsEnabled="False" Grid.Row="6" Grid.Column="2" FontSize="25" FontWeight="Bold">
                                     <Label.Style>
                                         <Style TargetType="Label">
                                             <Style.Triggers>

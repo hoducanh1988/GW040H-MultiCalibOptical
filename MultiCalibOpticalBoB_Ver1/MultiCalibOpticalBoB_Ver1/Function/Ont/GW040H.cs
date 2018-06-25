@@ -105,6 +105,89 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
             return _result;
         }
 
+        public override bool calibPower(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
+            try {
+                bool _result = false;
+                _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.Wait.ToString();
+                _testinfo.SYSTEMLOG += "Bắt Đầu Thực Hiện Calib TX...\r\n";
+                _testinfo.SYSTEMLOG += string.Format("BOSA Serial Number: {0}\r\n", _testinfo.BOSASERIAL);
+                _testinfo.SYSTEMLOG += string.Format("Ith = {0}\r\n", _bosainfo.Ith);
+                _testinfo.SYSTEMLOG += "--------------------------------------------------------------\r\n";
+                _testinfo.SYSTEMLOG += "STEP 1: TUNING POWER\r\n";
+
+                base.WriteLine("echo set_flash_register_default >/proc/pon_phy/debug");
+                Thread.Sleep(Delay_modem);
+                base.WriteLine("echo flash_dump >/proc/pon_phy/debug");
+                Thread.Sleep(Delay_modem);
+                base.WriteLine("echo GPON_Tx_cal_init >/proc/pon_phy/debug");
+                Thread.Sleep(Delay_modem);
+
+                _var.Ith = double.Parse(_bosainfo.Ith);
+                _var.Iav_1 = _var.Ith + 10;
+                _var.Iav_1_dac = Math.Round(_var.Iav_1 * 4096 / 90);
+                _var.Iav_1_dac_hex = int.Parse(_var.Iav_1_dac.ToString()).ToString("X");
+
+                _testinfo.SYSTEMLOG += string.Format("echo IAV 0x{0} >/proc/pon_phy/debug\r\n", _var.Iav_1_dac_hex);
+                base.WriteLine("echo IAV 0x" + _var.Iav_1_dac_hex + " >/proc/pon_phy/debug");
+                Thread.Sleep(Delay_modem);
+
+                _var.Pwr_1 = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
+                _testinfo.SYSTEMLOG += string.Format("Pwr_1 = {0}\r\n", _var.Pwr_1);
+
+                if (_var.Pwr_1 <= -8) {
+                    _testinfo.ERRORCODE = "(Mã Lỗi: COT-PW-0001)";
+                    _testinfo.SYSTEMLOG += string.Format("Tuning Power: FAIL. {0}\r\n", _testinfo.ERRORCODE);
+                    _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.FAIL.ToString();
+                    return false;
+                }
+
+                _var.Iav_2 = _var.Ith + 15;
+                _var.Iav_2_dac = Math.Round(_var.Iav_2 * 4096 / 90);
+                _var.Iav_2_dac_hex = int.Parse(_var.Iav_2_dac.ToString()).ToString("X");
+
+                _testinfo.SYSTEMLOG += string.Format("echo IAV 0x{0} >/proc/pon_phy/debug\r\n", _var.Iav_2_dac_hex);
+                base.WriteLine("echo IAV 0x" + _var.Iav_2_dac_hex + " >/proc/pon_phy/debug");
+                Thread.Sleep(Delay_modem);
+
+                _var.Pwr_2 = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
+                _testinfo.SYSTEMLOG += string.Format("Pwr_2 = {0}\r\n", _var.Pwr_2);
+
+                _var.Slope = (_var.Pwr_2 - _var.Pwr_1) / (_var.Iav_2 - _var.Iav_1);
+                _var.Pwr_temp = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
+                _var.Iav = ((2.5 - _var.Pwr_1) / _var.Slope) + _var.Iav_1;
+
+                for (int i = 0; i < 9; i++) {
+                    _var.Iav_DAC = (Math.Round(_var.Iav * 4096 / 90)).ToString();
+                    _var.Iav_DAC_Hex = int.Parse(_var.Iav_DAC).ToString("X");
+
+                    base.WriteLine("echo IAV 0x" + _var.Iav_DAC_Hex + " >/proc/pon_phy/debug");
+                    Thread.Sleep(Delay_modem);
+                    _var.Pwr_temp = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
+                    _testinfo.SYSTEMLOG += string.Format("Pwr_temp = {0}\r\n", _var.Pwr_temp.ToString());
+
+                    if (_var.Pwr_temp >= 2.5 && _var.Pwr_temp <= 3) {
+                        _result = true;
+                        break;
+                    }
+                    else {
+                        _var.Iav = ((2.8 - _var.Pwr_temp) / _var.Slope) + _var.Iav;
+                    }
+                }
+
+                if (_result == false) _testinfo.ERRORCODE = "(Mã Lỗi: COT-PW-0001)";
+                _testinfo.SYSTEMLOG += _result == true ? "Tuning Power: PASS.\r\n" : string.Format("Tuning Power: FAIL. {0}\r\n", _testinfo.ERRORCODE);
+                _testinfo.TUNINGPOWERRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
+                return _result;
+            }
+            catch (Exception ex) {
+                _testinfo.ERRORCODE = "(Mã Lỗi: COT-PW-0002)";
+                _testinfo.SYSTEMLOG += string.Format("{0}, {1}\r\n", _testinfo.ERRORCODE, ex.ToString());
+                _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.FAIL.ToString();
+                return false;
+            }
+        }
+
+
         public override bool calibER(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
             try {
                 bool _result = false;
@@ -257,87 +340,6 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
             }
         }
 
-        public override bool calibPower(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
-            try {
-                bool _result = false;
-                _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.Wait.ToString();
-                _testinfo.SYSTEMLOG += "Bắt Đầu Thực Hiện Calib TX...\r\n";
-                _testinfo.SYSTEMLOG += string.Format("BOSA Serial Number: {0}\r\n", _testinfo.BOSASERIAL);
-                _testinfo.SYSTEMLOG += string.Format("Ith = {0}\r\n", _bosainfo.Ith);
-                _testinfo.SYSTEMLOG += "--------------------------------------------------------------\r\n";
-                _testinfo.SYSTEMLOG += "STEP 1: TUNING POWER\r\n";
-
-                base.WriteLine("echo set_flash_register_default >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-                base.WriteLine("echo flash_dump >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-                base.WriteLine("echo GPON_Tx_cal_init >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-
-                _var.Ith = double.Parse(_bosainfo.Ith);
-                _var.Iav_1 = _var.Ith + 10;
-                _var.Iav_1_dac = Math.Round(_var.Iav_1 * 4096 / 90);
-                _var.Iav_1_dac_hex = int.Parse(_var.Iav_1_dac.ToString()).ToString("X");
-
-                _testinfo.SYSTEMLOG += string.Format("echo IAV 0x{0} >/proc/pon_phy/debug\r\n", _var.Iav_1_dac_hex);
-                base.WriteLine("echo IAV 0x" + _var.Iav_1_dac_hex + " >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-
-                _var.Pwr_1 = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
-                _testinfo.SYSTEMLOG += string.Format("Pwr_1 = {0}\r\n", _var.Pwr_1);
-
-                if (_var.Pwr_1 <= -8) {
-                    _testinfo.ERRORCODE = "(Mã Lỗi: COT-PW-0001)";
-                    _testinfo.SYSTEMLOG += string.Format("Tuning Power: FAIL. {0}\r\n", _testinfo.ERRORCODE);
-                    _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.FAIL.ToString();
-                    return false;
-                }
-
-                _var.Iav_2 = _var.Ith + 15;
-                _var.Iav_2_dac = Math.Round(_var.Iav_2 * 4096 / 90);
-                _var.Iav_2_dac_hex = int.Parse(_var.Iav_2_dac.ToString()).ToString("X");
-
-                _testinfo.SYSTEMLOG += string.Format("echo IAV 0x{0} >/proc/pon_phy/debug\r\n", _var.Iav_2_dac_hex);
-                base.WriteLine("echo IAV 0x" + _var.Iav_2_dac_hex + " >/proc/pon_phy/debug");
-                Thread.Sleep(Delay_modem);
-               
-                _var.Pwr_2 = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
-                _testinfo.SYSTEMLOG += string.Format("Pwr_2 = {0}\r\n", _var.Pwr_2);
-
-                _var.Slope = (_var.Pwr_2 - _var.Pwr_1) / (_var.Iav_2 - _var.Iav_1);
-                _var.Pwr_temp = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
-                _var.Iav = ((2.5 - _var.Pwr_1) / _var.Slope) + _var.Iav_1;
-
-                for (int i = 0; i < 9; i++) {
-                    _var.Iav_DAC = (Math.Round(_var.Iav * 4096 / 90)).ToString();
-                    _var.Iav_DAC_Hex = int.Parse(_var.Iav_DAC).ToString("X");
-
-                    base.WriteLine("echo IAV 0x" + _var.Iav_DAC_Hex + " >/proc/pon_phy/debug");
-                    Thread.Sleep(Delay_modem);
-                    _var.Pwr_temp = Convert.ToDouble(GlobalData.powerDevice.getPower_dBm(Port));
-                    _testinfo.SYSTEMLOG += string.Format("Pwr_temp = {0}\r\n", _var.Pwr_temp.ToString());
-
-                    if (_var.Pwr_temp >= 2.5 && _var.Pwr_temp <= 3) {
-                        _result = true;
-                        break;
-                    }
-                    else {
-                        _var.Iav = ((2.8 - _var.Pwr_temp) / _var.Slope) + _var.Iav;
-                    }
-                }
-
-                if (_result == false) _testinfo.ERRORCODE = "(Mã Lỗi: COT-PW-0001)";
-                _testinfo.SYSTEMLOG += _result == true ? "Tuning Power: PASS.\r\n" : string.Format("Tuning Power: FAIL. {0}\r\n", _testinfo.ERRORCODE);
-                _testinfo.TUNINGPOWERRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
-                return _result;
-            }
-            catch (Exception ex) {
-                _testinfo.ERRORCODE = "(Mã Lỗi: COT-PW-0002)";
-                _testinfo.SYSTEMLOG += string.Format("{0}, {1}\r\n", _testinfo.ERRORCODE, ex.ToString());
-                _testinfo.TUNINGPOWERRESULT = Parameters.testStatus.FAIL.ToString();
-                return false;
-            }
-        }
 
         public override string getMACAddress(testinginfo _testinfo) {
             try {
@@ -358,6 +360,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 return string.Empty;
             }
         }
+
 
         public override bool signalOff(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
             try {
@@ -389,6 +392,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 return false;
             }
         }
+
 
         public override bool txDDMI(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
             try {
@@ -442,6 +446,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
             }
         }
 
+
         public override bool verifySignal(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
             try {
                 bool _result = false;
@@ -475,6 +480,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 return false;
             }
         }
+
 
         public override bool writeFlash(bosainfo _bosainfo, testinginfo _testinfo) {
             try {
@@ -519,6 +525,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 return false;
             }
         }
+
 
         public override bool writeMAC(testinginfo _testinfo) {
             try {
@@ -570,6 +577,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 return false;
             }
         }
+
 
         public override bool calibCrossing(int Port, bosainfo _bosainfo, testinginfo _testinfo, variables _var) {
             throw new NotImplementedException();

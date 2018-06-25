@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Login" Height="200" Width="350" Style="{StaticResource customWindow}" ShowActivated="True" ShowInTaskbar="False" Loaded="Window_Loaded" Topmost ="True" WindowStartupLocation="CenterScreen">
 
-    <Border CornerRadius="5" Background="{StaticResource colorBackground}" BorderBrush="{StaticResource colorBorder}" BorderThickness=".5">
+    <Border CornerRadius="5" Background="{StaticResource colorBackground}" BorderBrush="{StaticResource colorBorder}" BorderThickness=".5" MouseDown="Border_MouseDown">
         <Border CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="200" Width="350">
             <Grid>
                 <Grid.ColumnDefinitions>

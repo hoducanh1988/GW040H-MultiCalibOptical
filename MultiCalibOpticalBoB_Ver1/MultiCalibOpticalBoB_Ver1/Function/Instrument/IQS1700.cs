@@ -199,6 +199,49 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument
             }
         }
 
+
+        /// <summary>
+        /// ĐỌC GIÁ TRỊ POWER TỪ MÁY ĐO (dBm) - CHUYỂN KẾT QUẢ TRẢ VỀ TỪ NRZ3 => Double
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <returns></returns>
+        public string getPower_dBm_NoAtt(int channel) {
+            lock (thisLock) {
+                if (base.IsConnected == false) return "-1000";
+                string _pwAtt = "";
+                switch (channel) {
+                    case 1: { _pwAtt = GlobalData.initSetting.POWERCABLEATTENUATION1; break; }
+                    case 2: { _pwAtt = GlobalData.initSetting.POWERCABLEATTENUATION2; break; }
+                    case 3: { _pwAtt = GlobalData.initSetting.POWERCABLEATTENUATION3; break; }
+                    case 4: { _pwAtt = GlobalData.initSetting.POWERCABLEATTENUATION4; break; }
+                }
+                try {
+                    int count = 0;
+                    REP:
+                    count++;
+                    base.WriteLine(string.Format("{0}:READ{1}:POW:DC?", this.linsPort, channel));
+                    Thread.Sleep(100);
+                    string readStr = base.Read();
+                    if (readStr.Contains("Underrange")) {
+                        if (count <= 10) goto REP;
+                        else return "-1000";
+                    }
+                    string[] buffer = readStr.Split('\r');
+                    readStr = buffer[0];
+                    double _value = double.Parse(readStr);
+                    if (_value <= -8) {
+                        if (count <= 10) goto REP;
+                    }
+                    double _result = _value;
+                    return _result.ToString();
+                }
+                catch {
+                    return "-1000";
+                }
+            }
+        }
+
+
         public double getPower_mW(int channel) {
             lock (thisLock) {
                 if (base.IsConnected == false) return double.MinValue;

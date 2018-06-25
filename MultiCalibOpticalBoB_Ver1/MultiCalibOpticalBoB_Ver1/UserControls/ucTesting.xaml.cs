@@ -18,6 +18,7 @@ using MultiCalibOpticalBoB_Ver1.Function;
 using MultiCalibOpticalBoB_Ver1.Function.Instrument;
 using MultiCalibOpticalBoB_Ver1.Function.IO;
 using MultiCalibOpticalBoB_Ver1.Function.Ont;
+using MultiCalibOpticalBoB_Ver1.Function.Protocol;
 
 namespace MultiCalibOpticalBoB_Ver1.UserControls {
     /// <summary>
@@ -169,6 +170,26 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
         bool RunAll(testinginfo _testtemp, bosainfo _bosainfo, variables _vari) {
             System.Diagnostics.Stopwatch pt = new System.Diagnostics.Stopwatch();
             pt.Start();
+
+            //Kiem tra ket noi toi may do Power
+            _testtemp.SYSTEMLOG += string.Format("Kiểm tra kết nối tới máy đo EXFO IQS610P {0}...\r\n", GlobalData.initSetting.EXFOIP);
+            if (Network.PingNetwork(GlobalData.initSetting.EXFOIP) == false) {
+                _testtemp.SYSTEMLOG += "...Kết quả = FAIL\r\n";
+                GlobalData.connectionManagement.IQS1700STATUS = false;
+                GlobalData.connectionManagement.IQS9100BSTATUS = false;
+                return false;
+            }
+            _testtemp.SYSTEMLOG += "...Kết quả = PASS\r\n";
+
+            //Kiem tra ket noi toi may do DCA
+            _testtemp.SYSTEMLOG += string.Format("Kiểm tra kết nối tới máy đo DCA X86100D {0}...\r\n", GlobalData.initSetting.ERINSTRGPIB);
+            if (GlobalData.erDevice.isConnected() == false) {
+                _testtemp.SYSTEMLOG += "...Kết quả = FAIL\r\n";
+                GlobalData.connectionManagement.DCAX86100DSTATUS = false;
+                return false;
+            }
+            _testtemp.SYSTEMLOG += "...Kết quả = PASS\r\n";
+
             //login to ONT
             bool _result = false;
             GW ontDevice = null;
@@ -292,12 +313,6 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
            
             //***BEGIN -----------------------------------------//
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(() => {
-                //Auto test
-                //int _testtime = 0; //auto test
-                //int _passcount = 0; //auto test
-
-                //while (_testtime < 100) { //auto test
-                //_testtime++; //auto test
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
                 //Start count time
                 System.Diagnostics.Stopwatch st = new System.Diagnostics.Stopwatch();
@@ -315,12 +330,10 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                     if (_BosaSN == "--") return;
                 }
                 
-
                 if (GlobalData.initSetting.ENABLEWRITEMAC) { if (testtmp.MACADDRESS == "--") return; }
 
                 //Get Bosa Information from Bosa Serial
                 bosainfo bosaInfo = new bosainfo();
-                //bosaInfo = GlobalData.sqlServer.getDataByBosaSN(_BosaSN);
 
                 if (GlobalData.initSetting.ONTTYPE == "GW040H") {
                     testtmp.SYSTEMLOG += string.Format("Get Bosa information...\r\n");
@@ -339,11 +352,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 testtmp.BUTTONCONTENT = "STOP"; testtmp.BUTTONENABLE = false;
                 bool _result = RunAll(testtmp, bosaInfo, vari);
 
-                //if (_result == true) _passcount++; //auto test
-
                 testtmp.TOTALRESULT = _result == false ? Parameters.testStatus.FAIL.ToString() : Parameters.testStatus.PASS.ToString();
-
-                //testtmp.AUTOERRORRATE = string.Format("Fail:{0}%", (double) Math.Round(((_testtime - _passcount) * 100.0) / _testtime, 2)); //auto test
 
                 END:
                 testtmp.SYSTEMLOG += string.Format("\r\n----------------------------\r\nTotal Judged={0}\r\n", testtmp.TOTALRESULT);
@@ -358,10 +367,6 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 Function.IO.LogDetail.Save(testtmp);
                 Function.IO.LogTest.Save(testtmp);
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-                //Thread.Sleep(3000); //auto test
-                //if (_testtime < 99)
-                //    this._resetDisplay_Auto(_index); //manual
-                //}
             }));
             t.IsBackground = true;
             t.Start();

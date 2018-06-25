@@ -1,0 +1,421 @@
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = PASS
+Kiểm tra kết nối tới máy đo DCA X86100D GPIB0::7::INSTR...
+...Kết quả = PASS
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...PASS
+Login to ONT...
+..., Gửi lệnh Enter để truy nhập vào login...
+Feedback:=> 
+ > 
+
+PASS
+Get mac address...
+...PASS. A4F4C20D70A3
+[OK] Đã Write Pass xong.
+A8_DEC = 160
+Power Level = -0.0128
+A8_DEC = 175
+Power Level = 1.5061
+A8_DEC = 178
+Power Level = 1.8264
+A8_DEC = 181
+Power Level = 2.1766
+A8_DEC = 184
+Power Level = 2.4863
+A8_DEC = 187
+Power Level = 2.7806
+[OK] Tuning Tx Power => PASS
+Ibias = 12.5 mA
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=FAIL
+Total time = 3 seconds
+
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = PASS
+Kiểm tra kết nối tới máy đo DCA X86100D GPIB0::7::INSTR...
+...Kết quả = PASS
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...PASS
+Login to ONT...
+..., Gửi lệnh Enter để truy nhập vào login...
+Feedback:=> 
+ > 
+
+PASS
+Get mac address...
+...PASS. A4F4C20D70A3
+[OK] Đã Write Pass xong.
+A8_DEC = 160
+Power Level = -0.0045
+A8_DEC = 175
+Power Level = 1.4976
+A8_DEC = 178
+Power Level = 1.8171
+A8_DEC = 181
+Power Level = 2.16
+A8_DEC = 184
+Power Level = 2.4738
+A8_DEC = 187
+Power Level = 2.774
+[OK] Tuning Tx Power => PASS
+Ibias = 12.6 mA
+PW time = 3385 ms
+Add index 1 to list sequence test ER...
+...1,
+Wait for turning ER...
+...Waited time:100 ms
+Switching port...1
+Đang chờ set TRIM = -10%
+ER_current = 9.3dBm
+Đang tăng TrimER.
+TrimER_current = -2.5%
+Đang chờ set TRIM = -2.5%
+ER_current = 10.96dBm
+Đang tăng TrimER.
+TrimER_current = 5%
+Đang chờ set TRIM = 5%
+ER_current = 13.11dBm
+Đang giảm TrimER.
+TrimER_current = 2.5%
+Đang chờ set TRIM = 2.5%
+ER_current = 12.32dBm
+Trim ER để 12 < ER < 13 = 2.5
+[OK] TX Tuning ER thành công.
+A3h old = 10
+Crossing Point % = 50.8
+[OK] Crossing Point đã đạt 50% +- 0.5
+Remove index 1 from list sequence test ER...
+...
+ER time = 8647 ms
+Set Point 1: Reg A8 = 157 -> HEX
+Set Point 1: Reg A8 = 187 -> HEX
+ 
+ADC_TX_Point1 = 996
+ADC_TX_Point2 = 1852
+TX1_Power(uW) = 934.523011880039
+TX2_Power(uW) = 1885.1677431626
+Slope = 0B1B
+Offset = 2980
+Thực hiện Write Slope & Offset to EEPROM
+Power DDMI =  3.34
+Power thực tế = 2.7484
+[FAIL] Lỗi TX Calibration Power
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=FAIL
+Total time = 13 seconds
+
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = PASS
+Kiểm tra kết nối tới máy đo DCA X86100D GPIB0::7::INSTR...
+...Kết quả = PASS
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...PASS
+Login to ONT...
+..., Gửi lệnh Enter để truy nhập vào login...
+Feedback:=> 
+ > 
+
+PASS
+Get mac address...
+...PASS. A4F4C20D70A3
+[OK] Đã Write Pass xong.
+A8_DEC = 160
+Power Level = -0.0157
+A8_DEC = 175
+Power Level = 1.4668
+A8_DEC = 178
+Power Level = 1.7968
+A8_DEC = 181
+Power Level = 2.1342
+A8_DEC = 184
+Power Level = 2.4599
+A8_DEC = 187
+Power Level = 2.7521
+[OK] Tuning Tx Power => PASS
+Ibias = 14.35 mA
+PW time = 3483 ms
+Add index 1 to list sequence test ER...
+...1,
+Wait for turning ER...
+...Waited time:100 ms
+Switching port...1
+Đang chờ set TRIM = -10%
+ER_current = 9.371dBm
+Đang tăng TrimER.
+TrimER_current = -2.5%
+Đang chờ set TRIM = -2.5%
+ER_current = 11.05dBm
+Đang tăng TrimER.
+TrimER_current = 0%
+Đang chờ set TRIM = 0%
+ER_current = 11.71dBm
+Đang tăng TrimER.
+TrimER_current = 2.5%
+Đang chờ set TRIM = 2.5%
+ER_current = 12.37dBm
+Trim ER để 12 < ER < 13 = 2.5
+[OK] TX Tuning ER thành công.
+A3h old = 10
+Crossing Point % = 50.8
+[OK] Crossing Point đã đạt 50% +- 0.5
+Remove index 1 from list sequence test ER...
+...
+ER time = 8473 ms
+Set Point 1: Reg A8 = 157 -> HEX
+Set Point 1: Reg A8 = 187 -> HEX
+ 
+ADC_TX_Point1 = 972
+ADC_TX_Point2 = 1924
+TX1_Power(uW) = 930.700613089509
+TX2_Power(uW) = 1886.42698369606
+Slope = 0A0A
+Offset = C79F
+Thực hiện Write Slope & Offset to EEPROM
+Power DDMI =  2.74
+Power thực tế = 2.7509
+[OK] Hoàn thành TX Calibration Power
+DDMI,SIGOFF,WRITE time = 1646 ms
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=PASS
+Total time = 13 seconds
+
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = PASS
+Kiểm tra kết nối tới máy đo DCA X86100D GPIB0::7::INSTR...
+...Kết quả = PASS
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...PASS
+Login to ONT...
+..., Gửi lệnh Enter để truy nhập vào login...
+Feedback:=> 
+ > 
+
+PASS
+Get mac address...
+...PASS. A4F4C20D70A3
+[OK] Đã Write Pass xong.
+A8_DEC = 160
+Power Level = 0.0241
+A8_DEC = 175
+Power Level = 1.526
+A8_DEC = 178
+Power Level = 1.8538
+A8_DEC = 181
+Power Level = 2.1914
+A8_DEC = 184
+Power Level = 2.5038
+[OK] Tuning Tx Power => PASS
+Ibias = 14.2 mA
+PW time = 3106 ms
+Add index 1 to list sequence test ER...
+...1,
+Wait for turning ER...
+...Waited time:100 ms
+Switching port...1
+Đang chờ set TRIM = -10%
+ER_current = 9.525dBm
+Đang tăng TrimER.
+TrimER_current = -2.5%
+Đang chờ set TRIM = -2.5%
+ER_current = 11.18dBm
+Đang tăng TrimER.
+TrimER_current = 0%
+Đang chờ set TRIM = 0%
+ER_current = 11.78dBm
+Đang tăng TrimER.
+TrimER_current = 2.5%
+Đang chờ set TRIM = 2.5%
+ER_current = 12.46dBm
+Trim ER để 12 < ER < 13 = 2.5
+[OK] TX Tuning ER thành công.
+A3h old = 10
+Crossing Point % = 51.6
+Thực hiện tăng giá trị thanh ghi A3.
+A3h new = 20
+Crossing Point % = 50.5
+[OK] Crossing Point đã đạt 50% +- 0.5
+Remove index 1 from list sequence test ER...
+...
+ER time = 10490 ms
+Set Point 1: Reg A8 = 154 -> HEX
+Set Point 1: Reg A8 = 184 -> HEX
+ 
+ADC_TX_Point1 = 944
+ADC_TX_Point2 = 1772
+TX1_Power(uW) = 878.516656407272
+TX2_Power(uW) = 1780.04097702307
+Slope = 0AE3
+Offset = 455D
+Thực hiện Write Slope & Offset to EEPROM
+Power DDMI =  2.99
+Power thực tế = 2.512
+[OK] Hoàn thành TX Calibration Power
+DDMI,SIGOFF,WRITE time = 1707 ms
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=PASS
+Total time = 15 seconds
+
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = PASS
+Kiểm tra kết nối tới máy đo DCA X86100D GPIB0::7::INSTR...
+...Kết quả = PASS
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...PASS
+Login to ONT...
+..., Gửi lệnh Enter để truy nhập vào login...
+Feedback:=> 
+Login: 
+Gửi thông tin user: admin...
+Feedback:=> 
+Feedback:=> admin
+Password: 
+Gửi thông tin password: ttcn@77CN...
+Feedback:=> admin
+Password: 
+Feedback:=> admin
+Password: 
+ > 
+
+PASS
+Get mac address...
+...PASS. 021018010001
+[OK] Đã Write Pass xong.
+A8_DEC = 160
+Power Level = -77.8032
+A8_DEC = 175
+Power Level = -1000
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=FAIL
+Total time = 5 seconds
+
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = PASS
+Kiểm tra kết nối tới máy đo DCA X86100D GPIB0::7::INSTR...
+...Kết quả = PASS
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...(Mã Lỗi: COT-LI-0001), System.UnauthorizedAccessException: Access to the port 'COM3' is denied.
+   at System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   at System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   at System.IO.Ports.SerialPort.Open()
+   at MultiCalibOpticalBoB_Ver1.Function.Protocol.Serial.Open(String& _message) in C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\Function\Protocol\Serial.cs:line 39
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = PASS
+Kiểm tra kết nối tới máy đo DCA X86100D GPIB0::7::INSTR...
+...Kết quả = PASS
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...PASS
+Login to ONT...
+..., Gửi lệnh Enter để truy nhập vào login...
+Feedback:=> 
+Login: 
+Gửi thông tin user: admin...
+Feedback:=> 
+Feedback:=> admin
+Password: 
+Gửi thông tin password: ttcn@77CN...
+Feedback:=> admin
+Password: 
+Feedback:=> admin
+Password: 
+ > 
+
+PASS
+Get mac address...
+...PASS. 021018010001
+[OK] Đã Write Pass xong.
+A8_DEC = 160
+Power Level = -79.4817
+A8_DEC = 175
+Power Level = -77.6294
+A8_DEC = 190
+Power Level = -77.7019
+A8_DEC = 205
+Power Level = -75.7044
+A8_DEC = 220
+Power Level = -77.7049
+A8_DEC = 235
+Power Level = -73.9637
+A8_DEC = 250
+Power Level = -1000
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=FAIL
+Total time = 12 seconds
+
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = PASS
+Kiểm tra kết nối tới máy đo DCA X86100D GPIB0::7::INSTR...
+...Kết quả = PASS
+Verifying type of ONT...
+...GW020BoB
+Open comport of ONT...
+...PASS
+Login to ONT...
+..., Gửi lệnh Enter để truy nhập vào login...
+Feedback:=> 
+ > 
+
+PASS
+Get mac address...
+...PASS. 021018010001
+[OK] Đã Write Pass xong.
+A8_DEC = 160
+Power Level = -73.9564
+A8_DEC = 175
+Power Level = -81.43
+A8_DEC = 190
+Power Level = -79.143
+A8_DEC = 205
+Power Level = -77.2086
+A8_DEC = 220
+Power Level = -78.2398
+A8_DEC = 235
+Power Level = -75.8028
+A8_DEC = 250
+Power Level = -1000
+Remove index 1 from list sequence test ER...
+...
+
+----------------------------
+Total Judged=FAIL
+Total time = 11 seconds
+

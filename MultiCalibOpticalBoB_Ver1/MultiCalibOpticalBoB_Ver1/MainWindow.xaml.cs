@@ -75,12 +75,13 @@ namespace MultiCalibOpticalBoB_Ver1 {
 
         public MainWindow() {
             InitializeComponent();
+            this.DataContext = GlobalData.mainW;
             this.wpInstrument.DataContext = GlobalData.connectionManagement;
             //
             this.setStartupLocation();
             bringUCtoFront(0);
             //
-            this.lblSqlserver.Content = GlobalData.initSetting.SQLNAME;
+            //this.lblSqlserver.Content = GlobalData.initSetting.SQLNAME;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e) {
@@ -106,6 +107,10 @@ namespace MultiCalibOpticalBoB_Ver1 {
                         break;
                     }
             }
+        }
+
+        private void lblMin_MouseDown(object sender, MouseButtonEventArgs e) {
+            this.WindowState = WindowState.Minimized;
         }
 
     }

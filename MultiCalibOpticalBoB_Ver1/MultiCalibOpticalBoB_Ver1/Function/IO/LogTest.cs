@@ -19,7 +19,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.IO {
         public static bool Save(testinginfo _testinfo) {
             lock (lockthis) {
                 try {
-                    string _file = DateTime.Now.ToString("yyyyMMdd");
+                    string _file = string.Format("{0}_{1}", DateTime.Now.ToString("yyyyMMdd"), GlobalData.initSetting.ONTTYPE);
                     string _title = GlobalData.initSetting.ONTTYPE == "GW040H" ? "DATETIME,MAC-ADDRESS,BOSA-SERIAL,TUNINGPOWER-RESULT,TUNINGER-RESULT,TXDDMI-RESULT,SIGNALOFF-RESULT,WRITEFLASH-RESULT,VERIFYSIGNAL-RESULT,WRITEMAC-RESULT,ERROR-CODE,TOTAL-RESULT,TOTAL-TIME" : "DATETIME,MAC-ADDRESS,BOSA-SERIAL,TUNINGPOWER-RESULT,TUNINGER-RESULT,TUNING-CROSSING,TXDDMI-RESULT,ERROR-CODE,TOTAL-RESULT,TOTAL-TIME";
 
                     string _content = "";

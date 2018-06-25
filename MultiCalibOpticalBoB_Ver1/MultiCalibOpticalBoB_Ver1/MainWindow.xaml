@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MultiCalibOpticalBoB_Ver1"
         xmlns:uc="clr-namespace:MultiCalibOpticalBoB_Ver1.UserControls"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="600" MinWidth="800" Style="{StaticResource customWindow}" WindowStartupLocation="CenterScreen" Opacity="{Binding ElementName=lblOpacity, Path=Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+        Title="MainWindow" Height="760" Width="1360" Style="{StaticResource customWindow}" WindowStartupLocation="CenterScreen" Opacity="{Binding ElementName=lblOpacity, Path=Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
    
     <Border Background="{StaticResource BackgroundBlack}" CornerRadius="5" MouseDown="Border_MouseDown" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5">
         <Grid>
@@ -20,12 +20,15 @@
             <Grid Grid.Row="0" Margin="5,0,0,0">
                 <WrapPanel HorizontalAlignment="Left">
                     <Image Source="/Asset/Images/logovnpt.png"></Image>
-                    <Label VerticalAlignment="Center" Foreground="{StaticResource colorTextTitle}" Content=" Phiên bản 1.0.0.2"></Label>
-                    <Label VerticalAlignment="Center" Foreground="{StaticResource colorTextTitle}" Content=" Ngày tạo 29/05/2018"></Label>
+                    <Label VerticalAlignment="Center" Foreground="{StaticResource colorTextTitle}" Content=" Phiên bản 1.0.0.5"></Label>
+                    <Label VerticalAlignment="Center" Foreground="{StaticResource colorTextTitle}" Content=" Ngày tạo 25/06/2018"></Label>
                     <Label VerticalAlignment="Center" Foreground="{StaticResource colorTextTitle}" Content=" Bản quyền công ty VNPT Technology 2018"></Label>
                 </WrapPanel>
                 <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right" >
-                    <Label MouseDown="Label_MouseDown" Margin="10,0,0,0" Width="30" HorizontalContentAlignment="Center" Foreground="{StaticResource colorTextTitle}" FontSize="20" FontWeight="Bold" ToolTipService.ToolTip="Help" Padding="0,-5,0,0">?</Label>
+                    <Label x:Name="lblMin" MouseDown="lblMin_MouseDown" Margin="10,0,0,0" Width="30" HorizontalContentAlignment="Center" Foreground="{StaticResource colorTextTitle}" FontSize="20" FontWeight="Bold" ToolTipService.ToolTip="Minimize" Padding="0,-5,0,0">
+                        <Border x:Name="bdMin" MouseDown="lblMin_MouseDown" Margin="0,13,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="White" BorderThickness="2" Width="10">
+                        </Border>
+                    </Label>
                     <Label MouseDown="Label_MouseDown" FontSize="20" Width="30" FontWeight="Bold" Margin="0,-5,5,0"  Foreground="{StaticResource colorTextTitle}" ToolTipService.ToolTip="Tắt ứng dụng" Content="X"></Label>
                 </WrapPanel>
 
@@ -37,7 +40,7 @@
                     <RowDefinition Height="27"/>
                     <RowDefinition Height="3"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" FontSize="26" Foreground="{StaticResource colorTextTitle}" VerticalAlignment="Center">Tool Multi Calib Optical For BOB Product</Label>
+                <Label Grid.Row="0" FontSize="26" Foreground="{StaticResource colorTextTitle}" VerticalAlignment="Center" Content="{Binding Path=WINDOWTITLE, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></Label>
                 <Grid Grid.Row="1">
                     <WrapPanel Margin="0,-2,0,0">
                         <Label MouseDown="Label_MouseDown" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{StaticResource colorTextTitle}" FontSize="15" FontWeight="SemiBold">TEST ALL</Label>

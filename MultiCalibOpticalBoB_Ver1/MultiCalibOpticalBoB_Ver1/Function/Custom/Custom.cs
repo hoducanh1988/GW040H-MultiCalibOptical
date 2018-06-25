@@ -77,6 +77,31 @@ namespace MultiCalibOpticalBoB_Ver1.Function
         }
     }
 
+    public class mainwindowinfo : INotifyPropertyChanged {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName = null) {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+
+        string _wtitle = "";
+        public string WINDOWTITLE {
+            get { return _wtitle; }
+            set {
+                _wtitle = value;
+                OnPropertyChanged(nameof(WINDOWTITLE));
+            }
+        }
+
+        public mainwindowinfo() {
+            WINDOWTITLE = "Tool Multi Calib Optical For Product GW";
+        }
+    }
+
     public class manualtest : INotifyPropertyChanged {
 
         public event PropertyChangedEventHandler PropertyChanged;
