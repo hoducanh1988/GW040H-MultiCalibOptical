@@ -1,9 +1,0 @@
-Input Bosa Serial...
-...66666666666666
-Get Bosa information...
-...FAIL. (Mã Lỗi: COT-BS-0001). Bosa SN is not existed
-
-----------------------------
-Total Judged=FAIL
-Total time = 0 seconds
-

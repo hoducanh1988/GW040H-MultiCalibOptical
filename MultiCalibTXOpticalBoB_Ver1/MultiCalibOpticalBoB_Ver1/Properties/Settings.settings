@@ -1,0 +1,132 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MultiCalibOpticalBoB_Ver1.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BosaSNLen" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">14</Value>
+    </Setting>
+    <Setting Name="BosaReportFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="OntType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">GW040H</Value>
+    </Setting>
+    <Setting Name="OntLoginUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">admin</Value>
+    </Setting>
+    <Setting Name="OntLoginPass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ttcn@77CN</Value>
+    </Setting>
+    <Setting Name="ERInstrName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DCAX86100D</Value>
+    </Setting>
+    <Setting Name="ERInstrGPIB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">GPIB0::7::INSTR</Value>
+    </Setting>
+    <Setting Name="ERInstrPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="PWInstrName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">IQS1700</Value>
+    </Setting>
+    <Setting Name="PWInstrPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">7</Value>
+    </Setting>
+    <Setting Name="SWInstrName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">IQS9100B</Value>
+    </Setting>
+    <Setting Name="SWInstrPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SqlName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\SQLEXPRESS</Value>
+    </Setting>
+    <Setting Name="SqlUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sa</Value>
+    </Setting>
+    <Setting Name="SqlPass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">123</Value>
+    </Setting>
+    <Setting Name="SqlDb" Type="System.String" Scope="User">
+      <Value Profile="(Default)">BosaReportDB</Value>
+    </Setting>
+    <Setting Name="enabletuningpower" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="enabletuninger" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="enabletxddmi" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="enablesignaloff" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="enablewriteflash" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="enableverifysignal" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="EXFOIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.18</Value>
+    </Setting>
+    <Setting Name="EXFOPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5024</Value>
+    </Setting>
+    <Setting Name="usbDebug1" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="usbDebug2" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="usbDebug3" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="usbDebug4" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="powerCableAtt1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4.02</Value>
+    </Setting>
+    <Setting Name="erCableAtt1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">18.80</Value>
+    </Setting>
+    <Setting Name="powerCableAtt2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4.01</Value>
+    </Setting>
+    <Setting Name="erCableAtt2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">18.81</Value>
+    </Setting>
+    <Setting Name="powerCableAtt3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4.03</Value>
+    </Setting>
+    <Setting Name="erCableAtt3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">18.82</Value>
+    </Setting>
+    <Setting Name="powerCableAtt4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4.04</Value>
+    </Setting>
+    <Setting Name="erCableAtt4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">18.83</Value>
+    </Setting>
+    <Setting Name="enablewritemac" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MacLen" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">12</Value>
+    </Setting>
+    <Setting Name="Mac6digits" Type="System.String" Scope="User">
+      <Value Profile="(Default)">A4F4C2:A06518</Value>
+    </Setting>
+    <Setting Name="enabletuningcrossing" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="enablewriteapdlut" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="apdoption" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

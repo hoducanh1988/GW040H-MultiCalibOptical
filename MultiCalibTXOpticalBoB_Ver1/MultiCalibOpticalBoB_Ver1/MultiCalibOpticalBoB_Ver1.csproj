@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EAF30CEF-A211-4338-933E-4B595B624709}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MultiCalibOpticalBoB_Ver1</RootNamespace>
+    <AssemblyName>MultiCalibTXOpticalBoB_Ver1.0.0.9</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Asset\Icons\calibwifi.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ivi.Visa.Interop, Version=5.8.0.0, Culture=neutral, PublicKeyToken=a128c98f1d7717c1, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>bin\Debug\Ivi.Visa.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.0.1044, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="NationalInstruments.VisaNS, Version=13.0.40.167, Culture=neutral, PublicKeyToken=dc6ad606294fc298, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\NationalInstruments.VisaNS.dll</HintPath>
+    </Reference>
+    <Reference Include="reachframework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Function\Base\BaseFunctions.cs" />
+    <Compile Include="Function\Base\GlobalData.cs" />
+    <Compile Include="Function\Base\Parameters.cs" />
+    <Compile Include="Function\Custom\Custom.cs" />
+    <Compile Include="Function\Instrument\DCAX86100D.cs" />
+    <Compile Include="Function\Instrument\IInstrument.cs" />
+    <Compile Include="Function\Instrument\IQS1700.cs" />
+    <Compile Include="Function\Instrument\IQS9100B.cs" />
+    <Compile Include="Function\IO\BosaConfig.cs" />
+    <Compile Include="Function\IO\BosaReport.cs" />
+    <Compile Include="Function\IO\LogDetail.cs" />
+    <Compile Include="Function\IO\LogTest.cs" />
+    <Compile Include="Function\Ont\GW.cs" />
+    <Compile Include="Function\Ont\GW020BoB.cs" />
+    <Compile Include="Function\Ont\GW040H.cs" />
+    <Compile Include="Function\Protocol\Network.cs" />
+    <Compile Include="Function\Protocol\Serial.cs" />
+    <Compile Include="Function\Protocol\Sql.cs" />
+    <Compile Include="SubWindow\ConnectInstrument.xaml.cs">
+      <DependentUpon>ConnectInstrument.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubWindow\ImportToSQL.xaml.cs">
+      <DependentUpon>ImportToSQL.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubWindow\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubWindow\SelectPort.xaml.cs">
+      <DependentUpon>SelectPort.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubWindow\wBosaSerialNumber.xaml.cs">
+      <DependentUpon>wBosaSerialNumber.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubWindow\wInputdBm.xaml.cs">
+      <DependentUpon>wInputdBm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubWindow\wUsbDebugger.xaml.cs">
+      <DependentUpon>wUsbDebugger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucAbout.xaml.cs">
+      <DependentUpon>ucAbout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucHelp.xaml.cs">
+      <DependentUpon>ucHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucLog.xaml.cs">
+      <DependentUpon>ucLog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucLogin.xaml.cs">
+      <DependentUpon>ucLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucSetting.xaml.cs">
+      <DependentUpon>ucSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucStep.xaml.cs">
+      <DependentUpon>ucStep.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucTesting.xaml.cs">
+      <DependentUpon>ucTesting.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Asset\Resources\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Asset\Resources\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Asset\Resources\Combobox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Asset\Resources\customWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Asset\Resources\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Asset\Resources\Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Asset\Resources\Listbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Asset\Resources\RadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Asset\Resources\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Asset\Resources\TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Asset\Resources\Textbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Asset\Resources\ToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Function\Protocol\Telnet.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="SubWindow\ConnectInstrument.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubWindow\ImportToSQL.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubWindow\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubWindow\SelectPort.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubWindow\wBosaSerialNumber.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubWindow\wInputdBm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubWindow\wUsbDebugger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucAbout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucStep.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucTesting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Function\Excute\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asset\Images\admin.png" />
+    <Resource Include="Asset\Images\administrator.png" />
+    <Resource Include="Asset\Images\barcode.png" />
+    <Resource Include="Asset\Images\barcodescanner.png" />
+    <Resource Include="Asset\Images\common.png" />
+    <Resource Include="Asset\Images\gw040.png" />
+    <Resource Include="Asset\Images\hold.png" />
+    <Resource Include="Asset\Images\igate.png" />
+    <Resource Include="Asset\Images\logovnpt.png" />
+    <Resource Include="Asset\Images\modem.png" />
+    <Resource Include="Asset\Images\next.png" />
+    <Resource Include="Asset\Images\OLT.png" />
+    <Resource Include="Asset\Images\parallel.png" />
+    <Resource Include="Asset\Images\password.png" />
+    <Resource Include="Asset\Images\power.png" />
+    <Resource Include="Asset\Images\power2.png" />
+    <Resource Include="Asset\Images\power3.png" />
+    <Resource Include="Asset\Images\sequence.png" />
+    <Resource Include="Asset\Images\setup.png" />
+    <Resource Include="Asset\Images\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asset\Images\DCAX86100D.jpg" />
+    <Resource Include="Asset\Images\IQS610P.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asset\Images\BOSA.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asset\Images\SQL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asset\Images\usbDebug.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asset\Images\LOSS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asset\Icons\calibwifi.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

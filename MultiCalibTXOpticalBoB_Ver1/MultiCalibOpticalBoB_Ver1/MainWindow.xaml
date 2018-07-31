@@ -1,0 +1,161 @@
+﻿<Window x:Class="MultiCalibOpticalBoB_Ver1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiCalibOpticalBoB_Ver1"
+        xmlns:uc="clr-namespace:MultiCalibOpticalBoB_Ver1.UserControls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="760" Width="1360" Style="{StaticResource customWindow}" WindowStartupLocation="CenterScreen" Opacity="{Binding ElementName=lblOpacity, Path=Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+   
+    <Border Background="{StaticResource BackgroundBlack}" CornerRadius="5" MouseDown="Border_MouseDown" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <!--Software infomation-->
+            <Grid Grid.Row="0" Margin="5,0,0,0">
+                <WrapPanel HorizontalAlignment="Left">
+                    <Image Source="/Asset/Images/logovnpt.png"></Image>
+                    <Label VerticalAlignment="Center" Foreground="{StaticResource colorTextTitle}" Content=" Phiên bản 1.0.0.9"></Label>
+                    <Label VerticalAlignment="Center" Foreground="{StaticResource colorTextTitle}" Content=" Ngày tạo 19/07/2018"></Label>
+                    <Label VerticalAlignment="Center" Foreground="{StaticResource colorTextTitle}" Content=" Bản quyền công ty VNPT Technology 2018"></Label>
+                </WrapPanel>
+                <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right" >
+                    <Label x:Name="lblMin" MouseDown="lblMin_MouseDown" Margin="0,0,10,0" Width="30" HorizontalContentAlignment="Center" Foreground="{StaticResource colorTextTitle}" FontSize="20" FontWeight="Bold" ToolTipService.ToolTip="Minimize" Padding="0,-5,0,0">
+                        <Border x:Name="bdMin" MouseDown="lblMin_MouseDown" Margin="0,13,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="White" BorderThickness="2" Width="10">
+                        </Border>
+                    </Label>
+                    
+                    <!--<Label x:Name="lblMax" MouseDown="lblMax_MouseDown" Margin="0,0,10,0" Width="30" HorizontalContentAlignment="Center" Foreground="{StaticResource colorTextTitle}" FontSize="20" FontWeight="Bold" ToolTipService.ToolTip="Maximum" Padding="0,-5,0,0">
+                        
+                        --><!--<Border x:Name="bdMax" MouseDown="lblMax_MouseDown" Margin="0,13,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="White" BorderThickness="2" Width="10">
+                        </Border>--><!--
+                    </Label>-->
+                    <Grid Width="35" Margin="0,0,10,0" ToolTipService.ToolTip="Maximum" MouseDown="lblMax_MouseDown">
+                        <Border Margin="10" Background="White" MouseDown="lblMax_MouseDown">
+                            <Border Margin="3" Background="{StaticResource BackgroundBlack}" MouseDown="lblMax_MouseDown"/>
+                        </Border>    
+                    </Grid>
+                    
+                    <Label MouseDown="Label_MouseDown" FontSize="20" Width="30" FontWeight="Bold" Margin="0,-5,5,0"  Foreground="{StaticResource colorTextTitle}" ToolTipService.ToolTip="Tắt ứng dụng" Content="X"></Label>
+                </WrapPanel>
+
+            </Grid>
+            <!--title-->
+            <Grid Grid.Row="1" Margin="5,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="3"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" FontSize="26" Foreground="{StaticResource colorTextTitle}" VerticalAlignment="Center" Content="{Binding Path=WINDOWTITLE, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></Label>
+                <Grid Grid.Row="1">
+                    <WrapPanel Margin="0,-2,0,0">
+                        <Label MouseDown="Label_MouseDown" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{StaticResource colorTextTitle}" FontSize="15" FontWeight="SemiBold">TEST ALL</Label>
+                        <Label MouseDown="Label_MouseDown" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{StaticResource colorTextTitle}" FontSize="15" FontWeight="SemiBold">MANUAL</Label>
+                        <Label MouseDown="Label_MouseDown" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{StaticResource colorTextTitle}" FontSize="15" FontWeight="SemiBold">SETTING</Label>
+                        <Label MouseDown="Label_MouseDown" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{StaticResource colorTextTitle}" FontSize="15" FontWeight="SemiBold">DATALOG</Label>
+                        <Label MouseDown="Label_MouseDown" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{StaticResource colorTextTitle}" FontSize="15" FontWeight="SemiBold">HELP</Label>
+                        <Label MouseDown="Label_MouseDown" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="{StaticResource colorTextTitle}" FontSize="15" FontWeight="SemiBold">ABOUT</Label>
+                    </WrapPanel>
+                </Grid>
+                <Label x:Name="lblMinus" Grid.Row="2" VerticalAlignment="Stretch" Width="100" HorizontalAlignment="Left" Background="{StaticResource colorBorder}"></Label>
+            </Grid>
+            <!--content-->
+            <Grid Grid.Row="2" Margin="5,10,5,5">
+                <uc:ucLogin x:Name="ucLogin"/>
+                <uc:ucAbout x:Name="ucAbout"/>
+                <uc:ucHelp x:Name="ucHelp"/>
+                <uc:ucLog x:Name="ucLog"/>
+                <uc:ucSetting x:Name="ucSetting"/>
+                <uc:ucStep x:Name="ucStep"/>
+                <uc:ucTesting x:Name="ucTesting"/>
+            </Grid>
+            <!--status bar-->
+            <WrapPanel Grid.Row="3" x:Name="wpInstrument">
+                <Label Content="IQS1700 :" Foreground="White" FontWeight="SemiBold"/>
+                <Label FontWeight="SemiBold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Content" Value="--"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IQS1700STATUS}" Value="True">
+                                    <Setter Property="Content" Value="Connected"/>
+                                    <Setter Property="Foreground" Value="Lime"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IQS1700STATUS}" Value="False">
+                                    <Setter Property="Content" Value="Disconnected"/>
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Content=" || "/>
+                <Label Content="IQS9100B :" Foreground="White" FontWeight="SemiBold"/>
+                <Label FontWeight="SemiBold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Content" Value="--"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IQS9100BSTATUS}" Value="True">
+                                    <Setter Property="Content" Value="Connected"/>
+                                    <Setter Property="Foreground" Value="Lime"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IQS9100BSTATUS}" Value="False">
+                                    <Setter Property="Content" Value="Disconnected"/>
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Content=" || "/>
+                <Label Content="DCAX86100D :" Foreground="White" FontWeight="SemiBold"/>
+                <Label FontWeight="SemiBold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Content" Value="--"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=DCAX86100DSTATUS}" Value="True">
+                                    <Setter Property="Content" Value="Connected"/>
+                                    <Setter Property="Foreground" Value="Lime"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=DCAX86100DSTATUS}" Value="False">
+                                    <Setter Property="Content" Value="Disconnected"/>
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Content=" || "/>
+                <Label Content="SQL Server :" Foreground="White" FontWeight="SemiBold"/>
+                <Label x:Name="lblSqlserver" Content="" Foreground="White" FontWeight="SemiBold"/>
+                <Label FontWeight="SemiBold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Content" Value="--"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=SQLSTATUS}" Value="True">
+                                    <Setter Property="Content" Value="Connected"/>
+                                    <Setter Property="Foreground" Value="Lime"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=SQLSTATUS}" Value="False">
+                                    <Setter Property="Content" Value="Disconnected"/>
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label x:Name="lblOpacity" Content="{Binding Path=WINDOWOPACITY, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="Collapsed"></Label>
+            </WrapPanel>
+        </Grid>
+    </Border>
+
+</Window>
