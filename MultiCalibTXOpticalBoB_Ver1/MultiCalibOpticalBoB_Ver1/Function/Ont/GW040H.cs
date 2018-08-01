@@ -5,10 +5,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MultiCalibOpticalBoB_Ver1.Function.Ont
-{
-    public class GW040H : GW
-    {
+namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
+    public class GW040H : GW {
         public GW040H(string _portname) : base(_portname) { }
 
         public override bool Login(out string message) {
@@ -17,7 +15,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                 bool _flag = false;
                 int index = 0;
                 int max = 20;
-                while(!_flag) {
+                while (!_flag) {
                     //Gửi lệnh Enter để ONT về trạng thái đăng nhập
                     message += "Gửi lệnh Enter để truy nhập vào login...\r\n";
                     base.WriteLine("\r\n");
@@ -26,7 +24,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                     data = base.Read();
                     message += string.Format("Feedback:=> {0}\r\n", data);
                     if (data.Replace("\r", "").Replace("\n", "").Trim().Contains("#")) return true;
-                    while(!data.Contains("tc login:")) {
+                    while (!data.Contains("tc login:")) {
                         data += base.Read();
                         message += string.Format("Feedback:=> {0}\r\n", data);
                         Thread.Sleep(500);
@@ -76,7 +74,8 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
             try {
                 base.WriteLine("echo GPON_pattern >/proc/pon_phy/debug");
                 return true;
-            } catch {
+            }
+            catch {
                 return false;
             }
         }
@@ -86,7 +85,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
             _testinfo.SYSTEMLOG += string.Format("Verifying type of ONT...\r\n...{0}\r\n", GlobalData.initSetting.ONTTYPE);
             bool _result = false;
             string _message = "";
-           
+
             _testinfo.SYSTEMLOG += "Open comport of ONT...\r\n";
             if (!base.Open(out _message)) {
                 _testinfo.ERRORCODE = "(Mã Lỗi: COT-LI-0001)";
@@ -204,10 +203,12 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
 
                     try {
                         _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER(Port));
-                    } catch {
+                    }
+                    catch (Exception ex) {
+                        _testinfo.SYSTEMLOG += ex.ToString() + "\r\n";
                         _var.ER_temp = double.MaxValue;
                     }
-                    
+
                     _testinfo.SYSTEMLOG += string.Format("ER_temp = {0}\r\n", _var.ER_temp);
                     _testinfo.SYSTEMLOG += string.Format("Imod = {0}\r\n", _var.Imod);
 
@@ -330,7 +331,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                         //break;
                     }
                 }
-                
+
                 if (_result == false) _testinfo.ERRORCODE = "(Mã Lỗi: COT-ER-0001)";
                 _testinfo.SYSTEMLOG += _result == true ? "Tuning ER: PASS\r\n" : string.Format("Tuning ER: FAIL. {0}\r\n", _testinfo.ERRORCODE);
                 _testinfo.TUNINGERRESULT = _result == true ? Parameters.testStatus.PASS.ToString() : Parameters.testStatus.FAIL.ToString();
@@ -524,7 +525,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
                     _testinfo.ERRORCODE = "(Mã Lỗi: COT-WF-0001)";
                     goto NG;
                 }
-                
+
                 goto OK;
             }
             catch (Exception ex) {
@@ -542,7 +543,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
             _testinfo.SYSTEMLOG += string.Format("Write flash thất bại. {0}\r\n", _testinfo.ERRORCODE);
             _testinfo.WRITEFLASHRESULT = Parameters.testStatus.FAIL.ToString();
             return false;
-            
+
         }
 
 
@@ -648,7 +649,7 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont
             throw new NotImplementedException();
         }
 
-        public override bool writeAPD(bosainfo _bosainfo, testinginfo _testinfo ) {
+        public override bool writeAPD(bosainfo _bosainfo, testinginfo _testinfo) {
             throw new NotImplementedException();
         }
         //Calib Quang------------------------------//

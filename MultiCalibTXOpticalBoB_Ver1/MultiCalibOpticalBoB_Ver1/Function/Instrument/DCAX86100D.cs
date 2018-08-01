@@ -137,14 +137,26 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument {
                     Thread.Sleep(100);
                     string _txt = "";
                     int _timeout = 0;
-                    while (!_txt.Contains("CORR")) {
-                        _timeout++;
-                        if (_timeout >= 300) break;
-                        myN1010A.WriteString(":MEASure:EYE:ERATio:STATus?", true);
-                        Thread.Sleep(10);
-                        _txt = myN1010A.ReadString();
+
+                    REP:
+                    _timeout++;
+                    myN1010A.WriteString(":MEASure:EYE:ERATio:STATus?", true);
+                    Thread.Sleep(100);
+                    _txt = myN1010A.ReadString();
+                    if (!_txt.Contains("CORR")) {
+                        if (_timeout >= 300) return string.Empty;
+                        else goto REP;
                     }
-                    if (_timeout >= 300) return string.Empty;
+
+                    //while (!_txt.Contains("CORR")) {
+                    //    _timeout++;
+                    //    if (_timeout >= 300) break;
+                    //    myN1010A.WriteString(":MEASure:EYE:ERATio:STATus?", true);
+                    //    Thread.Sleep(10);
+                    //    _txt = myN1010A.ReadString();
+                    //}
+                    //if (_timeout >= 300) return string.Empty;
+
 
                     myN1010A.WriteString(":MEASure:EYE:ERATio?", true);
                     Thread.Sleep(200);
