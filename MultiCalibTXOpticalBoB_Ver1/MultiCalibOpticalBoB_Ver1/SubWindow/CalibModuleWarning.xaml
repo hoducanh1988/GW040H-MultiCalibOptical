@@ -1,0 +1,37 @@
+﻿<Window x:Class="MultiCalibOpticalBoB_Ver1.CalibModuleWarning"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiCalibOpticalBoB_Ver1"
+        mc:Ignorable="d"
+        Title="CalibModuleWarning" Height="500" Width="900" Style="{StaticResource customWindow}" WindowStartupLocation="CenterScreen" Topmost="True" ShowActivated="False" ShowInTaskbar="False" Loaded="Window_Loaded" Unloaded="Window_Unloaded">
+
+    <Border x:Name="MainBorder" CornerRadius="5" Background="#ffe738" BorderBrush="{StaticResource colorBorder}"  BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="120"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="#B94A0E" CornerRadius="5,5,0,0">
+                <Grid>
+                    <Label x:Name="lblTitle" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="25" FontWeight="SemiBold" Content="Calib máy đo ER: DCAX 86100D" Foreground="White"/>
+                    <Label HorizontalAlignment="Right" MouseDown="Label_MouseDown" FontSize="40" Width="50" FontWeight="Bold" Margin="0,-5,5,0"  Foreground="{StaticResource colorTextTitle}" ToolTipService.ToolTip="Tắt ứng dụng" Content="X"></Label>
+                </Grid>
+            </Border>
+            <StackPanel Grid.Row="1">
+                <TextBlock Padding="5,5,5,5" FontSize="70" Text="Cảnh báo:" FontWeight="Bold"></TextBlock>
+                <TextBlock Padding="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="70" TextWrapping="Wrap" Text="Máy đo ER DCA X86100D cần phải calib lại."></TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <Label FontSize="22" Content="Thông tin chi tiết:" FontWeight="Bold"></Label>
+                <Label x:Name="lblTime" FontSize="17" Content="Thời điểm calib gần nhất: 03/08/2018 08:30:45"/>
+                <Label x:Name="lblTemp" FontSize="17" Content="Nhiệt độ chênh lệch hiện tại: 1 độ C"/>
+            </StackPanel> 
+            
+        </Grid>
+    </Border>
+    
+</Window>

@@ -202,7 +202,10 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Ont {
                     Thread.Sleep(Delay_modem);
 
                     try {
-                        _var.ER_temp = Convert.ToDouble(GlobalData.erDevice.getER(Port));
+                        string _kq = GlobalData.erDevice.getER(Port).Replace("\r","").Replace("\n","");
+                        _testinfo.SYSTEMLOG += string.Format("ER String read from instrument: {0}", _kq);
+                        //_var.ER_temp = Convert.ToDouble(_kq);
+                        _var.ER_temp = double.Parse(_kq);
                     }
                     catch (Exception ex) {
                         _testinfo.SYSTEMLOG += ex.ToString() + "\r\n";

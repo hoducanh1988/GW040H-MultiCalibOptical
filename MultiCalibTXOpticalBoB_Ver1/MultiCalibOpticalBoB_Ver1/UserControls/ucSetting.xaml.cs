@@ -108,6 +108,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                         MessageBox.Show(string.Format("Không thể kết nối tới máy đo Power {0}.", GlobalData.initSetting.EXFOIP), "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                         goto END;
                     }
+
                     //Kiem tra ket noi toi may do ER
                     if (GlobalData.erDevice.isConnected() == false) {
                         MessageBox.Show(string.Format("Không thể kết nối tới máy đo ER {0}.", GlobalData.initSetting.ERINSTRGPIB), "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -120,9 +121,14 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
 
                     //Chuyen mach sang may do ER
                     GlobalData.switchDevice.switchToPort(int.Parse(_index));
+                    Thread.Sleep(1000);
+
+                    //reset máy đo ER
+                    GlobalData.erDevice.Initialize();
 
                     //Doc cong suat may do ER
-                    _ERValue = BaseFunctions.convert_NRZ3_To_Double(GlobalData.erDevice.getdBm());
+                    //_ERValue = BaseFunctions.convert_NRZ3_To_Double(GlobalData.erDevice.getdBm());
+                    _ERValue = double.Parse(GlobalData.erDevice.getdBm().Replace("\r","").Replace("\n",""));
                     _attER = GlobalData.attOntPower - _ERValue;
 
                     //Thiet lap gia tri suy hao cho may do Power, ER

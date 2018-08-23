@@ -285,5 +285,63 @@ namespace MultiCalibOpticalBoB_Ver1.Function.Instrument {
             }
         }
 
+
+        // Calib máy đo bằng tay
+        public bool ManualCalibrate() {
+            lock (thislock) {
+                try {
+                    //calib Module
+                    myN1010A.WriteString(":CAL:SLOT1:STAR", true);
+                    myN1010A.WriteString(":CAL:SDON?", true);
+                    myN1010A.WriteString(":CAL:CONT", true);
+                    myN1010A.WriteString(":CAL:SDON?", true);
+                    myN1010A.WriteString(":CAL:CONT", true);
+                    myN1010A.WriteString(":CAL:SDON?", true);
+                    myN1010A.WriteString(":CAL:CONT", true);
+                    myN1010A.WriteString("*OPC?", true);
+
+                    //Calib dark level channel 1A
+                    myN1010A.WriteString(":CAL:DARK:CHAN1A:STAR", true);
+                    myN1010A.WriteString(":CAL:SDON?", true);
+                    myN1010A.WriteString(":CAL:CONT", true);
+                    myN1010A.WriteString(":CAL:SDON?", true);
+                    myN1010A.WriteString(":CAL:CONT", true);
+                    myN1010A.WriteString("*OPC?", true);
+
+                    //Calib dark level channel 2A
+                    myN1010A.WriteString(":CAL:DARK:CHAN2A:STAR", true);
+                    myN1010A.WriteString(":CAL:SDON?", true);
+                    myN1010A.WriteString(":CAL:CONT", true);
+                    myN1010A.WriteString(":CAL:SDON?", true);
+                    myN1010A.WriteString(":CAL:CONT", true);
+                    myN1010A.WriteString("*OPC?", true);
+
+                    for (int i = 0; i < 90; i++) {
+                        Thread.Sleep(1000);
+                    }
+                    
+                    return true;
+                }
+                catch {
+                    return false;
+                }
+            }
+        }
+
+        public bool getTemperature(out double _temp) {
+            lock (thislock) {
+                _temp = 0;
+                try {
+                    myN1010A.WriteString(":CAL:MOD:SLOT1:STAT:TEMP?", true);
+                    Thread.Sleep(100);
+                    _temp = double.Parse(myN1010A.ReadString());
+                    return true;
+                }
+                catch {
+                    return false;
+                }
+            }
+        }
+
     }
 }

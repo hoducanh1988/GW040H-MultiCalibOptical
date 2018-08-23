@@ -112,8 +112,11 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
             listHist.Add(new history() {
                 ID = "10",
                 VERSION = "1.0.0.9",
-                CONTENT = "- Không Break đo ER khi không đọc được dữ liệu ER từ máy đo.",
-                DATE = "19/07/2018",
+                CONTENT = "- Không Break đo ER khi không đọc được dữ liệu ER từ máy đo (19.07).\n" +
+                          "- Đổi lệnh convert dữ liệu đo ER từ : Convert.ToDouble -> double.Parse (02.08)\n" + 
+                          "- Check kết nối máy đo ER chuyển từ : Bắn Bosa => trước khi đo ER (02.08)\n" +
+                          "- Thêm chức năng cảnh báo và hỗ trợ calib module máy đo ER sau mỗi 5 giờ hoạt động (03.08)",
+                DATE = "03/08/2018",
                 CHANGETYPE = "Chỉnh sửa",
                 PERSON = "Hồ Đức Anh"
             });

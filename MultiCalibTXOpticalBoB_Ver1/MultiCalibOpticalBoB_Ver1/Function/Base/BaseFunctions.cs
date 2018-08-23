@@ -397,5 +397,19 @@ namespace MultiCalibOpticalBoB_Ver1.Function {
             return true;
         }
 
+
+        public static bool last_Time_Calibrate_Module_DCAX86100D_To_Hours(string _time, out double _hours) {
+            _hours = 0;
+            try {
+                DateTime NowDate = DateTime.Now;
+                DateTime lastDate = Convert.ToDateTime(_time);
+                TimeSpan nod = (NowDate - lastDate);
+                _hours = nod.TotalHours;
+                return true;
+            } catch {
+                return false;
+            }
+        }
+
     }
 }

@@ -1,0 +1,208 @@
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 1 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+
+Input Bosa Serial...
+...B8D0893E000053
+Get Bosa information...
+...Ith= 13.09mA
+...Vbr= 48.70061V
+...PASS
+Kiểm tra kết nối tới máy đo EXFO IQS610P 192.168.1.18...
+...Kết quả = FAIL
+
+----------------------------
+Total Judged=FAIL
+Total time = 0 seconds
+

@@ -16,6 +16,7 @@ using MultiCalibOpticalBoB_Ver1.Function;
 using MultiCalibOpticalBoB_Ver1.Function.Instrument;
 using System.IO.Ports;
 using MultiCalibOpticalBoB_Ver1.Function.Ont;
+using MultiCalibOpticalBoB_Ver1.Function.IO;
 
 namespace MultiCalibOpticalBoB_Ver1.UserControls {
     /// <summary>
@@ -210,18 +211,37 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                     }
 
                 case "DCAcalib": {
+                        //Ngắt kết nối Switch quang
+                        GlobalData.manualTest.DCAX86100DLOG += string.Format("Switch off cổng kết nối quang...\n");
+                        bool kq = GlobalData.switchDevice.switchOff();
+                        GlobalData.manualTest.DCAX86100DLOG += string.Format("=> Result: {0}\n", kq == true ? "PASS" : "FAIL");
+                        if (kq == false) return;
+
+                        //Calib máy đo ER
+                        CalibratingWindow cw = new CalibratingWindow();
                         Thread t = new Thread(new ThreadStart(() => {
                             bool ret = false;
                             string message = "";
+                            App.Current.Dispatcher.Invoke(new Action(() => { cw.Show(); }));
+                            
                             GlobalData.manualTest.DCAX86100DLOG += string.Format("Calibrating DCAX86100D...\n");
                             message = "";
                             try {
-                                ret = GlobalData.erDevice.Calibrate();
+                                ret = GlobalData.erDevice.ManualCalibrate();
+                                CalibrationModuleTime.Write();
                             }
                             catch (Exception ex) {
                                 message = ex.ToString();
                             }
+
+                            App.Current.Dispatcher.Invoke(new Action(() => { cw.Close(); }));
                             GlobalData.manualTest.DCAX86100DLOG += string.Format("=> Result: {0}\n", ret == true ? "PASS" : "FAIL");
+                            if (ret == true) {
+                                App.Current.Dispatcher.Invoke(new Action(() => {
+                                    MessageBox.Show("Tool sẽ tự động đóng.\nVui lòng mở lại tool để tiếp tục calib sản phẩm.", "Đóng tool", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    Environment.Exit(0);
+                                }));
+                            }
                         }));
                         t.IsBackground = true;
                         t.Start();
@@ -254,7 +274,7 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                             GlobalData.manualTest.DCAX86100DLOG += string.Format("Getting Power value (dBm) from DCAX86100D...\n");
                             message = "";
                             try {
-                                message = BaseFunctions.convert_NRZ3_To_Double(GlobalData.erDevice.getdBm()).ToString();
+                                message = double.Parse(GlobalData.erDevice.getdBm().Replace("\r","").Replace("\n","")).ToString();
                             }
                             catch (Exception ex) {
                                 message = ex.ToString();
@@ -268,13 +288,19 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                     }
 
                 case "DCAgetER": {
+                        SelectPort sp = new SelectPort();
+                        sp.ShowDialog();
+                        int _port = 0;
+                        if (sp.PortSelected.Trim() == "") return;
+                        else _port = int.Parse(sp.PortSelected);
+
                         Thread t = new Thread(new ThreadStart(() => {
                             bool ret = false;
                             string message = "";
-                            GlobalData.manualTest.DCAX86100DLOG += string.Format("Getting ER value from DCAX86100D...\n");
+                            GlobalData.manualTest.DCAX86100DLOG += string.Format("Getting ER value from DCAX86100D Port{0}...\n", _port);
                             message = "";
                             try {
-                                message = GlobalData.erDevice.getER(1);
+                                message = GlobalData.erDevice.getER(_port);
                             }
                             catch (Exception ex) {
                                 message = ex.ToString();

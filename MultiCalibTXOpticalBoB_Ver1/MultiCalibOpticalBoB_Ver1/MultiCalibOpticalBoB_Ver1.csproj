@@ -85,6 +85,7 @@
     <Compile Include="Function\Instrument\IQS9100B.cs" />
     <Compile Include="Function\IO\BosaConfig.cs" />
     <Compile Include="Function\IO\BosaReport.cs" />
+    <Compile Include="Function\IO\CalibrationModuleTime.cs" />
     <Compile Include="Function\IO\LogDetail.cs" />
     <Compile Include="Function\IO\LogTest.cs" />
     <Compile Include="Function\Ont\GW.cs" />
@@ -93,6 +94,12 @@
     <Compile Include="Function\Protocol\Network.cs" />
     <Compile Include="Function\Protocol\Serial.cs" />
     <Compile Include="Function\Protocol\Sql.cs" />
+    <Compile Include="SubWindow\CalibModuleWarning.xaml.cs">
+      <DependentUpon>CalibModuleWarning.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubWindow\CalibratingWindow.xaml.cs">
+      <DependentUpon>CalibratingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubWindow\ConnectInstrument.xaml.cs">
       <DependentUpon>ConnectInstrument.xaml</DependentUpon>
     </Compile>
@@ -196,6 +203,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SubWindow\CalibModuleWarning.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubWindow\CalibratingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubWindow\ConnectInstrument.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

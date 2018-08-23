@@ -346,3 +346,7 @@ C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibTXOpticalB
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibTXOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\MultiCalibTXOpticalBoB_Ver1.0.0.9.g.resources
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibTXOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\MultiCalibTXOpticalBoB_Ver1.0.0.9.exe
 C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibTXOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\MultiCalibTXOpticalBoB_Ver1.0.0.9.pdb
+C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibTXOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\CalibModuleWarning.g.cs
+C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibTXOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\CalibModuleWarning.baml
+C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibTXOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\CalibratingWindow.g.cs
+C:\Users\anhho\source\repos\GitHub\GW040H-MultiCalibOptical\MultiCalibTXOpticalBoB_Ver1\MultiCalibOpticalBoB_Ver1\obj\Debug\SubWindow\CalibratingWindow.baml

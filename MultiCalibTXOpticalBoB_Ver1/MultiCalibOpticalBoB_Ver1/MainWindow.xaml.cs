@@ -116,5 +116,15 @@ namespace MultiCalibOpticalBoB_Ver1 {
         private void lblMax_MouseDown(object sender, MouseButtonEventArgs e) {
             this.setStartupLocation();
         }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e) {
+            double _temp;
+            string _time;
+            bool ret;
+            ret = Function.IO.CalibrationModuleTime.Read(out _time);
+            ret = GlobalData.erDevice.getTemperature(out _temp);
+            CalibModuleWarning cm = new CalibModuleWarning(_time.ToString(), _temp.ToString());
+            cm.ShowDialog();
+        }
     }
 }

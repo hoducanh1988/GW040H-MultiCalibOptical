@@ -183,16 +183,6 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                     return false;
                 }
                 _testtemp.SYSTEMLOG += "...Kết quả = PASS\r\n";
-
-                //Kiem tra ket noi toi may do DCA
-                _testtemp.SYSTEMLOG += string.Format("Kiểm tra kết nối tới máy đo DCA X86100D {0}...\r\n", GlobalData.initSetting.ERINSTRGPIB);
-                if (GlobalData.erDevice.isConnected() == false) {
-                    _testtemp.SYSTEMLOG += "...Kết quả = FAIL\r\n";
-                    GlobalData.connectionManagement.DCAX86100DSTATUS = false;
-                    return false;
-                }
-                _testtemp.SYSTEMLOG += "...Kết quả = PASS\r\n";
-
             }
             
 
@@ -245,6 +235,15 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
 
                 //Chờ đến lượt timeout 90s
                 if (this._waitForTurn(_testtemp) == false) goto END;
+
+                //Kiem tra ket noi toi may do DCA
+                _testtemp.SYSTEMLOG += string.Format("Kiểm tra kết nối tới máy đo DCA X86100D {0}...\r\n", GlobalData.initSetting.ERINSTRGPIB);
+                if (GlobalData.erDevice.isConnected() == false) {
+                    _testtemp.SYSTEMLOG += "...Kết quả = FAIL\r\n";
+                    GlobalData.connectionManagement.DCAX86100DSTATUS = false;
+                    return false;
+                }
+                _testtemp.SYSTEMLOG += "...Kết quả = PASS\r\n";
 
                 //Calib Dark level
                 _testtemp.SYSTEMLOG += string.Format("Switching port...{0} OFF\r\n", _testtemp.ONTINDEX);
@@ -330,6 +329,21 @@ namespace MultiCalibOpticalBoB_Ver1.UserControls {
                 wb.ShowDialog();
                 this.Opacity = 1;
             }
+
+            //Kiểm tra trạng thái calib của máy đo ER
+            try {
+                double _temp = 0, _hours;
+                string _time;
+                bool ret;
+                ret = Function.IO.CalibrationModuleTime.Read(out _time);
+                //ret = GlobalData.erDevice.getTemperature(out _temp);
+                ret = BaseFunctions.last_Time_Calibrate_Module_DCAX86100D_To_Hours(_time, out _hours);
+                if (_hours > 5 || _temp > 5) {
+                    CalibModuleWarning cm = new CalibModuleWarning(_time.ToString(), _temp.ToString());
+                    cm.ShowDialog();
+                }
+            }
+             catch { }
            
             //***BEGIN -----------------------------------------//
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(() => {
